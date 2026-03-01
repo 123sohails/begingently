@@ -4,12 +4,12 @@
   
   <!-- Homepage - Highest Priority -->
   <url>
-    <loc>https://begingently.vercel.com/</loc>
+    <loc>https://begingently.vercel.app/</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/og-image.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/og-image.jpg</image:loc>
       <image:title>BeginGently - A Revert's Guide to Islam</image:title>
       <image:caption>Complete guide for Muslim reverts and seekers</image:caption>
     </image:image>
@@ -17,7 +17,7 @@
   
   <!-- About Page -->
   <url>
-    <loc>https://begingently.vercel.com/about.html</loc>
+    <loc>https://begingently.vercel.app/about.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -25,7 +25,7 @@
   
   <!-- Library Main Page -->
   <url>
-    <loc>https://begingently.vercel.com/library.html</loc>
+    <loc>https://begingently.vercel.app/library.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -33,77 +33,77 @@
   
   <!-- Library Subpages -->
   <url>
-    <loc>https://begingently.vercel.com/library/beliefs.html</loc>
+    <loc>https://begingently.vercel.app/library/beliefs.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/books.html</loc>
+    <loc>https://begingently.vercel.app/library/books.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/common-questions.html</loc>
+    <loc>https://begingently.vercel.app/library/common-questions.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/hadith.html</loc>
+    <loc>https://begingently.vercel.app/library/hadith.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/practicing.html</loc>
+    <loc>https://begingently.vercel.app/library/practicing.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/proofs.html</loc>
+    <loc>https://begingently.vercel.app/library/proofs.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/prophet.html</loc>
+    <loc>https://begingently.vercel.app/library/prophet.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/quran.html</loc>
+    <loc>https://begingently.vercel.app/library/quran.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/resources.html</loc>
+    <loc>https://begingently.vercel.app/library/resources.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/salah.html</loc>
+    <loc>https://begingently.vercel.app/library/salah.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/scholars-websites.html</loc>
+    <loc>https://begingently.vercel.app/library/scholars-websites.html</loc>
     <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

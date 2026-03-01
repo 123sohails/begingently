@@ -4,14 +4,14 @@
   
   <!-- Homepage Images -->
   <url>
-    <loc>https://begingently.vercel.com/</loc>
+    <loc>https://begingently.vercel.app/</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/og-image.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/og-image.jpg</image:loc>
       <image:title>BeginGently - A Revert's Guide to Islam</image:title>
       <image:caption>Comprehensive guide for Muslim reverts and seekers</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/hero-image.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/hero-image.jpg</image:loc>
       <image:title>Begin Your Islamic Journey</image:title>
       <image:caption>Welcome to BeginGently - Your gentle guide to Islam</image:caption>
     </image:image>
@@ -19,9 +19,9 @@
   
   <!-- About Page Images -->
   <url>
-    <loc>https://begingently.vercel.com/about.html</loc>
+    <loc>https://begingently.vercel.app/about.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/about-og.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/about-og.jpg</image:loc>
       <image:title>About BeginGently</image:title>
       <image:caption>Learn about our mission to support Muslim reverts</image:caption>
     </image:image>
@@ -29,9 +29,9 @@
   
   <!-- Library Main Page Images -->
   <url>
-    <loc>https://begingently.vercel.com/library.html</loc>
+    <loc>https://begingently.vercel.app/library.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/library-og.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/library-og.jpg</image:loc>
       <image:title>Islamic Knowledge Library</image:title>
       <image:caption>Comprehensive Islamic library with all your learning resources</image:caption>
     </image:image>
@@ -39,99 +39,99 @@
   
   <!-- Library Subpages -->
   <url>
-    <loc>https://begingently.vercel.com/library/quran.html</loc>
+    <loc>https://begingently.vercel.app/library/quran.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/quran.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/quran.jpg</image:loc>
       <image:title>The Holy Qur'an - Islamic Scripture</image:title>
       <image:caption>Learn about the Qur'an and its teachings</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/hadith.html</loc>
+    <loc>https://begingently.vercel.app/library/hadith.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/hadith.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/hadith.jpg</image:loc>
       <image:title>Hadith - Teachings of Prophet Muhammad</image:title>
       <image:caption>Understanding authentic hadith collections</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/salah.html</loc>
+    <loc>https://begingently.vercel.app/library/salah.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/salah.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/salah.jpg</image:loc>
       <image:title>Salah - Islamic Prayer Guide</image:title>
       <image:caption>Complete guide to performing Islamic prayers</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/beliefs.html</loc>
+    <loc>https://begingently.vercel.app/library/beliefs.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/beliefs.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/beliefs.jpg</image:loc>
       <image:title>Islamic Beliefs and Theology</image:title>
       <image:caption>Understanding core Islamic beliefs</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/prophet.html</loc>
+    <loc>https://begingently.vercel.app/library/prophet.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/prophet.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/prophet.jpg</image:loc>
       <image:title>Prophet Muhammad - Life and Legacy</image:title>
       <image:caption>Learn about the Prophet Muhammad and his message</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/practicing.html</loc>
+    <loc>https://begingently.vercel.app/library/practicing.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/practicing.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/practicing.jpg</image:loc>
       <image:title>Practicing Islam Daily</image:title>
       <image:caption>Guide to living as a practicing Muslim</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/proofs.html</loc>
+    <loc>https://begingently.vercel.app/library/proofs.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/proofs.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/proofs.jpg</image:loc>
       <image:title>Islamic Proofs and Evidence</image:title>
       <image:caption>Authentic sources for Islamic knowledge</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/resources.html</loc>
+    <loc>https://begingently.vercel.app/library/resources.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/resources.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/resources.jpg</image:loc>
       <image:title>Islamic Resources and Tools</image:title>
       <image:caption>Helpful tools and resources for learning Islam</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/books.html</loc>
+    <loc>https://begingently.vercel.app/library/books.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/books.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/books.jpg</image:loc>
       <image:title>Islamic Books and Publications</image:title>
       <image:caption>Recommended Islamic books for reverts</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/common-questions.html</loc>
+    <loc>https://begingently.vercel.app/library/common-questions.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/faq.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/faq.jpg</image:loc>
       <image:title>Common Questions About Islam</image:title>
       <image:caption>Answers to frequently asked questions</image:caption>
     </image:image>
   </url>
   
   <url>
-    <loc>https://begingently.vercel.com/library/scholars-websites.html</loc>
+    <loc>https://begingently.vercel.app/library/scholars-websites.html</loc>
     <image:image>
-      <image:loc>https://begingently.vercel.com/images/scholars.jpg</image:loc>
+      <image:loc>https://begingently.vercel.app/images/scholars.jpg</image:loc>
       <image:title>Islamic Scholars and Websites</image:title>
       <image:caption>Trusted scholars and resources</image:caption>
     </image:image>
