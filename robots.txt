@@ -12,8 +12,8 @@ Crawl-delay: 1
 Request-rate: 1/1s
 
 # Sitemap locations
-Sitemap: https://begingently.vercel.com/sitemap.xml
-Sitemap: https://begingently.vercel.com/sitemap-images.xml
+Sitemap: https://begingently.vercel.app/sitemap.xml
+Sitemap: https://begingently.vercel.app/sitemap-images.xml
 
 # Google-specific
 User-agent: Googlebot
