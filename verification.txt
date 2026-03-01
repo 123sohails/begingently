@@ -1,0 +1,7 @@
+google-site-verification=
+msvalidate.01=
+
+# Verify with Bing and Google Search Console by adding your verification codes above
+# Get your codes from:
+# - Google: https://search.google.com/search-console
+# - Bing: https://www.bing.com/webmasters

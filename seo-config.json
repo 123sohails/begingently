@@ -1,0 +1,180 @@
+{
+  "siteTitle": "BeginGently — A Revert's Guide to Islam",
+  "siteDescription": "Free, gentle guide to Islam for reverts and seekers. Learn Salah, Qur'an, Islamic beliefs, and daily practice at your own pace.",
+  "siteUrl": "https://begingently.vercel.com",
+  "siteImage": "https://begingently.vercel.com/images/og-image.jpg",
+  "author": "BeginGently Team",
+  "language": "en",
+  "alternateNames": [
+    "begingently",
+    "Begingently", 
+    "begin gently",
+    "Begin Gently",
+    "Islamic guide",
+    "Muslim revert guide",
+    "Islamic learning",
+    "Qur'an guide",
+    "Salah guide",
+    "begingently.com",
+    "begingently.vercel.com"
+  ],
+  "keywords": [
+    "BeginGently",
+    "Muslim revert",
+    "Muslim convert",
+    "Islam guide",
+    "Islamic learning",
+    "Qur'an",
+    "Salah",
+    "Prayer guide",
+    "Islamic beliefs",
+    "Prophet Muhammad",
+    "Hadith",
+    "Islamic practice",
+    "Islam for beginners",
+    "Free Islamic resources",
+    "Muslim community",
+    "Starting Islam",
+    "New Muslim",
+    "Islam education",
+    "Islamic knowledge",
+    "Revert support"
+  ],
+  "pages": [
+    {
+      "url": "/",
+      "title": "BeginGently — A Revert's Guide to Islam | Free Islamic Guide for Converts",
+      "description": "BeginGently is your free, gentle guide to Islam for reverts and seekers. Learn Salah, Qur'an, Islamic beliefs, daily practice at your own pace.",
+      "keywords": "BeginGently, Muslim revert, Islam, Qur'an, Salah, guide",
+      "priority": 1.0,
+      "changefreq": "weekly"
+    },
+    {
+      "url": "/about.html",
+      "title": "About BeginGently | Our Mission to Support Muslim Reverts",
+      "description": "Learn about BeginGently's mission to provide free, gentle Islamic guidance for reverts and seekers worldwide.",
+      "keywords": "About BeginGently, mission, Muslim support, Islamic community",
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library.html",
+      "title": "Islamic Knowledge Library | Qur'an, Salah, Beliefs & More",
+      "description": "Complete Islamic resource library featuring Qur'an, Hadith, Salah guide, Islamic beliefs, Prophet Muhammad, and daily practice resources.",
+      "keywords": "Islamic library, Qur'an, Hadith, Salah, Islamic knowledge",
+      "priority": 0.9,
+      "changefreq": "weekly"
+    },
+    {
+      "url": "/library/quran.html",
+      "title": "The Holy Qur'an - Teachings, Guidance & Resources",
+      "description": "Comprehensive guide to the Qur'an including its teachings, how to read, translations, and Islamic significance.",
+      "keywords": "Qur'an, Quran, Islamic scripture, Quranic verses, Islamic teaching",
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/hadith.html",
+      "title": "Hadith - Teachings of Prophet Muhammad | Authentic Sources",
+      "description": "Learn about authentic Hadith collections and the teachings of Prophet Muhammad (PBUH) for guidance in Islamic life.",
+      "keywords": "Hadith, Prophet Muhammad, Sunnah, Islamic tradition, authentic sources",
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/salah.html",
+      "title": "Salah Guide - How to Pray in Islam | Step-by-Step Instructions",
+      "description": "Complete guide to Islamic prayer (Salah) including how to perform each prayer, timings, and spiritual benefits.",
+      "keywords": "Salah, prayer, Islamic prayer, how to pray, prayer guide, worship",
+      "priority": 0.9,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/beliefs.html",
+      "title": "Islamic Beliefs & Theology | Core Tenets of Islam",
+      "description": "Understanding core Islamic beliefs including Tawheed, faith, prophets, and the pillars of Islam.",
+      "keywords": "Islamic beliefs, Tawheed, Aqeedah, Islamic theology, faith",
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/prophet.html",
+      "title": "Prophet Muhammad - Life, Legacy & Teachings | PBUH",
+      "description": "Comprehensive biography and teachings of Prophet Muhammad (PBUH), his life journey, character, and message to humanity.",
+      "keywords": "Prophet Muhammad, Sunnah, Islamic history, PBUH, prophet's teachings",
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/practicing.html",
+      "title": "Practicing Islam Daily | Guide to Muslim Life & Conduct",
+      "description": "Guide to living as a practicing Muslim including daily practices, Islamic etiquette, and spiritual development.",
+      "keywords": "Islamic practice, Muslim life, daily Islamic practice, Islamic conduct, spirituality",
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/proofs.html",
+      "title": "Islamic Proofs & Evidence | Authentic Sources & References",
+      "description": "Authentic Islamic sources, proofs, and references from Qur'an and Hadith for Islamic knowledge and practice.",
+      "keywords": "Islamic proofs, Islamic sources, Quranic proofs, authentic references",
+      "priority": 0.7,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/resources.html",
+      "title": "Islamic Resources & Tools | Learning Materials & References",
+      "description": "Comprehensive collection of Islamic learning resources, tools, and materials for Islamic education and practice.",
+      "keywords": "Islamic resources, learning tools, Islamic references, educational materials",
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/books.html",
+      "title": "Recommended Islamic Books | Best Islamic Publications",
+      "description": "Curated collection of the best Islamic books for reverts and seekers covering various aspects of Islamic knowledge.",
+      "keywords": "Islamic books, book recommendations, Islamic publications, Islamic reading",
+      "priority": 0.7,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/common-questions.html",
+      "title": "Common Questions About Islam - Frequently Asked Questions",
+      "description": "Answers to the most frequently asked questions about Islam, Islamic practices, beliefs, and how to start.",
+      "keywords": "Islamic FAQ, common questions, Islamic answers, Islam 101, beginner questions",
+      "priority": 0.7,
+      "changefreq": "monthly"
+    },
+    {
+      "url": "/library/scholars-websites.html",
+      "title": "Islamic Scholars & Trusted Websites | Resources & Learning",
+      "description": "Directory of trusted Islamic scholars, websites, and educational resources for authentic Islamic knowledge.",
+      "keywords": "Islamic scholars, trusted websites, Islamic references, scholar resources",
+      "priority": 0.6,
+      "changefreq": "monthly"
+    }
+  ],
+  "socialMedia": {
+    "facebook": "https://www.facebook.com/begingently",
+    "twitter": "https://twitter.com/begingently",
+    "instagram": "https://www.instagram.com/begingently",
+    "youtube": "https://www.youtube.com/@begingently"
+  },
+  "contacts": {
+    "email": "contact@begingently.com",
+    "support": "https://begingently.vercel.com/contact"
+  },
+  "seoTips": {
+    "mobileOptimized": true,
+    "httpsEnabled": true,
+    "sitemapSubmitted": true,
+    "robotsTxtSet": true,
+    "schemaMarkup": true,
+    "canonicalTags": true,
+    "metaDescriptions": true,
+    "openGraphTags": true,
+    "imageOptimization": true,
+    "internalLinking": true,
+    "contentOptimization": true
+  }
+}
