@@ -1,29 +1,8 @@
-# BeginGently - A Revert's Guide to Islam
-# SEO-optimized robots.txt for search engines
-
-# Allow all crawlers
 User-agent: *
 Allow: /
+
 Disallow: /admin/
 Disallow: /private/
 
-# Crawl delay (ms)
-Crawl-delay: 1
-Request-rate: 1/1s
-
-# Sitemap locations
 Sitemap: https://begingently.vercel.app/sitemap.xml
 Sitemap: https://begingently.vercel.app/sitemap-images.xml
-
-# Google-specific
-User-agent: Googlebot
-Allow: /
-
-# Bing-specific
-User-agent: Bingbot
-Allow: /
-
-# Block bad bots
-User-agent: AhrefsBot
-User-agent: SemrushBot
-Disallow: /
