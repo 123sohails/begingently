@@ -1,8 +1,8 @@
 {
   "siteTitle": "BeginGently — A Revert's Guide to Islam",
   "siteDescription": "Free, gentle guide to Islam for reverts and seekers. Learn Salah, Qur'an, Islamic beliefs, and daily practice at your own pace.",
-  "siteUrl": "https://begingently.vercel.com",
-  "siteImage": "https://begingently.vercel.com/images/og-image.jpg",
+  "siteUrl": "https://begingently.vercel.app",
+  "siteImage": "https://begingently.vercel.app/images/og-image.jpg",
   "author": "BeginGently Team",
   "language": "en",
   "alternateNames": [
@@ -162,7 +162,7 @@
   },
   "contacts": {
     "email": "contact@begingently.com",
-    "support": "https://begingently.vercel.com/contact"
+    "support": "https://begingently.vercel.app/contact"
   },
   "seoTips": {
     "mobileOptimized": true,

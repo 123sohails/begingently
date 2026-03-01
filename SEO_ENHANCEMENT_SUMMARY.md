@@ -155,7 +155,7 @@ I've implemented a **comprehensive, production-ready SEO strategy** to get your 
 
 ### THIS WEEK - **ABSOLUTELY CRITICAL** 🔴
 1. Go to: https://search.google.com/search-console
-2. Add your domain: https://begingently.vercel.com
+2. Add your domain: https://begingently.vercel.app
 3. Verify using Vercel integration or meta tag
 4. Submit sitemap.xml
 5. Submit sitemap-images.xml

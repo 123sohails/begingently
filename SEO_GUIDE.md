@@ -71,7 +71,7 @@ The site is now optimized for these search variations:
 #### Phase 1: INDEXING (Days 1-14)
 1. **Submit to Google Search Console**
    - Go to: https://search.google.com/search-console
-   - Add property: https://begingently.vercel.com
+   - Add property: https://begingently.vercel.app
    - Click "Request Indexing" for homepage
    - Submit sitemap.xml and sitemap-images.xml
 
@@ -218,7 +218,7 @@ The site is now optimized for these search variations:
 ### 6. DOMAIN CONFIGURATION
 
 Current Setup:
-- Primary domain: https://begingently.vercel.com
+- Primary domain: https://begingently.vercel.app
 - Robots.txt points here
 - Sitemaps use this domain
 - Canonical URLs use this domain

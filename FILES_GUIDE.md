@@ -327,7 +327,7 @@ Before going live:
 
 ### "I can't find robots.txt"
 → Check if it's in the root directory of your website
-→ Test by visiting: https://begingently.vercel.com/robots.txt
+→ Test by visiting: https://begingently.vercel.app/robots.txt
 
 ### "Robots.txt shows a 404 error"
 → File might not be uploaded to server

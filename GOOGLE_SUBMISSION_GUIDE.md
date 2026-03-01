@@ -7,7 +7,7 @@
 1. **Go to:** https://search.google.com/search-console
 2. **Click:** "Start now" or add new property
 3. **Select:** "URL prefix"
-4. **Enter:** `https://begingently.vercel.com`
+4. **Enter:** `https://begingently.vercel.app`
 5. **Click:** "Continue"
 6. **Choose verification method:**
    - **Recommended:** Use Vercel's built-in integration
@@ -18,16 +18,16 @@
 
 Once verified:
 1. Go to **Sitemaps** section (left menu)
-2. Enter: `https://begingently.vercel.com/sitemap.xml`
+2. Enter: `https://begingently.vercel.app/sitemap.xml`
 3. Click "Submit"
-4. Enter: `https://begingently.vercel.com/sitemap-images.xml`
+4. Enter: `https://begingently.vercel.app/sitemap-images.xml`
 5. Click "Submit"
 6. Go to **Pages** section to see indexed pages
 
 ### Step 3: Request Indexing for Homepage
 
 1. Go to **URL Inspection** in Search Console
-2. Paste: `https://begingently.vercel.com/`
+2. Paste: `https://begingently.vercel.app/`
 3. Click "Request Indexing"
 4. Repeat for these important pages:
    - /about.html
@@ -39,12 +39,12 @@ Once verified:
 
 1. **Go to:** https://www.bing.com/webmasters
 2. **Login** with Microsoft account
-3. **Add site:** https://begingently.vercel.com
+3. **Add site:** https://begingently.vercel.app
 4. **Verify** using meta tag or file
 5. **Submit sitemap:**
    - Go to Sitemaps
-   - Add: https://begingently.vercel.com/sitemap.xml
-   - Add: https://begingently.vercel.com/sitemap-images.xml
+   - Add: https://begingently.vercel.app/sitemap.xml
+   - Add: https://begingently.vercel.app/sitemap-images.xml
 
 ---
 
@@ -215,7 +215,7 @@ Monitor these metrics in Search Console:
 ## QUICK SETUP (5 MINUTES)
 
 1. **Go to:** https://search.google.com/search-console
-2. **Add property:** https://begingently.vercel.com
+2. **Add property:** https://begingently.vercel.app
 3. **Verify** (using Vercel or meta tag)
 4. **Submit sitemaps:** sitemap.xml & sitemap-images.xml
 5. **Request indexing** for homepage
