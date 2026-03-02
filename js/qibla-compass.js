@@ -140,7 +140,7 @@
   // Start compass tracking
   function startCompassTracking() {
     if (!window.DeviceOrientationEvent) {
-      console.log('Device orientation not supported');
+      console.log('Device orientation not supported - showing static compass');
       updateCompassDisplay();
       return;
     }
@@ -152,17 +152,29 @@
           if (response === 'granted') {
             isTracking = true;
             window.addEventListener('deviceorientation', handleOrientation);
+            console.log('iOS device orientation permission granted');
           } else {
-            console.log('Device orientation permission denied');
-            updateCompassDisplay();
+            console.log('iOS device orientation permission denied');
+            showOrientationInstructions();
           }
         })
-        .catch(console.error);
+        .catch(error => {
+          console.log('Error requesting iOS orientation permission:', error);
+          showOrientationInstructions();
+        });
     } else {
       // Non-iOS 13+ devices
       isTracking = true;
       window.addEventListener('deviceorientation', handleOrientation);
+      console.log('Device orientation tracking started');
     }
+  }
+
+  // Show orientation instructions for users
+  function showOrientationInstructions() {
+    console.log('Showing orientation instructions to user');
+    // Update display with helpful instructions
+    updateCompassDisplay();
   }
 
   // Handle device orientation
@@ -238,15 +250,62 @@
     // Instructions
     html += '<div class="compass-instructions">';
     if (isTracking) {
-      html += '<p>📱 Hold your phone flat and rotate until the green needle points to the Kaaba</p>';
+      html += '<p>📱 Hold your phone completely flat (horizontal) and rotate slowly</p>';
+      html += '<p>🧭 The green needle will point toward the Kaaba</p>';
+      html += '<p>🎯 Face the direction the green needle points</p>';
     } else {
       html += '<p>📱 Qibla direction: ' + qiblaDirection.toFixed(1) + '° from North (clockwise)</p>';
       html += '<p>📍 Face this direction when praying</p>';
+      
+      // Add compass activation button for mobile devices
+      if (window.DeviceOrientationEvent) {
+        html += '<button id="activate-compass" class="compass-activate-btn">🧭 Activate Interactive Compass</button>';
+        html += '<p>📱 Hold phone flat after activating</p>';
+      } else {
+        html += '<p>💻 Desktop: Use the static compass above</p>';
+        html += '<p>📱 Mobile: Hold phone flat to activate compass</p>';
+      }
     }
     html += '</div>';
     
     html += '</div>';
     container.innerHTML = html;
+    
+    // Add event listener for compass activation button
+    const activateBtn = document.getElementById('activate-compass');
+    if (activateBtn) {
+      activateBtn.addEventListener('click', activateInteractiveCompass);
+    }
+  }
+
+  // Manually activate interactive compass
+  function activateInteractiveCompass() {
+    console.log('User clicked to activate compass');
+    
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      // iOS 13+ - request permission
+      DeviceOrientationEvent.requestPermission()
+        .then(response => {
+          if (response === 'granted') {
+            isTracking = true;
+            window.addEventListener('deviceorientation', handleOrientation);
+            console.log('Interactive compass activated!');
+            updateCompassDisplay();
+          } else {
+            alert('Compass permission denied. Please enable in Settings.');
+          }
+        })
+        .catch(error => {
+          console.log('Error activating compass:', error);
+          alert('Error activating compass. Please try again.');
+        });
+    } else {
+      // Android/Other - just start tracking
+      isTracking = true;
+      window.addEventListener('deviceorientation', handleOrientation);
+      console.log('Interactive compass activated!');
+      updateCompassDisplay();
+    }
   }
 
   // Load default Qibla (fallback)

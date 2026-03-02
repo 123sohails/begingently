@@ -1752,6 +1752,35 @@ footer p {
   color: var(--text-light);
 }
 
+.compass-activate-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin: 1rem 0;
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.compass-activate-btn:hover {
+  background: var(--accent-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+.compass-activate-btn:active {
+  transform: translateY(0);
+}
+
 .install-app-btn {
   position: fixed;
   right: 16px;
