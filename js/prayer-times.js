@@ -48,14 +48,22 @@
   async function initPrayerTimes() {
     try {
       console.log('🕌 Initializing prayer times...');
-      showLocationStatus('Detecting your location...');
+      showLocationStatus('🗺️ Detecting your location...');
       
       // Try to get user location with timeout
       const location = await getUserLocationWithTimeout();
       console.log('📍 Location obtained:', location);
       
+      // Check if we got the fallback location
+      const isFallback = location.lat === 28.6139 && location.lon === 77.2090;
+      
       // Update location status in UI
-      updateLocationStatus({ success: true, lat: location.lat, lon: location.lon });
+      updateLocationStatus({ 
+        success: !isFallback, 
+        lat: location.lat, 
+        lon: location.lon,
+        error: isFallback ? 'Using default location' : null 
+      });
       
       // Format date as DD-MM-YYYY (API requirement)
       const today = new Date();
@@ -68,6 +76,8 @@
       
       console.log('🌐 Fetching prayer times for:', location.lat, location.lon, 'Date:', formattedDate);
       console.log('🔗 API URL:', url);
+      
+      showLocationStatus('⏱️ Loading prayer times...');
       
       const response = await fetch(url);
       
@@ -87,6 +97,7 @@
       }
     } catch (error) {
       console.log('❌ Error loading prayer times:', error);
+      showLocationStatus('❌ Error loading prayer times');
       // Always fallback to default times
       loadDefaultPrayerTimes();
     }
@@ -124,14 +135,13 @@
 
   // Request location with timeout
   function requestLocationWithTimeout(fallbackLocation, resolve) {
-    console.log('Requesting user location...');
+    console.log('🗺️ Requesting user location...');
     
-    // Set timeout for location request (5 seconds)
+    // Set timeout for location request (10 seconds for better reliability)
     const timeoutId = setTimeout(() => {
-      console.log('Location request timeout, using India fallback');
-      showLocationPermissionMessage('Location request timeout. Using New Delhi location.');
+      console.log('⏰ Location request timeout, using India fallback');
       resolve(fallbackLocation);
-    }, 5000);
+    }, 10000);
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -141,8 +151,7 @@
           lon: position.coords.longitude,
           accuracy: position.coords.accuracy
         };
-        console.log('Location detected:', location);
-        showLocationPermissionMessage('✅ Location detected successfully!');
+        console.log('✅ Location detected:', location);
         resolve(location);
       },
       (error) => {
@@ -164,12 +173,11 @@
             userMessage = 'Location request timeout. Using New Delhi location.';
             break;
         }
-        console.log('Location error (' + errorType + '):', error.message, 'using India fallback');
-        showLocationPermissionMessage(userMessage);
+        console.log(`❌ Location error (${errorType}):`, error.message);
         resolve(fallbackLocation);
       },
       {
-        timeout: 5000,
+        timeout: 10000,
         enableHighAccuracy: true,
         maximumAge: 60000 // Accept cached location up to 1 minute old
       }
@@ -187,7 +195,8 @@
 
   // Load default prayer times (fallback)
   function loadDefaultPrayerTimes() {
-    console.log('Using default India prayer times');
+    console.log('🏛️ Using default India prayer times');
+    showLocationStatus('🏛️ Using default India prayer times');
     prayerTimes = {
       Fajr: '05:15',
       Dhuhr: '12:30',
@@ -611,24 +620,26 @@
 
   // Initialize on page load
   document.addEventListener('DOMContentLoaded', () => {
-    console.log('Prayer Times: Initializing...');
+    console.log('🕌 Prayer Times: Initializing...');
     
-    // Show location status
-    showLocationStatus();
+    // Show initial loading state
+    showLocationStatus('🗺️ Detecting your location...');
     
     // Test API first
     testAPI().then((isWorking) => {
       if (isWorking) {
-        console.log('Prayer Times: API is working, loading prayer times...');
+        console.log('✅ Prayer Times: API is working, loading prayer times...');
       } else {
-        console.log('Prayer Times: API test failed, using fallback');
+        console.log('⚠️ Prayer Times: API test failed, using fallback');
       }
     });
     
     // Test location
     testLocation().then((location) => {
-      console.log('Prayer Times: Location test result:', location);
-      updateLocationStatus(location);
+      console.log('📍 Prayer Times: Location test result:', location);
+      if (!location.success) {
+        console.log('⚠️ Prayer Times: Location detection failed, will show manual options');
+      }
     });
     
     // Request notification permission
@@ -639,6 +650,21 @@
     
     // Update every minute
     setInterval(updatePrayerDisplay, 60000);
+    
+    // Add comprehensive test function to window for debugging
+    window.testPrayerTimes = () => {
+      console.log('🧪 Running comprehensive prayer times test...');
+      console.log('📍 Testing location detection...');
+      testLocation().then(loc => console.log('Location test:', loc));
+      console.log('🌐 Testing API...');
+      testAPI().then(api => console.log('API test:', api));
+      console.log('🕌 Current prayer times:', prayerTimes);
+      console.log('🎯 Next prayer:', nextPrayer);
+      console.log('🔔 Notification permission:', notificationPermission);
+      return { location: 'tested', api: 'tested', prayerTimes, nextPrayer, notificationPermission };
+    };
+    
+    console.log('💡 Tip: Run testPrayerTimes() in console for comprehensive test');
   });
 
   // Show location status to user
