@@ -185,14 +185,21 @@ window.toggleItem = function (element) {
 
   const pickVoice = (preferredLang) => {
     const voices = window.speechSynthesis.getVoices();
-    if (!voices.length) return null;
+    if (!voices.length) {
+      console.log('TTS: No voices available');
+      return null;
+    }
+    
     const base = (preferredLang || 'en-US').split('-')[0].toLowerCase();
-    return (
+    const selectedVoice = (
       voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(base)) ||
       voices.find((v) => v.lang && v.lang.toLowerCase().startsWith('en')) ||
       voices.find((v) => /english/i.test(v.name)) ||
       voices[0]
     );
+    
+    console.log('TTS: Selected voice:', selectedVoice ? selectedVoice.name : 'None', 'Lang:', preferredLang);
+    return selectedVoice;
   };
 
   const speakNextChunk = () => {
@@ -219,14 +226,50 @@ window.toggleItem = function (element) {
   const startSpeech = (button) => {
     const selector = button.getAttribute('data-tts-target') || '#main-content';
     const text = getReadableText(selector);
-    if (!text) return;
+    if (!text) {
+      console.log('TTS: No readable text found');
+      return;
+    }
 
+    console.log('TTS: Starting speech for:', selector, 'Text length:', text.length);
     activeButton = button;
     selectedLang = getPreferredLang(selector);
     setButtonState(button, true);
+    
+    // Ensure voice is available before starting
     selectedVoice = pickVoice(selectedLang);
-    utteranceQueue = splitIntoChunks(text);
-    speakNextChunk();
+    
+    // If no voice available, try to reload voices and retry
+    if (!selectedVoice) {
+      console.log('TTS: No voice selected, retrying voice loading...');
+      const voices = window.speechSynthesis.getVoices();
+      console.log('TTS: Available voices:', voices.length);
+      if (voices.length > 0) {
+        selectedVoice = pickVoice(selectedLang);
+      }
+    }
+    
+    if (selectedVoice) {
+      console.log('TTS: Using voice:', selectedVoice.name);
+      utteranceQueue = splitIntoChunks(text);
+      speakNextChunk();
+    } else {
+      console.log('TTS: Using fallback utterance without specific voice');
+      // Fallback: create utterance without specific voice
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = selectedLang;
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.onend = () => {
+        console.log('TTS: Fallback speech ended');
+        setButtonState(button, false);
+      };
+      utterance.onerror = (e) => {
+        console.log('TTS: Fallback speech error:', e);
+        setButtonState(button, false);
+      };
+      window.speechSynthesis.speak(utterance);
+    }
   };
 
   const initTTS = () => {
@@ -235,15 +278,27 @@ window.toggleItem = function (element) {
 
     const baseSelector = buttons[0].getAttribute('data-tts-target') || '#main-content';
     selectedLang = getPreferredLang(baseSelector);
-    selectedVoice = pickVoice(selectedLang);
+    
+    // Force voice loading and set up voice change handler
     const refreshVoice = () => {
       selectedVoice = pickVoice(selectedLang);
     };
+    
+    // Initial voice loading - some browsers need this trigger
+    window.speechSynthesis.getVoices();
+    
     if (typeof window.speechSynthesis.addEventListener === 'function') {
       window.speechSynthesis.addEventListener('voiceschanged', refreshVoice);
     } else {
       window.speechSynthesis.onvoiceschanged = refreshVoice;
     }
+
+    // Fallback timeout for voice loading
+    setTimeout(() => {
+      if (!selectedVoice) {
+        refreshVoice();
+      }
+    }, 1000);
 
     buttons.forEach((button) => {
       setButtonState(button, false);
