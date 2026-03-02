@@ -204,7 +204,6 @@ window.toggleItem = function (element) {
   const pickVoice = (preferredLang) => {
     const voices = window.speechSynthesis.getVoices();
     if (!voices.length) {
-      console.log('TTS: No voices available');
       return null;
     }
     
@@ -216,7 +215,6 @@ window.toggleItem = function (element) {
       voices[0]
     );
     
-    console.log('TTS: Selected voice:', selectedVoice ? selectedVoice.name : 'None', 'Lang:', preferredLang);
     return selectedVoice;
   };
 
@@ -228,17 +226,26 @@ window.toggleItem = function (element) {
 
     const text = utteranceQueue.shift();
     const utterance = new SpeechSynthesisUtterance(text);
+    
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
+    utterance.lang = selectedLang;
     utterance.rate = 1;
     utterance.pitch = 1;
-    utterance.lang = selectedVoice?.lang || (hasVoiceForLang(selectedLang) ? selectedLang : 'en-US');
-    if (selectedVoice) utterance.voice = selectedVoice;
+    utterance.volume = 1;
+    
     utterance.onend = speakNextChunk;
     utterance.onerror = stopSpeech;
 
     window.speechSynthesis.speak(utterance);
-    if (window.speechSynthesis.paused) {
-      window.speechSynthesis.resume();
-    }
+    
+    // Force speech to start - some browsers need this
+    setTimeout(() => {
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
+    }, 100);
   };
 
   const startSpeech = (button) => {
@@ -251,12 +258,10 @@ window.toggleItem = function (element) {
     const selector = button.getAttribute('data-tts-target') || '#main-content';
     const text = getReadableText(selector);
     if (!text) {
-      console.log('TTS: No readable text found');
       alert('No readable content found on this page.');
       return;
     }
 
-    console.log('TTS: Starting speech for:', selector, 'Text length:', text.length);
     activeButton = button;
     selectedLang = getPreferredLang(selector);
     setButtonState(button, true);
@@ -266,7 +271,7 @@ window.toggleItem = function (element) {
     try {
       window.speechSynthesis.resume();
     } catch (e) {
-      console.log('TTS: Could not resume speech synthesis');
+      // Silently handle resume errors
     }
     
     // Ensure voice is available before starting
@@ -274,31 +279,25 @@ window.toggleItem = function (element) {
     
     // If no voice available, try to reload voices and retry
     if (!selectedVoice) {
-      console.log('TTS: No voice selected, retrying voice loading...');
       const voices = window.speechSynthesis.getVoices();
-      console.log('TTS: Available voices:', voices.length);
       if (voices.length > 0) {
         selectedVoice = pickVoice(selectedLang);
       }
     }
     
     if (selectedVoice) {
-      console.log('TTS: Using voice:', selectedVoice.name);
       utteranceQueue = splitIntoChunks(text);
       speakNextChunk();
     } else {
-      console.log('TTS: Using fallback utterance without specific voice');
       // Fallback: create utterance without specific voice
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = selectedLang;
       utterance.rate = 1;
       utterance.pitch = 1;
       utterance.onend = () => {
-        console.log('TTS: Fallback speech ended');
         setButtonState(button, false);
       };
       utterance.onerror = (e) => {
-        console.log('TTS: Fallback speech error:', e);
         setButtonState(button, false);
       };
       window.speechSynthesis.speak(utterance);
