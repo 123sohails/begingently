@@ -1564,8 +1564,8 @@ footer p {
 }
 
 .compass-circle {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(145deg, var(--cream), var(--sand));
   border: 2px solid var(--primary);
@@ -1582,45 +1582,45 @@ footer p {
 /* Mobile responsive manual compass */
 @media (max-width: 768px) {
   .compass-circle {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
   }
 }
 
 @media (max-width: 480px) {
   .compass-circle {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
   }
 }
 
 @media (max-width: 360px) {
   .compass-circle {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
   }
   
   .needle-north {
-    top: 4px;
-    border-left-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 12px;
+    top: 3px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 10px;
   }
   
   .needle-south {
-    bottom: 4px;
-    border-left-width: 4px;
-    border-right-width: 4px;
-    border-top-width: 12px;
+    bottom: 3px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 10px;
   }
   
   .needle-qibla {
     width: 2px;
-    height: 30px;
+    height: 25px;
   }
   
   .mark {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 }
 
@@ -1634,26 +1634,26 @@ footer p {
 
 .needle-north {
   position: absolute;
-  top: 6px;
+  top: 4px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 16px solid #e74c3c;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 12px solid #e74c3c;
 }
 
 .needle-south {
   position: absolute;
-  bottom: 6px;
+  bottom: 4px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 16px solid #34495e;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 12px solid #34495e;
 }
 
 .needle-qibla {
@@ -1661,11 +1661,11 @@ footer p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 3px;
-  height: 40px;
+  width: 2px;
+  height: 30px;
   background: linear-gradient(to top, transparent, #27ae60);
-  border-radius: 2px;
-  box-shadow: 0 0 4px rgba(39, 174, 96, 0.3);
+  border-radius: 1px;
+  box-shadow: 0 0 3px rgba(39, 174, 96, 0.3);
 }
 
 .compass-markings {
@@ -1677,7 +1677,7 @@ footer p {
 .mark {
   position: absolute;
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--primary);
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
@@ -1758,8 +1758,8 @@ footer p {
 }
 
 .api-compass-image {
-  width: 70px;
-  height: 70px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   border: 2px solid var(--primary);
   box-shadow: 0 4px 16px rgba(44, 56, 50, 0.1);
@@ -1774,22 +1774,22 @@ footer p {
 /* Mobile responsive compass */
 @media (max-width: 768px) {
   .api-compass-image {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
   }
 }
 
 @media (max-width: 480px) {
   .api-compass-image {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
   }
 }
 
 @media (max-width: 360px) {
   .api-compass-image {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
   }
 }
 
