@@ -8,6 +8,6 @@
   <circle cx="64" cy="64" r="58" fill="url(#g)"/>
   <text x="64" y="79" text-anchor="middle" fill="#FFFFFF"
         font-size="78" font-family="'Noto Naskh Arabic', 'Amiri', serif"
-        font-weight="700">ب</text>
+        font-weight="700">&#1576;</text>
   <circle cx="47" cy="87" r="5.5" fill="#FFFFFF"/>
 </svg>
