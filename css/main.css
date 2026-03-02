@@ -12,6 +12,7 @@
   --neutral-gray: #6B7B73;
   --neutral-light: #F2F0EB;
   --accent: #C9A87C;
+  --accent-strong: #B58E5F;
   
   /* Shadows – layered for depth without heaviness */
   --shadow: 0 1px 3px rgba(44, 56, 50, 0.06), 0 4px 12px rgba(44, 56, 50, 0.04);
@@ -36,12 +37,34 @@
   --neutral-gray: #C0C0C0;
   --neutral-light: #2A2A2A;
   --accent: #D4A574;
+  --accent-strong: #C99563;
   
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
   --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.4), 0 12px 24px rgba(0, 0, 0, 0.3);
   --shadow-elevation: 0 8px 24px rgba(0, 0, 0, 0.4);
   --shadow-btn: 0 2px 8px rgba(45, 95, 79, 0.4);
   --shadow-btn-hover: 0 4px 14px rgba(45, 95, 79, 0.5);
+}
+
+/* Brown mode */
+[data-theme="brown"] {
+  --primary: #7A5A3A;
+  --primary-green: #7A5A3A;
+  --primary-light: #9B7953;
+  --cream: #F7F1E8;
+  --sand: #E9DDCD;
+  --text: #3A2C20;
+  --text-light: #5C4B3A;
+  --neutral-gray: #6F5B46;
+  --neutral-light: #F2E8DC;
+  --accent: #B78A58;
+  --accent-strong: #9E6F3F;
+
+  --shadow: 0 1px 3px rgba(58, 44, 32, 0.08), 0 4px 12px rgba(58, 44, 32, 0.06);
+  --shadow-hover: 0 4px 12px rgba(58, 44, 32, 0.12), 0 12px 24px rgba(58, 44, 32, 0.08);
+  --shadow-elevation: 0 8px 24px rgba(58, 44, 32, 0.1);
+  --shadow-btn: 0 2px 8px rgba(122, 90, 58, 0.25);
+  --shadow-btn-hover: 0 4px 14px rgba(122, 90, 58, 0.3);
 }
 
 * {
@@ -242,6 +265,11 @@ nav {
   border-color: var(--primary);
 }
 
+[data-theme="brown"] .theme-toggle {
+  background: #D3B08C;
+  border-color: #C69A6A;
+}
+
 [data-theme="dark"] .theme-toggle::before {
   content: 'D';
   left: auto;
@@ -249,9 +277,22 @@ nav {
   color: rgba(255, 255, 255, 0.7);
 }
 
+[data-theme="brown"] .theme-toggle::before {
+  content: 'B';
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  color: #5c3f24;
+}
+
 [data-theme="dark"] .theme-toggle::after {
   left: 18px;
   background: white;
+}
+
+[data-theme="brown"] .theme-toggle::after {
+  left: 10px;
+  background: #fff7ec;
 }
 
 /* Read-more button – one per card, clear and tappable */
@@ -435,15 +476,15 @@ button:active, .btn:active {
   font-size: 0.9375rem;
   font-weight: 500;
   background: white;
-  color: var(--primary);
-  border: 1px solid rgba(45, 95, 79, 0.2);
+  color: var(--accent-strong);
+  border: 1px solid rgba(181, 142, 95, 0.35);
   box-shadow: 0 1px 2px rgba(44, 56, 50, 0.04);
 }
 
 .btn-secondary:hover {
   background: var(--neutral-light);
-  border-color: var(--primary);
-  color: var(--primary);
+  border-color: var(--accent-strong);
+  color: var(--accent-strong);
   box-shadow: 0 2px 8px rgba(44, 56, 50, 0.06);
   transform: translateY(-1px);
 }
@@ -457,9 +498,9 @@ button:active, .btn:active {
 }
 
 .btn-secondary.active {
-  background: var(--primary);
+  background: var(--accent-strong);
   color: white;
-  border-color: var(--primary);
+  border-color: var(--accent-strong);
   box-shadow: var(--shadow-btn);
 }
 
@@ -1377,8 +1418,8 @@ footer p {
   border: none;
   border-radius: 999px;
   padding: 0.7rem 1rem;
-  background: var(--primary);
-  color: #fff;
+  background: var(--accent-strong);
+  color: #1f2d28;
   font-family: inherit;
   font-size: 0.95rem;
   cursor: pointer;
@@ -1386,5 +1427,5 @@ footer p {
 }
 
 .install-app-btn:hover {
-  opacity: 0.95;
+  background: var(--accent);
 }
