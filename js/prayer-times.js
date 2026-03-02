@@ -11,6 +11,39 @@
   let notificationPermission = false;
   let reminders = {};
 
+  // Major cities database with coordinates
+  const cities = [
+    { name: "New York", country: "USA", lat: 40.7128, lon: -74.0060 },
+    { name: "London", country: "UK", lat: 51.5074, lon: -0.1278 },
+    { name: "Tokyo", country: "Japan", lat: 35.6762, lon: 139.6503 },
+    { name: "Mumbai", country: "India", lat: 19.0760, lon: 72.8777 },
+    { name: "Delhi", country: "India", lat: 28.6139, lon: 77.2090 },
+    { name: "Paris", country: "France", lat: 48.8566, lon: 2.3522 },
+    { name: "Dubai", country: "UAE", lat: 25.2048, lon: 55.2708 },
+    { name: "Cairo", country: "Egypt", lat: 30.0444, lon: 31.2357 },
+    { name: "Istanbul", country: "Turkey", lat: 41.0082, lon: 28.9784 },
+    { name: "Jakarta", country: "Indonesia", lat: -6.2088, lon: 106.8456 },
+    { name: "Karachi", country: "Pakistan", lat: 24.8607, lon: 67.0011 },
+    { name: "Lahore", country: "Pakistan", lat: 31.5497, lon: 74.3436 },
+    { name: "Mecca", country: "Saudi Arabia", lat: 21.3891, lon: 39.8579 },
+    { name: "Medina", country: "Saudi Arabia", lat: 24.4707, lon: 39.6122 },
+    { name: "Riyadh", country: "Saudi Arabia", lat: 24.7136, lon: 46.6753 },
+    { name: "Kuala Lumpur", country: "Malaysia", lat: 3.1390, lon: 101.6869 },
+    { name: "Singapore", country: "Singapore", lat: 1.3521, lon: 103.8198 },
+    { name: "Bangkok", country: "Thailand", lat: 13.7563, lon: 100.5018 },
+    { name: "Los Angeles", country: "USA", lat: 34.0522, lon: -118.2437 },
+    { name: "Chicago", country: "USA", lat: 41.8781, lon: -87.6298 },
+    { name: "Toronto", country: "Canada", lat: 43.6532, lon: -79.3832 },
+    { name: "Sydney", country: "Australia", lat: -33.8688, lon: 151.2093 },
+    { name: "Melbourne", country: "Australia", lat: -37.8136, lon: 144.9631 },
+    { name: "Berlin", country: "Germany", lat: 52.5200, lon: 13.4050 },
+    { name: "Moscow", country: "Russia", lat: 55.7558, lon: 37.6173 },
+    { name: "Beijing", country: "China", lat: 39.9042, lon: 116.4074 },
+    { name: "Shanghai", country: "China", lat: 31.2304, lon: 121.4737 },
+    { name: "Hong Kong", country: "China", lat: 22.3193, lon: 114.1694 },
+    { name: "Seoul", country: "South Korea", lat: 37.5665, lon: 126.9780 }
+  ];
+
   // Initialize prayer times
   async function initPrayerTimes() {
     try {
@@ -228,15 +261,15 @@
     let html = '<div class="prayer-times-widget">';
     html += '<h3>🕌 Today\'s Prayers</h3>';
     html += '<div class="location-status">';
-    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Set Location</button></p>';
+    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button></p>';
     html += '<div id="manual-location-form" style="display: none; margin-top: 10px; padding: 10px; background: var(--neutral-light); border-radius: 6px;">';
-    html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Enter your coordinates (decimal degrees):</p>';
+    html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Enter your city name:</p>';
     html += '<div style="display: flex; gap: 10px; align-items: center;">';
-    html += '<input type="number" id="lat-input" placeholder="Latitude" step="0.0001" min="-90" max="90" style="padding: 4px; border: 1px solid var(--sand); border-radius: 4px; width: 100px;">';
-    html += '<input type="number" id="lon-input" placeholder="Longitude" step="0.0001" min="-180" max="180" style="padding: 4px; border: 1px solid var(--sand); border-radius: 4px; width: 100px;">';
+    html += '<input type="text" id="city-input" placeholder="e.g., New York, London, Mumbai" style="padding: 4px; border: 1px solid var(--sand); border-radius: 4px; width: 200px;">';
     html += '<button id="set-manual-location" style="padding: 4px 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer;">Set</button>';
     html += '<button id="cancel-manual-location" style="padding: 4px 8px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">Cancel</button>';
     html += '</div>';
+    html += '<div id="city-suggestions" style="margin-top: 8px; max-height: 150px; overflow-y: auto;"></div>';
     html += '</div>';
     html += '</div>';
     html += '<div class="prayer-times-list">';
@@ -293,21 +326,25 @@
     
     if (setManualBtn) {
       setManualBtn.addEventListener('click', () => {
-        const latInput = document.getElementById('lat-input');
-        const lonInput = document.getElementById('lon-input');
+        const cityInput = document.getElementById('city-input');
         
-        if (latInput && lonInput) {
-          const lat = parseFloat(latInput.value);
-          const lon = parseFloat(lonInput.value);
-          
-          if (!isNaN(lat) && !isNaN(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180) {
-            console.log('📍 Manual location set:', { lat, lon });
-            const manualLocation = { lat, lon };
-            updateLocationStatus({ success: true, lat, lon });
-            loadPrayerTimesForLocation(manualLocation);
-            manualLocationForm.style.display = 'none';
+        if (cityInput) {
+          const cityName = cityInput.value.trim();
+          if (cityName) {
+            const city = findCity(cityName);
+            if (city) {
+              console.log('📍 City selected:', city);
+              const location = { lat: city.lat, lon: city.lon };
+              updateLocationStatus({ success: true, lat: city.lat, lon: city.lon, city: city.name });
+              loadPrayerTimesForLocation(location);
+              manualLocationForm.style.display = 'none';
+              cityInput.value = '';
+              clearCitySuggestions();
+            } else {
+              alert('City not found. Try major cities like New York, London, Mumbai, Delhi, etc.');
+            }
           } else {
-            alert('Please enter valid coordinates (Latitude: -90 to 90, Longitude: -180 to 180)');
+            alert('Please enter a city name');
           }
         }
       });
@@ -316,7 +353,88 @@
     if (cancelManualBtn) {
       cancelManualBtn.addEventListener('click', () => {
         manualLocationForm.style.display = 'none';
+        clearCitySuggestions();
       });
+    }
+    
+    // Add city input search functionality
+    const cityInput = document.getElementById('city-input');
+    if (cityInput) {
+      cityInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        if (query.length >= 2) {
+          showCitySuggestions(query);
+        } else {
+          clearCitySuggestions();
+        }
+      });
+      
+      cityInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          setManualBtn.click();
+        }
+      });
+    }
+  }
+
+  // Find city by name (case-insensitive, partial match)
+  function findCity(cityName) {
+    const query = cityName.toLowerCase();
+    return cities.find(city => 
+      city.name.toLowerCase() === query || 
+      city.name.toLowerCase().includes(query) ||
+      city.country.toLowerCase() === query
+    );
+  }
+
+  // Show city suggestions
+  function showCitySuggestions(query) {
+    const suggestionsDiv = document.getElementById('city-suggestions');
+    if (!suggestionsDiv) return;
+    
+    const queryLower = query.toLowerCase();
+    const matches = cities.filter(city => 
+      city.name.toLowerCase().includes(queryLower) || 
+      city.country.toLowerCase().includes(queryLower)
+    ).slice(0, 5); // Limit to 5 suggestions
+    
+    if (matches.length > 0) {
+      let html = '<div style="font-size: 12px; color: var(--text-light); margin-bottom: 4px;">Suggestions:</div>';
+      matches.forEach(city => {
+        html += `<div class="city-suggestion" style="padding: 4px 8px; cursor: pointer; border-radius: 3px; margin-bottom: 2px;" data-city="${city.name}">${city.name}, ${city.country}</div>`;
+      });
+      suggestionsDiv.innerHTML = html;
+      
+      // Add click handlers to suggestions
+      suggestionsDiv.querySelectorAll('.city-suggestion').forEach(suggestion => {
+        suggestion.addEventListener('click', () => {
+          const cityName = suggestion.getAttribute('data-city');
+          const cityInput = document.getElementById('city-input');
+          if (cityInput) {
+            cityInput.value = cityName;
+            clearCitySuggestions();
+            document.getElementById('set-manual-location').click();
+          }
+        });
+        
+        // Add hover effect
+        suggestion.addEventListener('mouseenter', () => {
+          suggestion.style.backgroundColor = 'var(--sand)';
+        });
+        suggestion.addEventListener('mouseleave', () => {
+          suggestion.style.backgroundColor = 'transparent';
+        });
+      });
+    } else {
+      suggestionsDiv.innerHTML = '<div style="font-size: 12px; color: var(--text-light);">No cities found</div>';
+    }
+  }
+
+  // Clear city suggestions
+  function clearCitySuggestions() {
+    const suggestionsDiv = document.getElementById('city-suggestions');
+    if (suggestionsDiv) {
+      suggestionsDiv.innerHTML = '';
     }
   }
 
@@ -520,10 +638,11 @@
     if (statusElement) {
       if (locationResult.success) {
         const coords = `${locationResult.lat.toFixed(4)}°, ${locationResult.lon.toFixed(4)}°`;
-        statusElement.innerHTML = `✅ Located (${coords})`;
+        const displayText = locationResult.city ? `${locationResult.city} (${coords})` : coords;
+        statusElement.innerHTML = `✅ Located (${displayText})`;
         statusElement.style.color = '#27ae60';
         if (locationElement) {
-          locationElement.textContent = coords;
+          locationElement.textContent = locationResult.city || coords;
         }
       } else {
         statusElement.innerHTML = `🏛️ Using New Delhi (location ${locationResult.error || 'not available'})`;
