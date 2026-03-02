@@ -4,8 +4,8 @@
 
   // Prayer times API configuration
   const PRAYER_API = 'https://islamicapi.com/api/v1/prayer-time';
-  const CALCULATION_METHOD = '3'; // Muslim World League
-  const SCHOOL = '1'; // Shafi school
+  let CALCULATION_METHOD = '2'; // Islamic Society of North America (better for India)
+  let SCHOOL = '2'; // Hanafi school (common in India)
   const API_KEY = '9TDRzUjl1Q5gyaBhTR3C5gA9RHlrhRO27hAIHCBTWHlDfy82'; // Your API key
   
   let prayerTimes = {};
@@ -283,9 +283,32 @@
     let html = '<div class="prayer-times-widget">';
     html += '<h3>🕌 Today\'s Prayers</h3>';
     html += '<div class="location-status">';
-    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="ip-location" class="ip-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: white; cursor: pointer; display: none;">🌐 IP Location</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">🎯 Try Location</button> <button id="timezone-location" class="timezone-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--secondary); border-radius: 4px; background: var(--secondary); color: white; cursor: pointer; display: none;">🕐 Timezone</button></p>';
+    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="ip-location" class="ip-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: white; cursor: pointer; display: none;">🌐 IP Location</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">🎯 Try Location</button> <button id="timezone-location" class="timezone-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--secondary); border-radius: 4px; background: var(--secondary); color: white; cursor: pointer; display: none;">🕐 Timezone</button> <button id="settings-btn" class="settings-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">⚙️ Settings</button></p>';
     html += '<div id="hijri-date" style="margin-top: 5px; font-size: 14px; color: var(--text-light);"></div>';
     html += '<div id="qibla-info" style="margin-top: 5px; font-size: 14px; color: var(--text-light);"></div>';
+    html += '<div id="settings-form" style="display: none; margin-top: 10px; padding: 10px; background: var(--neutral-light); border-radius: 6px;">';
+    html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Prayer Calculation Settings:</p>';
+    html += '<div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">';
+    html += '<label style="font-size: 12px;">Method:</label>';
+    html += '<select id="calc-method" style="padding: 4px; border: 1px solid var(--sand); border-radius: 4px; font-size: 12px;">';
+    html += '<option value="2">Islamic Society of North America</option>';
+    html += '<option value="3">Muslim World League</option>';
+    html += '<option value="5">Egyptian General Authority</option>';
+    html += '<option value="1">University of Islamic Sciences, Karachi</option>';
+    html += '</select>';
+    html += '</div>';
+    html += '<div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">';
+    html += '<label style="font-size: 12px;">School:</label>';
+    html += '<select id="school-method" style="padding: 4px; border: 1px solid var(--sand); border-radius: 4px; font-size: 12px;">';
+    html += '<option value="2">Hanafi (Asr later)</option>';
+    html += '<option value="1">Shafi (Asr standard)</option>';
+    html += '</select>';
+    html += '</div>';
+    html += '<div style="display: flex; gap: 10px;">';
+    html += '<button id="apply-settings" style="padding: 4px 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; font-size: 12px;">Apply</button>';
+    html += '<button id="cancel-settings" style="padding: 4px 8px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer; font-size: 12px;">Cancel</button>';
+    html += '</div>';
+    html += '</div>';
     html += '<div id="manual-location-form" style="display: none; margin-top: 10px; padding: 10px; background: var(--neutral-light); border-radius: 6px;">';
     html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Enter your city name:</p>';
     html += '<div style="display: flex; gap: 10px; align-items: center;">';
@@ -412,6 +435,52 @@
           timezoneBtn.textContent = '🕐 Timezone';
           timezoneBtn.disabled = false;
         }
+      });
+    }
+    
+    // Add settings button event listener
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsForm = document.getElementById('settings-form');
+    const applySettingsBtn = document.getElementById('apply-settings');
+    const cancelSettingsBtn = document.getElementById('cancel-settings');
+    
+    if (settingsBtn && settingsForm) {
+      settingsBtn.addEventListener('click', () => {
+        settingsForm.style.display = settingsForm.style.display === 'none' ? 'block' : 'none';
+        // Set current values
+        const calcMethodSelect = document.getElementById('calc-method');
+        const schoolMethodSelect = document.getElementById('school-method');
+        if (calcMethodSelect) calcMethodSelect.value = CALCULATION_METHOD;
+        if (schoolMethodSelect) schoolMethodSelect.value = SCHOOL;
+      });
+    }
+    
+    if (applySettingsBtn) {
+      applySettingsBtn.addEventListener('click', () => {
+        const calcMethodSelect = document.getElementById('calc-method');
+        const schoolMethodSelect = document.getElementById('school-method');
+        
+        if (calcMethodSelect && schoolMethodSelect) {
+          const newMethod = calcMethodSelect.value;
+          const newSchool = schoolMethodSelect.value;
+          
+          console.log('🔧 Updating prayer calculation settings:', { method: newMethod, school: newSchool });
+          
+          // Update the variables
+          CALCULATION_METHOD = newMethod;
+          SCHOOL = newSchool;
+          
+          // Reload prayer times with new settings
+          initPrayerTimes();
+          
+          settingsForm.style.display = 'none';
+        }
+      });
+    }
+    
+    if (cancelSettingsBtn) {
+      cancelSettingsBtn.addEventListener('click', () => {
+        settingsForm.style.display = 'none';
       });
     }
     
