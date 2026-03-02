@@ -1761,8 +1761,8 @@ footer p {
 }
 
 .api-compass-image {
-  width: 55px;
-  height: 55px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   border: 2px solid var(--primary);
   box-shadow: 0 4px 16px rgba(44, 56, 50, 0.1);
@@ -1777,22 +1777,22 @@ footer p {
 /* Mobile responsive compass */
 @media (max-width: 768px) {
   .api-compass-image {
-    width: 45px;
-    height: 45px;
-  }
-}
-
-@media (max-width: 480px) {
-  .api-compass-image {
     width: 40px;
     height: 40px;
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 480px) {
   .api-compass-image {
     width: 35px;
     height: 35px;
+  }
+}
+
+@media (max-width: 360px) {
+  .api-compass-image {
+    width: 30px;
+    height: 30px;
   }
 }
 
