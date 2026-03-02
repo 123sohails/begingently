@@ -980,6 +980,17 @@ footer p {
     font-size: 1rem;
   }
 
+  .tts-toggle {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    min-height: 44px;
+    min-width: 140px;
+  }
+
+  .access-tools {
+    margin: 0 0 1rem;
+  }
+
   .card {
     padding: 1.5rem;
   }
@@ -1086,6 +1097,19 @@ footer p {
     justify-content: center;
     min-height: 48px;
     font-size: 0.95rem;
+  }
+
+  .tts-toggle {
+    font-size: 0.85rem;
+    padding: 0.7rem 1.2rem;
+    min-height: 48px;
+    min-width: 150px;
+    margin: 0.5rem 0;
+  }
+
+  .access-tools {
+    margin: 0 0 1.5rem;
+    text-align: center;
   }
 
   main {
