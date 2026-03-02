@@ -6,7 +6,7 @@
   const PRAYER_API = 'https://islamicapi.com/api/v1/prayer-time';
   const CALCULATION_METHOD = '3'; // Muslim World League
   const SCHOOL = '1'; // Shafi school
-  const API_KEY = 'free'; // Using free tier
+  const API_KEY = '9TDRzUjl1Q5gyaBhTR3C5gA9RHlrhRO27hAIHCBTWHlDfy82'; // Your API key
   
   let prayerTimes = {};
   let nextPrayer = null;
