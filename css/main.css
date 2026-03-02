@@ -1601,21 +1601,21 @@ footer p {
   }
   
   .needle-north {
-    top: 3px;
-    border-left-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 10px;
+    top: 2px;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 12px;
   }
   
   .needle-south {
-    bottom: 3px;
-    border-left-width: 3px;
-    border-right-width: 3px;
-    border-top-width: 10px;
+    bottom: 2px;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 12px;
   }
   
   .needle-qibla {
-    width: 2px;
+    width: 3px;
     height: 25px;
   }
   
@@ -1634,27 +1634,27 @@ footer p {
 
 .needle-north {
   position: absolute;
-  top: 4px;
+  top: 3px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 15px solid #e74c3c;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 18px solid #e74c3c;
   z-index: 10;
 }
 
 .needle-south {
   position: absolute;
-  bottom: 4px;
+  bottom: 3px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 15px solid #34495e;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 18px solid #34495e;
   z-index: 10;
 }
 
@@ -1663,11 +1663,11 @@ footer p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 3px;
-  height: 35px;
+  width: 4px;
+  height: 40px;
   background: linear-gradient(to top, transparent, #27ae60);
   border-radius: 2px;
-  box-shadow: 0 0 6px rgba(39, 174, 96, 0.5);
+  box-shadow: 0 0 8px rgba(39, 174, 96, 0.6);
   z-index: 15;
 }
 
