@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Arabic ba logo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2D5F4F"/>
+      <stop offset="100%" stop-color="#4A8B74"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="58" fill="url(#g)"/>
+  <text x="64" y="79" text-anchor="middle" fill="#FFFFFF"
+        font-size="78" font-family="'Noto Naskh Arabic', 'Amiri', serif"
+        font-weight="700">ب</text>
+  <circle cx="47" cy="87" r="5.5" fill="#FFFFFF"/>
+</svg>
