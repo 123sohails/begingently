@@ -57,8 +57,28 @@
       const location = await getUserLocationWithTimeout();
       console.log('📍 Location obtained:', location);
       
-      // Check if we got the fallback location
+      // Check if we got the fallback location (New Delhi)
       const isFallback = location.lat === 28.6139 && location.lon === 77.2090;
+      
+      if (isFallback) {
+        console.log('⚠️ Browser geolocation failed, trying IP location as primary fallback...');
+        // Try IP location automatically when browser geolocation fails
+        const ipLocation = await getLocationFromIP();
+        if (ipLocation) {
+          console.log('✅ IP location detected automatically:', ipLocation);
+          updateLocationStatus({ 
+            success: true, 
+            lat: ipLocation.lat, 
+            lon: ipLocation.lon,
+            city: ipLocation.city,
+            error: null 
+          });
+          
+          const url = `${PRAYER_API}/?lat=${ipLocation.lat}&lon=${ipLocation.lon}&method=${CALCULATION_METHOD}&school=${SCHOOL}&api_key=${API_KEY}`;
+          await loadPrayerTimesFromURL(url);
+          return;
+        }
+      }
       
       // Update location status in UI
       updateLocationStatus({ 
@@ -68,16 +88,21 @@
         error: isFallback ? 'Using default location' : null 
       });
       
-      // Format date as DD-MM-YYYY (API requirement)
-      const today = new Date();
-      const day = String(today.getDate()).padStart(2, '0');
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const year = today.getFullYear();
-      const formattedDate = `${day}-${month}-${year}`;
-      
       const url = `${PRAYER_API}/?lat=${location.lat}&lon=${location.lon}&method=${CALCULATION_METHOD}&school=${SCHOOL}&api_key=${API_KEY}`;
+      await loadPrayerTimesFromURL(url);
       
-      console.log('🌐 Fetching prayer times for:', location.lat, location.lon, 'Date:', formattedDate);
+    } catch (error) {
+      console.log('❌ Error loading prayer times:', error);
+      showLocationStatus('❌ Error loading prayer times');
+      // Always fallback to default times
+      loadDefaultPrayerTimes();
+    }
+  }
+
+  // Load prayer times from URL (extracted for reuse)
+  async function loadPrayerTimesFromURL(url) {
+    try {
+      console.log('🌐 Fetching prayer times...');
       console.log('🔗 API URL:', url);
       
       showLocationStatus('⏱️ Loading prayer times...');
@@ -105,7 +130,6 @@
     } catch (error) {
       console.log('❌ Error loading prayer times:', error);
       showLocationStatus('❌ Error loading prayer times');
-      // Always fallback to default times
       loadDefaultPrayerTimes();
     }
   }
@@ -258,7 +282,7 @@
     let html = '<div class="prayer-times-widget">';
     html += '<h3>🕌 Today\'s Prayers</h3>';
     html += '<div class="location-status">';
-    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">🎯 Try Location</button> <button id="ip-location" class="ip-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: white; cursor: pointer; display: none;">🌐 IP Location</button> <button id="timezone-location" class="timezone-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--secondary); border-radius: 4px; background: var(--secondary); color: white; cursor: pointer; display: none;">🕐 Timezone</button></p>';
+    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="ip-location" class="ip-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: white; cursor: pointer; display: none;">� IP Location</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">� Try Location</button> <button id="timezone-location" class="timezone-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--secondary); border-radius: 4px; background: var(--secondary); color: white; cursor: pointer; display: none;">🕐 Timezone</button></p>';
     html += '<div id="hijri-date" style="margin-top: 5px; font-size: 14px; color: var(--text-light);"></div>';
     html += '<div id="manual-location-form" style="display: none; margin-top: 10px; padding: 10px; background: var(--neutral-light); border-radius: 6px;">';
     html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Enter your city name:</p>';
@@ -839,16 +863,16 @@
         if (locationElement) {
           locationElement.textContent = 'New Delhi (fallback)';
         }
-        // Show all manual location options when failed
-        if (tryLocationBtn) {
-          tryLocationBtn.style.display = 'inline-block';
-          tryLocationBtn.textContent = '🎯 Try Location';
-          tryLocationBtn.disabled = false;
-        }
+        // Prioritize IP Location button when failed
         if (ipLocationBtn) {
           ipLocationBtn.style.display = 'inline-block';
-          ipLocationBtn.textContent = '🌐 IP Location';
+          ipLocationBtn.textContent = '� IP Location (Recommended)';
           ipLocationBtn.disabled = false;
+        }
+        if (tryLocationBtn) {
+          tryLocationBtn.style.display = 'inline-block';
+          tryLocationBtn.textContent = '� Try Location';
+          tryLocationBtn.disabled = false;
         }
         if (timezoneBtn) {
           timezoneBtn.style.display = 'inline-block';
