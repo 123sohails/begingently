@@ -3,13 +3,16 @@
   'use strict';
 
   // Prayer times API configuration
-  const PRAYER_API = 'https://aladhan.api.islamic.network/v1';
-  const CALCULATION_METHOD = '3'; // Muslim World League (perfect for India)
+  const PRAYER_API = 'https://islamicapi.com/api/v1/prayer-time';
+  const CALCULATION_METHOD = '3'; // Muslim World League
+  const SCHOOL = '1'; // Shafi school
+  const API_KEY = 'free'; // Using free tier
   
   let prayerTimes = {};
   let nextPrayer = null;
   let notificationPermission = false;
   let reminders = {};
+  let apiData = null; // Store full API response for additional data
 
   // Major cities database with coordinates
   const cities = [
@@ -72,7 +75,7 @@
       const year = today.getFullYear();
       const formattedDate = `${day}-${month}-${year}`;
       
-      const url = `${PRAYER_API}/timings/${formattedDate}?latitude=${location.lat}&longitude=${location.lon}&method=${CALCULATION_METHOD}`;
+      const url = `${PRAYER_API}/?lat=${location.lat}&lon=${location.lon}&method=${CALCULATION_METHOD}&school=${SCHOOL}&api_key=${API_KEY}`;
       
       console.log('🌐 Fetching prayer times for:', location.lat, location.lon, 'Date:', formattedDate);
       console.log('🔗 API URL:', url);
@@ -87,13 +90,17 @@
       
       const data = await response.json();
       
-      if (data.code === 200) {
-        prayerTimes = data.data.timings;
+      if (data.code === 200 && data.status === 'success') {
+        prayerTimes = data.data.times;
+        apiData = data.data; // Store full API response
         console.log('✅ Prayer times loaded successfully:', prayerTimes);
+        console.log('📅 Hijri date:', data.data.date.hijri);
+        console.log('🧭 Qibla direction:', data.data.qibla);
         updatePrayerDisplay();
+        updateHijriDate();
         scheduleReminders();
       } else {
-        throw new Error(`API error: ${data.status}`);
+        throw new Error(`API error: ${data.message || data.status}`);
       }
     } catch (error) {
       console.log('❌ Error loading prayer times:', error);
@@ -211,13 +218,7 @@
   // Test API directly
   async function testAPI() {
     try {
-      const today = new Date();
-      const day = String(today.getDate()).padStart(2, '0');
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const year = today.getFullYear();
-      const formattedDate = `${day}-${month}-${year}`;
-      
-      const testUrl = `${PRAYER_API}/timings/${formattedDate}?latitude=28.6139&longitude=77.2090&method=3`;
+      const testUrl = `${PRAYER_API}/?lat=28.6139&lon=77.2090&method=${CALCULATION_METHOD}&school=${SCHOOL}&api_key=${API_KEY}`;
       console.log('Testing API with URL:', testUrl);
       
       const response = await fetch(testUrl);
@@ -225,15 +226,15 @@
       
       console.log('API Response:', data);
       
-      if (data.code === 200) {
-        console.log('API is working! Prayer times:', data.data.timings);
+      if (data.code === 200 && data.status === 'success') {
+        console.log('✅ API is working! Prayer times:', data.data.times);
         return true;
       } else {
-        console.log('API returned error:', data);
+        console.log('❌ API returned error:', data);
         return false;
       }
     } catch (error) {
-      console.log('API test failed:', error);
+      console.log('❌ API test failed:', error);
       return false;
     }
   }
@@ -258,6 +259,7 @@
     html += '<h3>🕌 Today\'s Prayers</h3>';
     html += '<div class="location-status">';
     html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">🎯 Try Location</button></p>';
+    html += '<div id="hijri-date" style="margin-top: 5px; font-size: 14px; color: var(--text-light);"></div>';
     html += '<div id="manual-location-form" style="display: none; margin-top: 10px; padding: 10px; background: var(--neutral-light); border-radius: 6px;">';
     html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Enter your city name:</p>';
     html += '<div style="display: flex; gap: 10px; align-items: center;">';
@@ -476,14 +478,7 @@
     try {
       console.log('🌐 Loading prayer times for manual location:', location);
       
-      // Format date as DD-MM-YYYY (API requirement)
-      const today = new Date();
-      const day = String(today.getDate()).padStart(2, '0');
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const year = today.getFullYear();
-      const formattedDate = `${day}-${month}-${year}`;
-      
-      const url = `${PRAYER_API}/timings/${formattedDate}?latitude=${location.lat}&longitude=${location.lon}&method=${CALCULATION_METHOD}`;
+      const url = `${PRAYER_API}/?lat=${location.lat}&lon=${location.lon}&method=${CALCULATION_METHOD}&school=${SCHOOL}&api_key=${API_KEY}`;
       
       console.log('🔗 API URL for manual location:', url);
       
@@ -495,17 +490,30 @@
       
       const data = await response.json();
       
-      if (data.code === 200) {
-        prayerTimes = data.data.timings;
+      if (data.code === 200 && data.status === 'success') {
+        prayerTimes = data.data.times;
+        apiData = data.data; // Store full API response
         console.log('✅ Manual location prayer times loaded:', prayerTimes);
+        console.log('📅 Hijri date:', data.data.date.hijri);
         updatePrayerDisplay();
+        updateHijriDate();
         scheduleReminders();
       } else {
-        throw new Error(`API error: ${data.status}`);
+        throw new Error(`API error: ${data.message || data.status}`);
       }
     } catch (error) {
       console.log('❌ Error loading manual location prayer times:', error);
       loadDefaultPrayerTimes();
+    }
+  }
+
+  // Update Hijri date display
+  function updateHijriDate() {
+    const hijriElement = document.getElementById('hijri-date');
+    if (hijriElement && apiData && apiData.date && apiData.date.hijri) {
+      const hijri = apiData.date.hijri;
+      const hijriText = `📅 ${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
+      hijriElement.innerHTML = hijriText;
     }
   }
 
