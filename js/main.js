@@ -117,13 +117,7 @@ window.toggleItem = function (element) {
     return 'en-US';
   };
 
-  const inferLangFromText = (text) => {
-    if (/[\u0600-\u06FF]/.test(text)) return 'ur-PK';
-    if (/[\u0C00-\u0C7F]/.test(text)) return 'te-IN';
-    return 'en-US';
-  };
-
-  const getPreferredLang = (selector, text) => {
+  const getPreferredLang = (selector) => {
     const target = document.querySelector(selector || '#main-content');
     const forcedButtonLang = normalizeLang(activeButton?.getAttribute('data-tts-lang') || '');
     if (forcedButtonLang !== 'en-US' || (activeButton?.getAttribute('data-tts-lang') || '').toLowerCase().startsWith('en')) {
@@ -137,7 +131,12 @@ window.toggleItem = function (element) {
     const docLang = document.documentElement.getAttribute('lang');
     const attrLang = normalizeLang(targetLang || docLang || '');
     if (attrLang !== 'en-US') return attrLang;
-    return inferLangFromText(text || '');
+    return 'en-US';
+  };
+
+  const hasVoiceForLang = (lang) => {
+    const base = (lang || 'en-US').split('-')[0].toLowerCase();
+    return window.speechSynthesis.getVoices().some((v) => v.lang && v.lang.toLowerCase().startsWith(base));
   };
 
   const getLabel = (kind) => {
@@ -206,7 +205,7 @@ window.toggleItem = function (element) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 1;
     utterance.pitch = 1;
-    utterance.lang = selectedVoice?.lang || selectedLang;
+    utterance.lang = selectedVoice?.lang || (hasVoiceForLang(selectedLang) ? selectedLang : 'en-US');
     if (selectedVoice) utterance.voice = selectedVoice;
     utterance.onend = speakNextChunk;
     utterance.onerror = stopSpeech;
@@ -223,7 +222,7 @@ window.toggleItem = function (element) {
     if (!text) return;
 
     activeButton = button;
-    selectedLang = getPreferredLang(selector, text);
+    selectedLang = getPreferredLang(selector);
     setButtonState(button, true);
     selectedVoice = pickVoice(selectedLang);
     utteranceQueue = splitIntoChunks(text);
@@ -235,7 +234,7 @@ window.toggleItem = function (element) {
     if (!buttons.length) return;
 
     const baseSelector = buttons[0].getAttribute('data-tts-target') || '#main-content';
-    selectedLang = getPreferredLang(baseSelector, getReadableText(baseSelector));
+    selectedLang = getPreferredLang(baseSelector);
     selectedVoice = pickVoice(selectedLang);
     window.speechSynthesis.addEventListener('voiceschanged', () => {
       selectedVoice = pickVoice(selectedLang);
