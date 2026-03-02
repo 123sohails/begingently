@@ -4,7 +4,7 @@
 
   // Prayer times API configuration
   const PRAYER_API = 'https://islamicapi.com/api/v1/prayer-time';
-  let CALCULATION_METHOD = '2'; // Islamic Society of North America (better for India)
+  let CALCULATION_METHOD = '1'; // University of Islamic Sciences, Karachi (best for India)
   let SCHOOL = '2'; // Hanafi school (common in India)
   const API_KEY = '9TDRzUjl1Q5gyaBhTR3C5gA9RHlrhRO27hAIHCBTWHlDfy82'; // Your API key
   
@@ -291,10 +291,10 @@
     html += '<div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">';
     html += '<label style="font-size: 12px;">Method:</label>';
     html += '<select id="calc-method" style="padding: 4px; border: 1px solid var(--sand); border-radius: 4px; font-size: 12px;">';
+    html += '<option value="1">University of Islamic Sciences, Karachi</option>';
     html += '<option value="2">Islamic Society of North America</option>';
     html += '<option value="3">Muslim World League</option>';
     html += '<option value="5">Egyptian General Authority</option>';
-    html += '<option value="1">University of Islamic Sciences, Karachi</option>';
     html += '</select>';
     html += '</div>';
     html += '<div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">';
