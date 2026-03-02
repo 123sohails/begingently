@@ -258,7 +258,7 @@
     let html = '<div class="prayer-times-widget">';
     html += '<h3>🕌 Today\'s Prayers</h3>';
     html += '<div class="location-status">';
-    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">🎯 Try Location</button></p>';
+    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">🎯 Try Location</button> <button id="ip-location" class="ip-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: white; cursor: pointer; display: none;">🌐 IP Location</button> <button id="timezone-location" class="timezone-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--secondary); border-radius: 4px; background: var(--secondary); color: white; cursor: pointer; display: none;">🕐 Timezone</button></p>';
     html += '<div id="hijri-date" style="margin-top: 5px; font-size: 14px; color: var(--text-light);"></div>';
     html += '<div id="manual-location-form" style="display: none; margin-top: 10px; padding: 10px; background: var(--neutral-light); border-radius: 6px;">';
     html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Enter your city name:</p>';
@@ -343,6 +343,48 @@
               enableHighAccuracy: true
             }
           );
+        }
+      });
+    }
+    
+    // Add IP location button event listener
+    const ipLocationBtn = document.getElementById('ip-location');
+    if (ipLocationBtn) {
+      ipLocationBtn.addEventListener('click', async () => {
+        console.log('🌐 IP-based location request triggered');
+        ipLocationBtn.textContent = '🌐 Detecting...';
+        ipLocationBtn.disabled = true;
+        
+        const location = await getLocationFromIP();
+        if (location) {
+          updateLocationStatus({ success: true, lat: location.lat, lon: location.lon, city: location.city });
+          loadPrayerTimesForLocation(location);
+          ipLocationBtn.style.display = 'none';
+        } else {
+          alert('IP location detection failed. Please try another method.');
+          ipLocationBtn.textContent = '🌐 IP Location';
+          ipLocationBtn.disabled = false;
+        }
+      });
+    }
+    
+    // Add timezone location button event listener
+    const timezoneBtn = document.getElementById('timezone-location');
+    if (timezoneBtn) {
+      timezoneBtn.addEventListener('click', () => {
+        console.log('🕐 Timezone-based location request triggered');
+        timezoneBtn.textContent = '🕐 Detecting...';
+        timezoneBtn.disabled = true;
+        
+        const location = getLocationFromTimezone();
+        if (location) {
+          updateLocationStatus({ success: true, lat: location.lat, lon: location.lon, city: location.city });
+          loadPrayerTimesForLocation(location);
+          timezoneBtn.style.display = 'none';
+        } else {
+          alert('Timezone location detection failed. Please try another method.');
+          timezoneBtn.textContent = '🕐 Timezone';
+          timezoneBtn.disabled = false;
         }
       });
     }
@@ -504,6 +546,88 @@
     } catch (error) {
       console.log('❌ Error loading manual location prayer times:', error);
       loadDefaultPrayerTimes();
+    }
+  }
+
+  // Get location from IP address
+  async function getLocationFromIP() {
+    try {
+      console.log('🌐 Getting location from IP address...');
+      showLocationStatus('🌐 Detecting location from IP...');
+      
+      // Use ipapi.co for IP geolocation (free tier)
+      const response = await fetch('https://ipapi.co/json/');
+      
+      if (!response.ok) {
+        throw new Error(`IP API responded with status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.latitude && data.longitude) {
+        const location = {
+          lat: data.latitude,
+          lon: data.longitude,
+          city: data.city,
+          country: data.country_name,
+          source: 'IP'
+        };
+        console.log('✅ IP-based location detected:', location);
+        return location;
+      } else {
+        throw new Error('IP location data incomplete');
+      }
+    } catch (error) {
+      console.log('❌ IP location detection failed:', error);
+      return null;
+    }
+  }
+
+  // Get location from browser timezone
+  function getLocationFromTimezone() {
+    try {
+      console.log('🕐 Getting location from timezone...');
+      
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const offset = new Date().getTimezoneOffset();
+      
+      // Major cities by timezone (simplified mapping)
+      const timezoneMap = {
+        'Asia/Kolkata': { lat: 28.6139, lon: 77.2090, city: 'New Delhi' },
+        'Asia/Karachi': { lat: 24.8607, lon: 67.0011, city: 'Karachi' },
+        'Asia/Dhaka': { lat: 23.8103, lon: 90.4125, city: 'Dhaka' },
+        'Asia/Jakarta': { lat: -6.2088, lon: 106.8456, city: 'Jakarta' },
+        'Asia/Bangkok': { lat: 13.7563, lon: 100.5018, city: 'Bangkok' },
+        'Asia/Singapore': { lat: 1.3521, lon: 103.8198, city: 'Singapore' },
+        'Asia/Tokyo': { lat: 35.6762, lon: 139.6503, city: 'Tokyo' },
+        'Asia/Shanghai': { lat: 31.2304, lon: 121.4737, city: 'Shanghai' },
+        'Asia/Hong_Kong': { lat: 22.3193, lon: 114.1694, city: 'Hong Kong' },
+        'Asia/Seoul': { lat: 37.5665, lon: 126.9780, city: 'Seoul' },
+        'Europe/London': { lat: 51.5074, lon: -0.1278, city: 'London' },
+        'Europe/Paris': { lat: 48.8566, lon: 2.3522, city: 'Paris' },
+        'Europe/Berlin': { lat: 52.5200, lon: 13.4050, city: 'Berlin' },
+        'Europe/Istanbul': { lat: 41.0082, lon: 28.9784, city: 'Istanbul' },
+        'Europe/Moscow': { lat: 55.7558, lon: 37.6173, city: 'Moscow' },
+        'America/New_York': { lat: 40.7128, lon: -74.0060, city: 'New York' },
+        'America/Chicago': { lat: 41.8781, lon: -87.6298, city: 'Chicago' },
+        'America/Los_Angeles': { lat: 34.0522, lon: -118.2437, city: 'Los Angeles' },
+        'America/Toronto': { lat: 43.6532, lon: -79.3832, city: 'Toronto' },
+        'Australia/Sydney': { lat: -33.8688, lon: 151.2093, city: 'Sydney' }
+      };
+      
+      const location = timezoneMap[timezone];
+      
+      if (location) {
+        location.source = 'Timezone';
+        console.log('✅ Timezone-based location detected:', location);
+        return location;
+      } else {
+        console.log('⚠️ Timezone not mapped, using default');
+        return { lat: 28.6139, lon: 77.2090, city: 'New Delhi', source: 'Timezone Default' };
+      }
+    } catch (error) {
+      console.log('❌ Timezone location detection failed:', error);
+      return null;
     }
   }
 
@@ -693,6 +817,8 @@
     const statusElement = document.getElementById('location-status-text');
     const locationElement = document.getElementById('current-location');
     const tryLocationBtn = document.getElementById('try-location');
+    const ipLocationBtn = document.getElementById('ip-location');
+    const timezoneBtn = document.getElementById('timezone-location');
     
     if (statusElement) {
       if (locationResult.success) {
@@ -703,21 +829,31 @@
         if (locationElement) {
           locationElement.textContent = locationResult.city || coords;
         }
-        // Hide try location button when successful
-        if (tryLocationBtn) {
-          tryLocationBtn.style.display = 'none';
-        }
+        // Hide all manual buttons when successful
+        if (tryLocationBtn) tryLocationBtn.style.display = 'none';
+        if (ipLocationBtn) ipLocationBtn.style.display = 'none';
+        if (timezoneBtn) timezoneBtn.style.display = 'none';
       } else {
         statusElement.innerHTML = `🏛️ Using New Delhi (location ${locationResult.error || 'not available'})`;
         statusElement.style.color = '#f39c12';
         if (locationElement) {
           locationElement.textContent = 'New Delhi (fallback)';
         }
-        // Show try location button when failed
+        // Show all manual location options when failed
         if (tryLocationBtn) {
           tryLocationBtn.style.display = 'inline-block';
           tryLocationBtn.textContent = '🎯 Try Location';
           tryLocationBtn.disabled = false;
+        }
+        if (ipLocationBtn) {
+          ipLocationBtn.style.display = 'inline-block';
+          ipLocationBtn.textContent = '🌐 IP Location';
+          ipLocationBtn.disabled = false;
+        }
+        if (timezoneBtn) {
+          timezoneBtn.style.display = 'inline-block';
+          timezoneBtn.textContent = '🕐 Timezone';
+          timezoneBtn.disabled = false;
         }
       }
     }
