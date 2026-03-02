@@ -377,26 +377,22 @@
     <p>&copy; <span id="year">2025</span> BeginGently. Built as an act of worship (صدقة جارية). <br> This Website is free and exists to help reverts and seekers.</p>
   </footer>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script>console.log('Quran page: JavaScript loaded');</script>
   <script>
-    // Debug TTS specifically for Quran page
-    setTimeout(() => {
-      const ttsButton = document.querySelector('.tts-toggle');
-      console.log('Quran TTS button found:', !!ttsButton);
-      if (ttsButton) {
-        console.log('Quran TTS button text:', ttsButton.textContent);
-        ttsButton.addEventListener('click', () => {
-          console.log('Quran TTS button clicked!');
-        });
-      }
-      
-      // Check if speech synthesis is available
-      console.log('Speech synthesis available:', 'speechSynthesis' in window);
-      if ('speechSynthesis' in window) {
-        const voices = window.speechSynthesis.getVoices();
-        console.log('Quran page - Available voices:', voices.length);
-      }
-    }, 2000);
+    // Force TTS initialization for Quran page
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Quran DOM loaded');
+      setTimeout(() => {
+        const ttsButton = document.querySelector('.tts-toggle');
+        if (ttsButton && !ttsButton.hasAttribute('data-tts-initialized')) {
+          console.log('Initializing Quran TTS button');
+          ttsButton.setAttribute('data-tts-initialized', 'true');
+          // Trigger the main TTS initialization
+          if (window.initTTS) {
+            window.initTTS();
+          }
+        }
+      }, 1000);
+    });
   </script>
   <script src="../js/main.js?v=20260304"></script>
   <script src="../js/readmore.js?v=20260304"></script>

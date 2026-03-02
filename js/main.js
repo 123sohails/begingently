@@ -361,6 +361,10 @@ window.toggleItem = function (element) {
   };
 
   window.addEventListener('beforeunload', stopSpeech);
+  
+  // Make initTTS globally accessible
+  window.initTTS = initTTS;
+  
   window.setTtsLanguage = function(lang) {
     if (!lang) {
       localStorage.removeItem('tts_lang');
