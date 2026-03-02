@@ -76,8 +76,26 @@ window.toggleItem = function (element) {
 
 // Basic text-to-speech controls for supported browsers
 (function() {
-  if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
-    return;
+  let isTTSSupported = false;
+  let supportMessage = '';
+  
+  // Check TTS support with detailed error handling
+  if ('speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined') {
+    isTTSSupported = true;
+    // Test if voices are available
+    const testVoices = window.speechSynthesis.getVoices();
+    if (testVoices.length === 0) {
+      // Some browsers need time to load voices
+      setTimeout(() => {
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length === 0) {
+          console.log('TTS: No voices available, but API is supported');
+        }
+      }, 1000);
+    }
+  } else {
+    supportMessage = 'Text-to-speech is not supported in your browser. Try Chrome, Edge, or Safari.';
+    console.log('TTS: Not supported -', supportMessage);
   }
 
   let activeButton = null;
@@ -224,10 +242,17 @@ window.toggleItem = function (element) {
   };
 
   const startSpeech = (button) => {
+    // Check if TTS is supported
+    if (!isTTSSupported) {
+      alert(supportMessage || 'Text-to-speech is not supported in your browser. Try Chrome, Edge, or Safari.');
+      return;
+    }
+
     const selector = button.getAttribute('data-tts-target') || '#main-content';
     const text = getReadableText(selector);
     if (!text) {
       console.log('TTS: No readable text found');
+      alert('No readable content found on this page.');
       return;
     }
 
@@ -235,6 +260,14 @@ window.toggleItem = function (element) {
     activeButton = button;
     selectedLang = getPreferredLang(selector);
     setButtonState(button, true);
+    
+    // Some browsers require a user interaction before speech synthesis works
+    // Try to resume any paused speech first
+    try {
+      window.speechSynthesis.resume();
+    } catch (e) {
+      console.log('TTS: Could not resume speech synthesis');
+    }
     
     // Ensure voice is available before starting
     selectedVoice = pickVoice(selectedLang);
@@ -275,6 +308,20 @@ window.toggleItem = function (element) {
   const initTTS = () => {
     const buttons = document.querySelectorAll('.tts-toggle');
     if (!buttons.length) return;
+
+    // Handle unsupported browsers
+    if (!isTTSSupported) {
+      buttons.forEach((button) => {
+        button.textContent = 'TTS Not Supported';
+        button.style.opacity = '0.5';
+        button.style.cursor = 'not-allowed';
+        button.setAttribute('title', supportMessage || 'Text-to-speech is not supported in your browser');
+        button.addEventListener('click', () => {
+          alert(supportMessage || 'Text-to-speech is not supported in your browser. Try Chrome, Edge, or Safari.');
+        });
+      });
+      return;
+    }
 
     const baseSelector = buttons[0].getAttribute('data-tts-target') || '#main-content';
     selectedLang = getPreferredLang(baseSelector);
