@@ -378,6 +378,26 @@
   </footer>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   <script>console.log('Quran page: JavaScript loaded');</script>
+  <script>
+    // Debug TTS specifically for Quran page
+    setTimeout(() => {
+      const ttsButton = document.querySelector('.tts-toggle');
+      console.log('Quran TTS button found:', !!ttsButton);
+      if (ttsButton) {
+        console.log('Quran TTS button text:', ttsButton.textContent);
+        ttsButton.addEventListener('click', () => {
+          console.log('Quran TTS button clicked!');
+        });
+      }
+      
+      // Check if speech synthesis is available
+      console.log('Speech synthesis available:', 'speechSynthesis' in window);
+      if ('speechSynthesis' in window) {
+        const voices = window.speechSynthesis.getVoices();
+        console.log('Quran page - Available voices:', voices.length);
+      }
+    }, 2000);
+  </script>
   <script src="../js/main.js?v=20260304"></script>
   <script src="../js/readmore.js?v=20260304"></script>
 </body>
