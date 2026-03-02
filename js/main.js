@@ -236,9 +236,14 @@ window.toggleItem = function (element) {
     const baseSelector = buttons[0].getAttribute('data-tts-target') || '#main-content';
     selectedLang = getPreferredLang(baseSelector);
     selectedVoice = pickVoice(selectedLang);
-    window.speechSynthesis.addEventListener('voiceschanged', () => {
+    const refreshVoice = () => {
       selectedVoice = pickVoice(selectedLang);
-    });
+    };
+    if (typeof window.speechSynthesis.addEventListener === 'function') {
+      window.speechSynthesis.addEventListener('voiceschanged', refreshVoice);
+    } else {
+      window.speechSynthesis.onvoiceschanged = refreshVoice;
+    }
 
     buttons.forEach((button) => {
       setButtonState(button, false);

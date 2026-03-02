@@ -1,4 +1,4 @@
-const CACHE_NAME = 'begingently-v4';
+const CACHE_NAME = 'begingently-v5';
 const OFFLINE_URL = '/offline.html';
 
 const CORE_ASSETS = [
@@ -8,8 +8,8 @@ const CORE_ASSETS = [
   '/library.html',
   '/offline.html',
   '/css/main.css',
-  '/js/main.js?v=20260303',
-  '/js/readmore.js?v=20260303',
+  '/js/main.js?v=20260304',
+  '/js/readmore.js?v=20260304',
   '/favicon.ico',
   '/favicon-16x16.png',
   '/favicon-32x32.png',
