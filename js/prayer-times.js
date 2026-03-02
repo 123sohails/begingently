@@ -3,7 +3,7 @@
   'use strict';
 
   // Prayer times API configuration
-  const PRAYER_API = 'https://api.aladhan.com/v1/timings';
+  const PRAYER_API = 'https://aladhan.api.islamic.network/v1';
   const CALCULATION_METHOD = '3'; // Muslim World League (perfect for India)
   
   let prayerTimes = {};
@@ -14,48 +14,87 @@
   // Initialize prayer times
   async function initPrayerTimes() {
     try {
-      const location = await getUserLocation();
-      const today = new Date().toISOString().split('T')[0];
-      const url = `${PRAYER_API}/${today}?latitude=${location.lat}&longitude=${location.lon}&method=${CALCULATION_METHOD}`;
+      // Try to get user location with timeout
+      const location = await getUserLocationWithTimeout();
+      
+      // Format date as DD-MM-YYYY (API requirement)
+      const today = new Date();
+      const day = String(today.getDate()).padStart(2, '0');
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const year = today.getFullYear();
+      const formattedDate = `${day}-${month}-${year}`;
+      
+      const url = `${PRAYER_API}/timings/${formattedDate}?latitude=${location.lat}&longitude=${location.lon}&method=${CALCULATION_METHOD}`;
+      
+      console.log('Fetching prayer times for:', location.lat, location.lon, 'Date:', formattedDate);
       
       const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+      
       const data = await response.json();
       
       if (data.code === 200) {
         prayerTimes = data.data.timings;
         updatePrayerDisplay();
         scheduleReminders();
-        console.log('Prayer times loaded successfully');
+        console.log('Prayer times loaded successfully:', prayerTimes);
+      } else {
+        throw new Error(`API error: ${data.status}`);
       }
     } catch (error) {
       console.log('Error loading prayer times:', error);
-      // Fallback to default times
+      // Always fallback to default times
       loadDefaultPrayerTimes();
     }
   }
 
-  // Get user location
-  async function getUserLocation() {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => resolve({
+  // Get user location with timeout and better error handling
+  async function getUserLocationWithTimeout() {
+    return new Promise((resolve) => {
+      // Fallback immediately to India location
+      const fallbackLocation = { lat: 28.6139, lon: 77.2090 }; // New Delhi
+      
+      if (!navigator.geolocation) {
+        console.log('Geolocation not supported, using India fallback');
+        resolve(fallbackLocation);
+        return;
+      }
+
+      // Set timeout for location request (5 seconds)
+      const timeoutId = setTimeout(() => {
+        console.log('Location request timeout, using India fallback');
+        resolve(fallbackLocation);
+      }, 5000);
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          clearTimeout(timeoutId);
+          const location = {
             lat: position.coords.latitude,
             lon: position.coords.longitude
-          }),
-          (error) => {
-            // Fallback to India location
-            resolve({ lat: 28.6139, lon: 77.2090 }); // New Delhi, India
-          }
-        );
-      } else {
-        resolve({ lat: 28.6139, lon: 77.2090 }); // New Delhi, India
-      }
+          };
+          console.log('Location detected:', location);
+          resolve(location);
+        },
+        (error) => {
+          clearTimeout(timeoutId);
+          console.log('Location error:', error.message, 'using India fallback');
+          resolve(fallbackLocation);
+        },
+        {
+          timeout: 5000,
+          enableHighAccuracy: false
+        }
+      );
     });
   }
 
   // Load default prayer times (fallback)
   function loadDefaultPrayerTimes() {
+    console.log('Using default India prayer times');
     prayerTimes = {
       Fajr: '05:15',
       Dhuhr: '12:30',
@@ -65,6 +104,36 @@
     };
     updatePrayerDisplay();
     scheduleReminders();
+  }
+
+  // Test API directly
+  async function testAPI() {
+    try {
+      const today = new Date();
+      const day = String(today.getDate()).padStart(2, '0');
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const year = today.getFullYear();
+      const formattedDate = `${day}-${month}-${year}`;
+      
+      const testUrl = `${PRAYER_API}/timings/${formattedDate}?latitude=28.6139&longitude=77.2090&method=3`;
+      console.log('Testing API with URL:', testUrl);
+      
+      const response = await fetch(testUrl);
+      const data = await response.json();
+      
+      console.log('API Response:', data);
+      
+      if (data.code === 200) {
+        console.log('API is working! Prayer times:', data.data.timings);
+        return true;
+      } else {
+        console.log('API returned error:', data);
+        return false;
+      }
+    } catch (error) {
+      console.log('API test failed:', error);
+      return false;
+    }
   }
 
   // Update prayer times display
@@ -223,6 +292,17 @@
 
   // Initialize on page load
   document.addEventListener('DOMContentLoaded', () => {
+    console.log('Prayer Times: Initializing...');
+    
+    // Test API first
+    testAPI().then((isWorking) => {
+      if (isWorking) {
+        console.log('Prayer Times: API is working, loading prayer times...');
+      } else {
+        console.log('Prayer Times: API test failed, using fallback');
+      }
+    });
+    
     // Request notification permission
     requestNotificationPermission();
     

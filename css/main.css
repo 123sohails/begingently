@@ -1530,6 +1530,171 @@ footer p {
   color: var(--text-light);
 }
 
+/* Qibla Compass Widget */
+.qibla-section {
+  margin: 3rem 0;
+}
+
+.qibla-compass-widget {
+  background: var(--neutral-light);
+  border: 1px solid var(--sand);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.qibla-compass-widget h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text);
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.compass-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.compass-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--cream), var(--sand));
+  border: 3px solid var(--primary);
+  position: relative;
+  box-shadow: var(--shadow-elevation);
+}
+
+.compass-needle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: transform 0.3s ease;
+}
+
+.needle-north {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 30px solid #e74c3c;
+}
+
+.needle-south {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 30px solid #34495e;
+}
+
+.needle-qibla {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 80px;
+  background: linear-gradient(to top, transparent, #27ae60);
+  border-radius: 3px;
+}
+
+.compass-markings {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.mark {
+  position: absolute;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+
+.mark-n {
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mark-s {
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mark-e {
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mark-w {
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.qibla-info {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--sand);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.info-value {
+  font-weight: 500;
+  color: var(--text);
+  font-family: 'Crimson Pro', monospace;
+}
+
+.compass-instructions {
+  background: var(--primary);
+  color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.compass-instructions p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.loading-qibla {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-light);
+}
+
 .install-app-btn {
   position: fixed;
   right: 16px;
