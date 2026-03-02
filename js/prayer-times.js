@@ -99,39 +99,26 @@
       const fallbackLocation = { lat: 28.6139, lon: 77.2090 }; // New Delhi
       
       if (!navigator.geolocation) {
-        console.log('Geolocation not supported, using India fallback');
+        console.log('❌ Geolocation not supported, using India fallback');
         resolve(fallbackLocation);
         return;
       }
 
+      console.log('🌐 Browser protocol:', location.protocol);
+      console.log('🌐 Hostname:', location.hostname);
+      
       // Check if HTTPS (required for geolocation in most browsers)
       if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-        console.log('Geolocation requires HTTPS, using India fallback');
+        console.log('❌ Geolocation requires HTTPS, using India fallback');
         showLocationPermissionMessage('HTTPS required for location access');
         resolve(fallbackLocation);
         return;
       }
 
-      // Check current permission status
-      if ('permissions' in navigator) {
-        navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-          console.log('Location permission state:', result.state);
-          if (result.state === 'denied') {
-            console.log('Location permission denied, using India fallback');
-            showLocationPermissionMessage('Location permission denied. Using New Delhi location.');
-            resolve(fallbackLocation);
-            return;
-          }
-          // If granted or prompt, proceed with location request
-          requestLocationWithTimeout(fallbackLocation, resolve);
-        }).catch(() => {
-          // Permissions API not supported, proceed anyway
-          requestLocationWithTimeout(fallbackLocation, resolve);
-        });
-      } else {
-        // Permissions API not supported, proceed directly
-        requestLocationWithTimeout(fallbackLocation, resolve);
-      }
+      console.log('✅ Location access should be available, requesting permission...');
+
+      // Try direct geolocation request first (more aggressive)
+      requestLocationWithTimeout(fallbackLocation, resolve);
     });
   }
 
@@ -261,7 +248,7 @@
     let html = '<div class="prayer-times-widget">';
     html += '<h3>🕌 Today\'s Prayers</h3>';
     html += '<div class="location-status">';
-    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button></p>';
+    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">🎯 Try Location</button></p>';
     html += '<div id="manual-location-form" style="display: none; margin-top: 10px; padding: 10px; background: var(--neutral-light); border-radius: 6px;">';
     html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Enter your city name:</p>';
     html += '<div style="display: flex; gap: 10px; align-items: center;">';
@@ -309,6 +296,43 @@
           refreshBtn.textContent = '🔄 Refresh';
           refreshBtn.disabled = false;
         });
+      });
+    }
+    
+    // Add try location button event listener
+    const tryLocationBtn = document.getElementById('try-location');
+    if (tryLocationBtn) {
+      tryLocationBtn.addEventListener('click', () => {
+        console.log('🎯 Manual location permission request triggered');
+        tryLocationBtn.textContent = '🎯 Requesting...';
+        tryLocationBtn.disabled = true;
+        
+        // Force location permission request
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              console.log('✅ Location permission granted!');
+              const location = {
+                lat: position.coords.latitude,
+                lon: position.coords.longitude,
+                accuracy: position.coords.accuracy
+              };
+              updateLocationStatus({ success: true, lat: location.lat, lon: location.lon });
+              loadPrayerTimesForLocation(location);
+              tryLocationBtn.style.display = 'none';
+            },
+            (error) => {
+              console.log('❌ Location permission denied:', error);
+              alert('Location access was denied. Please use the city search option instead.');
+              tryLocationBtn.textContent = '🎯 Try Location';
+              tryLocationBtn.disabled = false;
+            },
+            {
+              timeout: 10000,
+              enableHighAccuracy: true
+            }
+          );
+        }
       });
     }
     
@@ -634,6 +658,7 @@
   function updateLocationStatus(locationResult) {
     const statusElement = document.getElementById('location-status-text');
     const locationElement = document.getElementById('current-location');
+    const tryLocationBtn = document.getElementById('try-location');
     
     if (statusElement) {
       if (locationResult.success) {
@@ -644,11 +669,21 @@
         if (locationElement) {
           locationElement.textContent = locationResult.city || coords;
         }
+        // Hide try location button when successful
+        if (tryLocationBtn) {
+          tryLocationBtn.style.display = 'none';
+        }
       } else {
         statusElement.innerHTML = `🏛️ Using New Delhi (location ${locationResult.error || 'not available'})`;
         statusElement.style.color = '#f39c12';
         if (locationElement) {
           locationElement.textContent = 'New Delhi (fallback)';
+        }
+        // Show try location button when failed
+        if (tryLocationBtn) {
+          tryLocationBtn.style.display = 'inline-block';
+          tryLocationBtn.textContent = '🎯 Try Location';
+          tryLocationBtn.disabled = false;
         }
       }
     }
