@@ -1530,6 +1530,24 @@ footer p {
   color: var(--text-light);
 }
 
+.location-status {
+  background: var(--cream);
+  border: 1px solid var(--sand);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.location-status p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.location-status strong {
+  color: var(--text);
+}
+
 /* Qibla Compass Widget */
 .qibla-section {
   margin: 3rem 0;

@@ -294,6 +294,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     console.log('Prayer Times: Initializing...');
     
+    // Show location status
+    showLocationStatus();
+    
     // Test API first
     testAPI().then((isWorking) => {
       if (isWorking) {
@@ -306,6 +309,7 @@
     // Test location
     testLocation().then((location) => {
       console.log('Prayer Times: Location test result:', location);
+      updateLocationStatus(location);
     });
     
     // Request notification permission
@@ -317,6 +321,33 @@
     // Update every minute
     setInterval(updatePrayerDisplay, 60000);
   });
+
+  // Show location status to user
+  function showLocationStatus() {
+    const container = document.getElementById('prayer-times-container');
+    if (container) {
+      const statusHtml = `
+        <div class="location-status">
+          <p>📍 <strong>Location Status:</strong> <span id="location-status-text">Checking...</span></p>
+        </div>
+      `;
+      container.innerHTML = statusHtml;
+    }
+  }
+
+  // Update location status
+  function updateLocationStatus(locationResult) {
+    const statusElement = document.getElementById('location-status-text');
+    if (statusElement) {
+      if (locationResult.success) {
+        statusElement.innerHTML = `✅ Located (${locationResult.lat.toFixed(2)}°, ${locationResult.lon.toFixed(2)}°)`;
+        statusElement.style.color = '#27ae60';
+      } else {
+        statusElement.innerHTML = `🏛️ Using New Delhi (location ${locationResult.error || 'not available'})`;
+        statusElement.style.color = '#f39c12';
+      }
+    }
+  }
 
   // Test location detection
   async function testLocation() {
