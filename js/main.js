@@ -79,7 +79,8 @@ window.toggleItem = function (element) {
   }
 
   let activeButton = null;
-  let activeUtterance = null;
+  let utteranceQueue = [];
+  let selectedVoice = null;
 
   const setButtonState = (button, isPlaying) => {
     if (!button) return;
@@ -91,7 +92,7 @@ window.toggleItem = function (element) {
     window.speechSynthesis.cancel();
     setButtonState(activeButton, false);
     activeButton = null;
-    activeUtterance = null;
+    utteranceQueue = [];
   };
 
   const getReadableText = (selector) => {
@@ -102,26 +103,95 @@ window.toggleItem = function (element) {
     return clone.textContent.replace(/\s+/g, ' ').trim();
   };
 
+  const splitIntoChunks = (text, maxLength = 220) => {
+    if (!text) return [];
+    const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
+    const chunks = [];
+    let current = '';
+
+    sentences.forEach((sentence) => {
+      const part = sentence.trim();
+      if (!part) return;
+
+      if ((current + ' ' + part).trim().length <= maxLength) {
+        current = (current + ' ' + part).trim();
+        return;
+      }
+
+      if (current) {
+        chunks.push(current);
+      }
+
+      if (part.length <= maxLength) {
+        current = part;
+        return;
+      }
+
+      let start = 0;
+      while (start < part.length) {
+        const slice = part.slice(start, start + maxLength).trim();
+        if (slice) chunks.push(slice);
+        start += maxLength;
+      }
+      current = '';
+    });
+
+    if (current) chunks.push(current);
+    return chunks;
+  };
+
+  const pickVoice = () => {
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices.length) return null;
+    return (
+      voices.find((v) => /^en(-|_)/i.test(v.lang)) ||
+      voices.find((v) => /english/i.test(v.name)) ||
+      voices[0]
+    );
+  };
+
+  const speakNextChunk = () => {
+    if (!activeButton || !utteranceQueue.length) {
+      stopSpeech();
+      return;
+    }
+
+    const text = utteranceQueue.shift();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    utterance.lang = selectedVoice?.lang || (document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US');
+    if (selectedVoice) utterance.voice = selectedVoice;
+    utterance.onend = speakNextChunk;
+    utterance.onerror = stopSpeech;
+
+    window.speechSynthesis.speak(utterance);
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    }
+  };
+
   const startSpeech = (button) => {
     const selector = button.getAttribute('data-tts-target') || '#main-content';
     const text = getReadableText(selector);
     if (!text) return;
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 1;
-    utterance.pitch = 1;
-    utterance.lang = document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US';
-    utterance.onend = stopSpeech;
-    utterance.onerror = stopSpeech;
-
     activeButton = button;
-    activeUtterance = utterance;
     setButtonState(button, true);
-    window.speechSynthesis.speak(utterance);
+    selectedVoice = pickVoice();
+    utteranceQueue = splitIntoChunks(text);
+    speakNextChunk();
   };
 
   const initTTS = () => {
     const buttons = document.querySelectorAll('.tts-toggle');
+    if (!buttons.length) return;
+
+    selectedVoice = pickVoice();
+    window.speechSynthesis.addEventListener('voiceschanged', () => {
+      selectedVoice = pickVoice();
+    });
+
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
         if (activeButton === button && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
