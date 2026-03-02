@@ -123,6 +123,7 @@
         console.log('🧭 Qibla direction:', data.data.qibla);
         updatePrayerDisplay();
         updateHijriDate();
+        updateQiblaInfo();
         scheduleReminders();
       } else {
         throw new Error(`API error: ${data.message || data.status}`);
@@ -282,8 +283,9 @@
     let html = '<div class="prayer-times-widget">';
     html += '<h3>🕌 Today\'s Prayers</h3>';
     html += '<div class="location-status">';
-    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="ip-location" class="ip-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: white; cursor: pointer; display: none;">� IP Location</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">� Try Location</button> <button id="timezone-location" class="timezone-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--secondary); border-radius: 4px; background: var(--secondary); color: white; cursor: pointer; display: none;">🕐 Timezone</button></p>';
+    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Change City</button> <button id="ip-location" class="ip-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--accent); border-radius: 4px; background: var(--accent); color: white; cursor: pointer; display: none;">🌐 IP Location</button> <button id="try-location" class="try-location-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer; display: none;">🎯 Try Location</button> <button id="timezone-location" class="timezone-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--secondary); border-radius: 4px; background: var(--secondary); color: white; cursor: pointer; display: none;">🕐 Timezone</button></p>';
     html += '<div id="hijri-date" style="margin-top: 5px; font-size: 14px; color: var(--text-light);"></div>';
+    html += '<div id="qibla-info" style="margin-top: 5px; font-size: 14px; color: var(--text-light);"></div>';
     html += '<div id="manual-location-form" style="display: none; margin-top: 10px; padding: 10px; background: var(--neutral-light); border-radius: 6px;">';
     html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Enter your city name:</p>';
     html += '<div style="display: flex; gap: 10px; align-items: center;">';
@@ -563,6 +565,7 @@
         console.log('📅 Hijri date:', data.data.date.hijri);
         updatePrayerDisplay();
         updateHijriDate();
+        updateQiblaInfo();
         scheduleReminders();
       } else {
         throw new Error(`API error: ${data.message || data.status}`);
@@ -652,6 +655,25 @@
     } catch (error) {
       console.log('❌ Timezone location detection failed:', error);
       return null;
+    }
+  }
+
+  // Update Qibla direction display
+  function updateQiblaInfo() {
+    const qiblaElement = document.getElementById('qibla-info');
+    if (qiblaElement && apiData && apiData.qibla) {
+      const qibla = apiData.qibla;
+      const direction = qibla.direction.degrees;
+      const distance = qibla.distance.value;
+      const unit = qibla.distance.unit;
+      
+      // Convert degrees to compass direction
+      const compassDirections = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+      const index = Math.round(direction / 22.5) % 16;
+      const compassDir = compassDirections[index];
+      
+      const qiblaText = `🧭 Qibla: ${direction.toFixed(1)}° ${compassDir} (${distance.toFixed(0)} ${unit} to Kaaba)`;
+      qiblaElement.innerHTML = qiblaText;
     }
   }
 
