@@ -336,3 +336,60 @@ window.toggleItem = function (element) {
     init();
   }
 })();
+
+// Custom PWA install prompt button
+(function() {
+  let deferredPrompt = null;
+  let installBtn = null;
+
+  const createInstallButton = () => {
+    if (installBtn) return installBtn;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'install-app-btn';
+    btn.textContent = 'Install App';
+    btn.hidden = true;
+    btn.setAttribute('aria-label', 'Install this app');
+    document.body.appendChild(btn);
+    installBtn = btn;
+    return btn;
+  };
+
+  const showInstallButton = () => {
+    const btn = createInstallButton();
+    btn.hidden = false;
+  };
+
+  const hideInstallButton = () => {
+    if (installBtn) {
+      installBtn.hidden = true;
+    }
+  };
+
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+    showInstallButton();
+  });
+
+  window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    hideInstallButton();
+  });
+
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    hideInstallButton();
+    return;
+  }
+
+  const btn = createInstallButton();
+  btn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const choice = await deferredPrompt.userChoice;
+    if (choice && choice.outcome === 'accepted') {
+      hideInstallButton();
+    }
+    deferredPrompt = null;
+  });
+})();
