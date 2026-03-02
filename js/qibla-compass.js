@@ -311,6 +311,9 @@
     html += '</div>';
     html += '</div>';
     
+    // Debug: Add test element to verify HTML is working
+    html += '<div style="background: red; color: white; padding: 5px; margin: 10px 0;">DEBUG: Needles should be visible above</div>';
+    
     // Direction info
     html += '<div class="qibla-info">';
     html += '<div class="info-row">';

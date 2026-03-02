@@ -1572,6 +1572,7 @@ footer p {
   position: relative;
   box-shadow: 0 4px 16px rgba(44, 56, 50, 0.1);
   transition: transform 0.2s ease;
+  overflow: visible;
 }
 
 .compass-circle:hover {
@@ -1639,10 +1640,11 @@ footer p {
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 18px solid #e74c3c;
-  z-index: 10;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 20px solid #e74c3c;
+  z-index: 100;
+  background: #e74c3c;
 }
 
 .needle-south {
@@ -1652,10 +1654,11 @@ footer p {
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 18px solid #34495e;
-  z-index: 10;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 20px solid #34495e;
+  z-index: 100;
+  background: #34495e;
 }
 
 .needle-qibla {
@@ -1663,12 +1666,13 @@ footer p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 4px;
-  height: 40px;
-  background: linear-gradient(to top, transparent, #27ae60);
-  border-radius: 2px;
-  box-shadow: 0 0 8px rgba(39, 174, 96, 0.6);
-  z-index: 15;
+  width: 6px;
+  height: 45px;
+  background: linear-gradient(to top, #27ae60, #27ae60);
+  border-radius: 3px;
+  box-shadow: 0 0 15px rgba(39, 174, 96, 0.8);
+  z-index: 105;
+  border: 2px solid #27ae60;
 }
 
 .compass-markings {

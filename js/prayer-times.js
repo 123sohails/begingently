@@ -82,20 +82,20 @@
             return;
           }
           // If granted or prompt, proceed with location request
-          requestLocationWithTimeout(fallbackLocation);
+          requestLocationWithTimeout(fallbackLocation, resolve);
         }).catch(() => {
           // Permissions API not supported, proceed anyway
-          requestLocationWithTimeout(fallbackLocation);
+          requestLocationWithTimeout(fallbackLocation, resolve);
         });
       } else {
         // Permissions API not supported, proceed directly
-        requestLocationWithTimeout(fallbackLocation);
+        requestLocationWithTimeout(fallbackLocation, resolve);
       }
     });
   }
 
   // Request location with timeout
-  function requestLocationWithTimeout(fallbackLocation) {
+  function requestLocationWithTimeout(fallbackLocation, resolve) {
     console.log('Requesting user location...');
     
     // Set timeout for location request (5 seconds)
