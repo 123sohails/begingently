@@ -378,18 +378,45 @@
   </footer>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   <script>
-    // Fix Quran page TTS by forcing user interaction and speech start
+    // Force TTS initialization for Quran page
     document.addEventListener('DOMContentLoaded', function() {
-      const ttsButton = document.querySelector('.tts-toggle');
-      if (ttsButton) {
-        ttsButton.addEventListener('click', function() {
-          // Force speech synthesis to start on user interaction
-          if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel(); // Cancel any existing speech
-            window.speechSynthesis.resume(); // Resume on user interaction
-          }
-        });
-      }
+      console.log('Quran page: DOM loaded');
+      
+      // Wait a bit for main.js to load
+      setTimeout(() => {
+        const ttsButton = document.querySelector('.tts-toggle');
+        console.log('Quran page: TTS button found:', !!ttsButton);
+        
+        if (ttsButton) {
+          // Remove any existing listeners
+          const newButton = ttsButton.cloneNode(true);
+          ttsButton.parentNode.replaceChild(newButton, ttsButton);
+          
+          // Add fresh event listener
+          newButton.addEventListener('click', function(e) {
+            console.log('Quran page: TTS button clicked!');
+            e.preventDefault();
+            
+            // Force speech synthesis on user interaction
+            if ('speechSynthesis' in window) {
+              window.speechSynthesis.cancel();
+              window.speechSynthesis.resume();
+              
+              // Try to trigger the main TTS function
+              if (typeof startSpeech === 'function') {
+                startSpeech(newButton);
+              } else {
+                // Fallback: manual TTS trigger
+                console.log('Quran page: Manual TTS trigger');
+                const event = new Event('click');
+                newButton.dispatchEvent(event);
+              }
+            }
+          });
+          
+          console.log('Quran page: TTS event listener attached');
+        }
+      }, 1500);
     });
   </script>
   <script src="../js/main.js?v=20260304"></script>
