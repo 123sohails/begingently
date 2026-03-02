@@ -71,3 +71,74 @@ window.toggleItem = function (element) {
     element.classList.add('expanded');
   }
 };
+
+// Basic text-to-speech controls for supported browsers
+(function() {
+  if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+    return;
+  }
+
+  let activeButton = null;
+  let activeUtterance = null;
+
+  const setButtonState = (button, isPlaying) => {
+    if (!button) return;
+    button.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+    button.textContent = isPlaying ? 'Stop audio' : 'Listen to this page';
+  };
+
+  const stopSpeech = () => {
+    window.speechSynthesis.cancel();
+    setButtonState(activeButton, false);
+    activeButton = null;
+    activeUtterance = null;
+  };
+
+  const getReadableText = (selector) => {
+    const target = document.querySelector(selector || '#main-content');
+    if (!target) return '';
+    const clone = target.cloneNode(true);
+    clone.querySelectorAll('script, style, nav, footer, button, .skip-link').forEach((el) => el.remove());
+    return clone.textContent.replace(/\s+/g, ' ').trim();
+  };
+
+  const startSpeech = (button) => {
+    const selector = button.getAttribute('data-tts-target') || '#main-content';
+    const text = getReadableText(selector);
+    if (!text) return;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    utterance.lang = document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US';
+    utterance.onend = stopSpeech;
+    utterance.onerror = stopSpeech;
+
+    activeButton = button;
+    activeUtterance = utterance;
+    setButtonState(button, true);
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const initTTS = () => {
+    const buttons = document.querySelectorAll('.tts-toggle');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (activeButton === button && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
+          stopSpeech();
+          return;
+        }
+        stopSpeech();
+        startSpeech(button);
+      });
+    });
+  };
+
+  window.addEventListener('beforeunload', stopSpeech);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTTS);
+  } else {
+    initTTS();
+  }
+})();
