@@ -27,12 +27,19 @@
 
   // Get user location
   async function getUserLocation() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       // Default to India location
       const fallbackLocation = { lat: 28.6139, lon: 77.2090 }; // New Delhi
       
       if (!navigator.geolocation) {
         console.log('Geolocation not supported, using India fallback');
+        resolve(fallbackLocation);
+        return;
+      }
+
+      // Check if HTTPS (required for geolocation in most browsers)
+      if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+        console.log('Geolocation requires HTTPS, using India fallback');
         resolve(fallbackLocation);
         return;
       }
@@ -47,19 +54,33 @@
           clearTimeout(timeoutId);
           const location = {
             lat: position.coords.latitude,
-            lon: position.coords.longitude
+            lon: position.coords.longitude,
+            accuracy: position.coords.accuracy
           };
           console.log('Location detected for Qibla:', location);
           resolve(location);
         },
         (error) => {
           clearTimeout(timeoutId);
-          console.log('Location error for Qibla:', error.message, 'using India fallback');
+          let errorType = 'Unknown error';
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorType = 'Permission denied';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorType = 'Position unavailable';
+              break;
+            case error.TIMEOUT:
+              errorType = 'Request timeout';
+              break;
+          }
+          console.log('Location error for Qibla (' + errorType + '):', error.message, 'using India fallback');
           resolve(fallbackLocation);
         },
         {
           timeout: 5000,
-          enableHighAccuracy: true
+          enableHighAccuracy: true,
+          maximumAge: 60000 // Accept cached location up to 1 minute old
         }
       );
     });
@@ -139,6 +160,8 @@
 
   // Start compass tracking
   function startCompassTracking() {
+    console.log('Starting compass tracking...');
+    
     if (!window.DeviceOrientationEvent) {
       console.log('Device orientation not supported - showing static compass');
       updateCompassDisplay();
@@ -147,6 +170,7 @@
 
     // Request permission for iOS 13+
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      console.log('Requesting iOS orientation permission...');
       DeviceOrientationEvent.requestPermission()
         .then(response => {
           if (response === 'granted') {
@@ -164,9 +188,15 @@
         });
     } else {
       // Non-iOS 13+ devices
+      console.log('Adding deviceorientation listener for non-iOS device');
       isTracking = true;
       window.addEventListener('deviceorientation', handleOrientation);
-      console.log('Device orientation tracking started');
+      
+      // Also try absolute orientation if available
+      if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent !== 'undefined') {
+        window.addEventListener('deviceorientationabsolute', handleOrientation);
+        console.log('Added deviceorientationabsolute listener');
+      }
     }
   }
 
@@ -179,10 +209,42 @@
 
   // Handle device orientation
   function handleOrientation(event) {
-    if (event.alpha !== null) {
-      compassHeading = event.alpha;
-      updateCompassDisplay();
+    console.log('Device orientation event:', event);
+    
+    // Try different orientation properties for better compatibility
+    let heading = null;
+    
+    if (event.alpha !== null && event.alpha !== undefined) {
+      heading = event.alpha;
+      console.log('Using alpha:', heading);
+    } else if (event.webkitCompassHeading !== null && event.webkitCompassHeading !== undefined) {
+      heading = event.webkitCompassHeading;
+      console.log('Using webkitCompassHeading:', heading);
     }
+    
+    if (heading !== null) {
+      // Smooth the heading changes to reduce jitter
+      const smoothedHeading = smoothHeading(heading);
+      compassHeading = smoothedHeading;
+      console.log('Compass heading updated (smoothed):', compassHeading);
+      updateCompassDisplay();
+    } else {
+      console.log('No heading data available in orientation event');
+    }
+  }
+
+  // Smooth heading changes to reduce jitter
+  let lastHeading = 0;
+  function smoothHeading(newHeading) {
+    const diff = Math.abs(newHeading - lastHeading);
+    const threshold = 2; // Only update if change is significant
+    
+    if (diff > threshold || diff < 360 - threshold) {
+      lastHeading = newHeading;
+      return newHeading;
+    }
+    
+    return lastHeading;
   }
 
   // Update compass display
@@ -210,7 +272,7 @@
     // Manual compass display
     html += '<div class="compass-container">';
     html += '<div class="compass-circle">';
-    html += '<div class="compass-needle" style="transform: rotate(' + relativeQibla + 'deg)">';
+    html += '<div class="compass-needle" style="transform: rotate(' + relativeQibla.toFixed(1) + 'deg)">';
     html += '<div class="needle-north"></div>';
     html += '<div class="needle-south"></div>';
     html += '<div class="needle-qibla"></div>';

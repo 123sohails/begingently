@@ -63,6 +63,13 @@
         return;
       }
 
+      // Check if HTTPS (required for geolocation in most browsers)
+      if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+        console.log('Geolocation requires HTTPS, using India fallback');
+        resolve(fallbackLocation);
+        return;
+      }
+      
       // Set timeout for location request (5 seconds)
       const timeoutId = setTimeout(() => {
         console.log('Location request timeout, using India fallback');
@@ -74,19 +81,33 @@
           clearTimeout(timeoutId);
           const location = {
             lat: position.coords.latitude,
-            lon: position.coords.longitude
+            lon: position.coords.longitude,
+            accuracy: position.coords.accuracy
           };
           console.log('Location detected:', location);
           resolve(location);
         },
         (error) => {
           clearTimeout(timeoutId);
-          console.log('Location error:', error.message, 'using India fallback');
+          let errorType = 'Unknown error';
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorType = 'Permission denied';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorType = 'Position unavailable';
+              break;
+            case error.TIMEOUT:
+              errorType = 'Request timeout';
+              break;
+          }
+          console.log('Location error (' + errorType + '):', error.message, 'using India fallback');
           resolve(fallbackLocation);
         },
         {
           timeout: 5000,
-          enableHighAccuracy: false
+          enableHighAccuracy: true,
+          maximumAge: 60000 // Accept cached location up to 1 minute old
         }
       );
     });

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Test</title>
+</head>
+<body>
+    <h1>Geolocation Test</h1>
+    <button onclick="testLocation()">Test My Location</button>
+    <div id="result"></div>
+
+    <script>
+        function testLocation() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing location...</p>';
+            
+            if (!navigator.geolocation) {
+                resultDiv.innerHTML = '<p style="color: red;">❌ Geolocation not supported</p>';
+                return;
+            }
+            
+            const options = {
+                timeout: 5000,
+                enableHighAccuracy: true,
+                maximumAge: 0
+            };
+            
+            console.log('Requesting location with options:', options);
+            
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const location = {
+                        lat: position.coords.latitude,
+                        lon: position.coords.longitude,
+                        accuracy: position.coords.accuracy,
+                        altitude: position.coords.altitude,
+                        altitudeAccuracy: position.coords.altitudeAccuracy,
+                        heading: position.coords.heading,
+                        speed: position.coords.speed
+                    };
+                    
+                    console.log('Location success:', location);
+                    resultDiv.innerHTML = `
+                        <p style="color: green;">✅ Location Found!</p>
+                        <p><strong>Latitude:</strong> ${location.lat}</p>
+                        <p><strong>Longitude:</strong> ${location.lon}</p>
+                        <p><strong>Accuracy:</strong> ${location.accuracy} meters</p>
+                        <p><strong>Altitude:</strong> ${location.altitude || 'N/A'}</p>
+                        <p><strong>Heading:</strong> ${location.heading || 'N/A'}</p>
+                        <p><strong>Speed:</strong> ${location.speed || 'N/A'}</p>
+                    `;
+                },
+                (error) => {
+                    console.log('Location error:', error);
+                    let errorMessage = '';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = '❌ Location permission denied';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = '❌ Location information unavailable';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = '❌ Location request timeout';
+                            break;
+                        default:
+                            errorMessage = '❌ Unknown location error';
+                    }
+                    resultDiv.innerHTML = `<p style="color: red;">${errorMessage}</p><p>${error.message}</p>`;
+                },
+                options
+            );
+        }
+    </script>
+</body>
+</html>
