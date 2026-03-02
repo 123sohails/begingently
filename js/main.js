@@ -81,11 +81,12 @@ window.toggleItem = function (element) {
   let activeButton = null;
   let utteranceQueue = [];
   let selectedVoice = null;
+  let selectedLang = 'en-US';
 
   const setButtonState = (button, isPlaying) => {
     if (!button) return;
     button.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
-    button.textContent = isPlaying ? 'Stop audio' : 'Listen to this page';
+    button.textContent = isPlaying ? getLabel('stop') : getLabel('listen');
   };
 
   const stopSpeech = () => {
@@ -101,6 +102,47 @@ window.toggleItem = function (element) {
     const clone = target.cloneNode(true);
     clone.querySelectorAll('script, style, nav, footer, button, .skip-link').forEach((el) => el.remove());
     return clone.textContent.replace(/\s+/g, ' ').trim();
+  };
+
+  const normalizeLang = (value) => {
+    const v = (value || '').toLowerCase();
+    if (v === 'en') return 'en-US';
+    if (v === 'ur') return 'ur-PK';
+    if (v === 'te') return 'te-IN';
+    if (v.startsWith('ur')) return 'ur-PK';
+    if (v.startsWith('te')) return 'te-IN';
+    if (v.startsWith('ar')) return 'ar-SA';
+    return 'en-US';
+  };
+
+  const inferLangFromText = (text) => {
+    if (/[\u0600-\u06FF]/.test(text)) return 'ur-PK';
+    if (/[\u0C00-\u0C7F]/.test(text)) return 'te-IN';
+    return 'en-US';
+  };
+
+  const getPreferredLang = (selector, text) => {
+    const target = document.querySelector(selector || '#main-content');
+    const forcedButtonLang = normalizeLang(activeButton?.getAttribute('data-tts-lang') || '');
+    if (forcedButtonLang !== 'en-US' || (activeButton?.getAttribute('data-tts-lang') || '').toLowerCase().startsWith('en')) {
+      return forcedButtonLang;
+    }
+    const forcedStoredLang = normalizeLang(localStorage.getItem('tts_lang') || '');
+    if (forcedStoredLang !== 'en-US' || (localStorage.getItem('tts_lang') || '').toLowerCase().startsWith('en')) {
+      return forcedStoredLang;
+    }
+    const targetLang = target?.getAttribute('lang') || target?.closest('[lang]')?.getAttribute('lang');
+    const docLang = document.documentElement.getAttribute('lang');
+    const attrLang = normalizeLang(targetLang || docLang || '');
+    if (attrLang !== 'en-US') return attrLang;
+    return inferLangFromText(text || '');
+  };
+
+  const getLabel = (kind) => {
+    const l = selectedLang.toLowerCase();
+    if (l.startsWith('ur')) return kind === 'stop' ? 'آڈیو بند کریں' : 'یہ صفحہ سنیں';
+    if (l.startsWith('te')) return kind === 'stop' ? 'ఆడియో ఆపు' : 'ఈ పేజీ వినండి';
+    return kind === 'stop' ? 'Stop audio' : 'Listen to this page';
   };
 
   const splitIntoChunks = (text, maxLength = 220) => {
@@ -140,11 +182,13 @@ window.toggleItem = function (element) {
     return chunks;
   };
 
-  const pickVoice = () => {
+  const pickVoice = (preferredLang) => {
     const voices = window.speechSynthesis.getVoices();
     if (!voices.length) return null;
+    const base = (preferredLang || 'en-US').split('-')[0].toLowerCase();
     return (
-      voices.find((v) => /^en(-|_)/i.test(v.lang)) ||
+      voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(base)) ||
+      voices.find((v) => v.lang && v.lang.toLowerCase().startsWith('en')) ||
       voices.find((v) => /english/i.test(v.name)) ||
       voices[0]
     );
@@ -160,7 +204,7 @@ window.toggleItem = function (element) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 1;
     utterance.pitch = 1;
-    utterance.lang = selectedVoice?.lang || (document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US');
+    utterance.lang = selectedVoice?.lang || selectedLang;
     if (selectedVoice) utterance.voice = selectedVoice;
     utterance.onend = speakNextChunk;
     utterance.onerror = stopSpeech;
@@ -177,8 +221,9 @@ window.toggleItem = function (element) {
     if (!text) return;
 
     activeButton = button;
+    selectedLang = getPreferredLang(selector, text);
     setButtonState(button, true);
-    selectedVoice = pickVoice();
+    selectedVoice = pickVoice(selectedLang);
     utteranceQueue = splitIntoChunks(text);
     speakNextChunk();
   };
@@ -187,12 +232,15 @@ window.toggleItem = function (element) {
     const buttons = document.querySelectorAll('.tts-toggle');
     if (!buttons.length) return;
 
-    selectedVoice = pickVoice();
+    const baseSelector = buttons[0].getAttribute('data-tts-target') || '#main-content';
+    selectedLang = getPreferredLang(baseSelector, getReadableText(baseSelector));
+    selectedVoice = pickVoice(selectedLang);
     window.speechSynthesis.addEventListener('voiceschanged', () => {
-      selectedVoice = pickVoice();
+      selectedVoice = pickVoice(selectedLang);
     });
 
     buttons.forEach((button) => {
+      setButtonState(button, false);
       button.addEventListener('click', () => {
         if (activeButton === button && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
           stopSpeech();
@@ -205,10 +253,86 @@ window.toggleItem = function (element) {
   };
 
   window.addEventListener('beforeunload', stopSpeech);
+  window.setTtsLanguage = function(lang) {
+    if (!lang) {
+      localStorage.removeItem('tts_lang');
+      selectedLang = 'en-US';
+      selectedVoice = pickVoice(selectedLang);
+      return;
+    }
+    selectedLang = normalizeLang(lang);
+    localStorage.setItem('tts_lang', selectedLang);
+    selectedVoice = pickVoice(selectedLang);
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initTTS);
   } else {
     initTTS();
+  }
+})();
+
+// Register service worker + external link offline handling
+(function() {
+  const offlineUrl = '/offline.html';
+
+  const isExternalLink = (anchor) => {
+    try {
+      const url = new URL(anchor.getAttribute('href'), window.location.href);
+      return url.origin !== window.location.origin;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const annotateExternalLinks = () => {
+    const links = document.querySelectorAll('a[href]');
+    links.forEach((link) => {
+      if (!isExternalLink(link)) return;
+      const label = link.textContent.trim();
+      link.classList.add('external-link');
+      link.setAttribute('data-external', 'true');
+      link.setAttribute('title', 'External link (internet required offline)');
+      link.setAttribute('aria-label', `${label} (external link, internet required offline)`);
+      if (link.getAttribute('target') === '_blank') {
+        const rel = (link.getAttribute('rel') || '').trim();
+        if (!/noopener/i.test(rel) || !/noreferrer/i.test(rel)) {
+          link.setAttribute('rel', `${rel} noopener noreferrer`.trim());
+        }
+      }
+    });
+  };
+
+  const setupOfflineExternalRedirect = () => {
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const link = target.closest('a[href]');
+      if (!link || !isExternalLink(link)) return;
+      if (navigator.onLine) return;
+      event.preventDefault();
+      window.location.href = offlineUrl;
+    });
+  };
+
+  const registerServiceWorker = () => {
+    if (!('serviceWorker' in navigator)) return;
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {
+        // Silent fail: site remains functional without offline cache.
+      });
+    });
+  };
+
+  const init = () => {
+    annotateExternalLinks();
+    setupOfflineExternalRedirect();
+    registerServiceWorker();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();

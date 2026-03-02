@@ -1,0 +1,17 @@
+﻿export const pageKeys = {
+  home: 'home',
+  about: 'about',
+  library: 'library',
+  beliefs: 'beliefs',
+  books: 'books',
+  commonQuestions: 'commonQuestions',
+  hadith: 'hadith',
+  practicing: 'practicing',
+  proofs: 'proofs',
+  prophet: 'prophet',
+  quran: 'quran',
+  resources: 'resources',
+  salah: 'salah',
+  scholarsWebsites: 'scholarsWebsites',
+  starterPlan: 'starterPlan',
+} as const;

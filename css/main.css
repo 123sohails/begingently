@@ -1362,3 +1362,9 @@ footer p {
   line-height: 1.7;
   margin: 0;
 }
+
+.external-link::after {
+  content: " \2197";
+  font-size: 0.88em;
+  opacity: 0.75;
+}
