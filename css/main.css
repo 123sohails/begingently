@@ -1689,6 +1689,33 @@ footer p {
   font-size: 0.9rem;
 }
 
+.api-compass-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.api-compass-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  box-shadow: var(--shadow-elevation);
+}
+
+.compass-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--primary);
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 .loading-qibla {
   text-align: center;
   padding: 2rem;

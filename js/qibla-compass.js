@@ -2,9 +2,8 @@
 (function() {
   'use strict';
 
-  // Kaaba coordinates in Mecca
-  const KAABA_LAT = 21.4225;
-  const KAABA_LON = 39.8262;
+  // API configuration
+  const QIBLA_API = 'https://aladhan.api.islamic.network/v1';
   
   let userLocation = { lat: null, lon: null };
   let qiblaDirection = null;
@@ -16,7 +15,7 @@
   async function initQiblaCompass() {
     try {
       userLocation = await getUserLocation();
-      calculateQibla();
+      await getQiblaFromAPI();
       updateCompassDisplay();
       startCompassTracking();
       console.log('Qibla compass initialized for:', userLocation);
@@ -66,10 +65,47 @@
     });
   }
 
-  // Calculate Qibla direction using the great circle formula
-  function calculateQibla() {
+  // Get Qibla direction from official API
+  async function getQiblaFromAPI() {
+    try {
+      const url = `${QIBLA_API}/qibla/${userLocation.lat}/${userLocation.lon}`;
+      console.log('Fetching Qibla direction from API:', url);
+      
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.code === 200) {
+        qiblaDirection = data.data.direction;
+        console.log('Qibla direction from API:', qiblaDirection.toFixed(1) + '°');
+        
+        // Calculate distance to Kaaba (using our own calculation)
+        distanceToKaaba = calculateDistance(userLocation.lat, userLocation.lon, 21.4225, 39.8262);
+        console.log('Distance to Kaaba:', distanceToKaaba.toFixed(0) + ' km');
+        
+        return true;
+      } else {
+        throw new Error(`API error: ${data.status}`);
+      }
+    } catch (error) {
+      console.log('Error getting Qibla from API:', error);
+      // Fallback to manual calculation
+      calculateQiblaManually();
+      return false;
+    }
+  }
+
+  // Manual Qibla calculation (fallback)
+  function calculateQiblaManually() {
     if (!userLocation.lat || !userLocation.lon) return;
 
+    const KAABA_LAT = 21.4225;
+    const KAABA_LON = 39.8262;
+    
     const lat1 = userLocation.lat * Math.PI / 180;
     const lon1 = userLocation.lon * Math.PI / 180;
     const lat2 = KAABA_LAT * Math.PI / 180;
@@ -77,20 +113,15 @@
 
     const dLon = lon2 - lon1;
     
-    // Calculate Qibla direction
     const y = Math.sin(dLon);
     const x = Math.cos(lat1) * Math.tan(lat2) - Math.sin(lat1) * Math.cos(dLon);
     
     qiblaDirection = Math.atan2(y, x) * 180 / Math.PI;
-    
-    // Normalize to 0-360 degrees
     qiblaDirection = (qiblaDirection + 360) % 360;
     
-    // Calculate distance to Kaaba
     distanceToKaaba = calculateDistance(userLocation.lat, userLocation.lon, KAABA_LAT, KAABA_LON);
     
-    console.log('Qibla direction:', qiblaDirection.toFixed(1) + '°');
-    console.log('Distance to Kaaba:', distanceToKaaba.toFixed(0) + ' km');
+    console.log('Qibla direction (manual calculation):', qiblaDirection.toFixed(1) + '°');
   }
 
   // Calculate distance between two points (Haversine formula)
@@ -153,7 +184,18 @@
     let html = '<div class="qibla-compass-widget">';
     html += '<h3>🧭 Qibla Direction</h3>';
     
-    // Compass display
+    // API Compass Image
+    if (userLocation.lat && userLocation.lon) {
+      const compassImageUrl = `${QIBLA_API}/qibla/${userLocation.lat}/${userLocation.lon}/compass`;
+      html += '<div class="api-compass-container">';
+      html += '<img src="' + compassImageUrl + '" alt="Qibla Compass" class="api-compass-image" />';
+      html += '<div class="compass-overlay">';
+      html += '<div class="compass-text">API Compass</div>';
+      html += '</div>';
+      html += '</div>';
+    }
+    
+    // Manual compass display
     html += '<div class="compass-container">';
     html += '<div class="compass-circle">';
     html += '<div class="compass-needle" style="transform: rotate(' + relativeQibla + 'deg)">';
@@ -218,8 +260,95 @@
   // Initialize on page load
   document.addEventListener('DOMContentLoaded', () => {
     console.log('Qibla Compass: Initializing...');
+    
+    // Test location first
+    testLocationForQibla().then((result) => {
+      console.log('Qibla Compass: Location test result:', result);
+    });
+    
+    // Test Qibla API
+    testQiblaAPI().then((result) => {
+      console.log('Qibla Compass: API test result:', result);
+    });
+    
     initQiblaCompass();
   });
+
+  // Test Qibla API
+  async function testQiblaAPI() {
+    try {
+      console.log('Testing Qibla API...');
+      
+      // Test with Mumbai coordinates
+      const testUrl = `${QIBLA_API}/qibla/19.0760/72.8777`;
+      console.log('Testing Qibla API with URL:', testUrl);
+      
+      const response = await fetch(testUrl);
+      const data = await response.json();
+      
+      console.log('Qibla API Response:', data);
+      
+      if (data.code === 200) {
+        console.log('Qibla API is working! Direction:', data.data.direction.toFixed(1) + '°');
+        return { success: true, direction: data.data.direction };
+      } else {
+        console.log('Qibla API returned error:', data);
+        return { success: false, error: data.status };
+      }
+    } catch (error) {
+      console.log('Qibla API test failed:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // Test location for Qibla
+  async function testLocationForQibla() {
+    try {
+      console.log('Testing location for Qibla compass...');
+      
+      if (!navigator.geolocation) {
+        return { success: false, error: 'Geolocation not supported' };
+      }
+
+      return new Promise((resolve) => {
+        const timeoutId = setTimeout(() => {
+          resolve({ success: false, error: 'Location request timeout', fallback: 'New Delhi' });
+        }, 3000);
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            clearTimeout(timeoutId);
+            const location = {
+              success: true,
+              lat: position.coords.latitude,
+              lon: position.coords.longitude,
+              accuracy: position.coords.accuracy
+            };
+            console.log('Qibla location test successful:', location);
+            resolve(location);
+          },
+          (error) => {
+            clearTimeout(timeoutId);
+            const errorInfo = {
+              success: false,
+              error: error.message,
+              code: error.code,
+              fallback: 'New Delhi'
+            };
+            console.log('Qibla location test failed:', errorInfo);
+            resolve(errorInfo);
+          },
+          {
+            timeout: 3000,
+            enableHighAccuracy: true
+          }
+        );
+      });
+    } catch (error) {
+      console.log('Qibla location test exception:', error);
+      return { success: false, error: error.message, fallback: 'New Delhi' };
+    }
+  }
 
   // Make functions globally available
   window.qiblaCompassAPI = {

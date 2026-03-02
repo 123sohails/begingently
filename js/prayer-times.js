@@ -303,6 +303,11 @@
       }
     });
     
+    // Test location
+    testLocation().then((location) => {
+      console.log('Prayer Times: Location test result:', location);
+    });
+    
     // Request notification permission
     requestNotificationPermission();
     
@@ -312,6 +317,54 @@
     // Update every minute
     setInterval(updatePrayerDisplay, 60000);
   });
+
+  // Test location detection
+  async function testLocation() {
+    try {
+      console.log('Testing location detection...');
+      
+      if (!navigator.geolocation) {
+        return { success: false, error: 'Geolocation not supported' };
+      }
+
+      return new Promise((resolve) => {
+        const timeoutId = setTimeout(() => {
+          resolve({ success: false, error: 'Location request timeout' });
+        }, 3000);
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            clearTimeout(timeoutId);
+            const location = {
+              success: true,
+              lat: position.coords.latitude,
+              lon: position.coords.longitude,
+              accuracy: position.coords.accuracy
+            };
+            console.log('Location test successful:', location);
+            resolve(location);
+          },
+          (error) => {
+            clearTimeout(timeoutId);
+            const errorInfo = {
+              success: false,
+              error: error.message,
+              code: error.code
+            };
+            console.log('Location test failed:', errorInfo);
+            resolve(errorInfo);
+          },
+          {
+            timeout: 3000,
+            enableHighAccuracy: false
+          }
+        );
+      });
+    } catch (error) {
+      console.log('Location test exception:', error);
+      return { success: false, error: error.message };
+    }
+  }
 
   // Make functions globally available
   window.prayerTimesAPI = {
