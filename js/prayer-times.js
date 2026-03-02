@@ -66,51 +66,95 @@
       // Check if HTTPS (required for geolocation in most browsers)
       if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
         console.log('Geolocation requires HTTPS, using India fallback');
+        showLocationPermissionMessage('HTTPS required for location access');
         resolve(fallbackLocation);
         return;
       }
-      
-      // Set timeout for location request (5 seconds)
-      const timeoutId = setTimeout(() => {
-        console.log('Location request timeout, using India fallback');
-        resolve(fallbackLocation);
-      }, 5000);
 
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          clearTimeout(timeoutId);
-          const location = {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-            accuracy: position.coords.accuracy
-          };
-          console.log('Location detected:', location);
-          resolve(location);
-        },
-        (error) => {
-          clearTimeout(timeoutId);
-          let errorType = 'Unknown error';
-          switch(error.code) {
-            case error.PERMISSION_DENIED:
-              errorType = 'Permission denied';
-              break;
-            case error.POSITION_UNAVAILABLE:
-              errorType = 'Position unavailable';
-              break;
-            case error.TIMEOUT:
-              errorType = 'Request timeout';
-              break;
+      // Check current permission status
+      if ('permissions' in navigator) {
+        navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+          console.log('Location permission state:', result.state);
+          if (result.state === 'denied') {
+            console.log('Location permission denied, using India fallback');
+            showLocationPermissionMessage('Location permission denied. Using New Delhi location.');
+            resolve(fallbackLocation);
+            return;
           }
-          console.log('Location error (' + errorType + '):', error.message, 'using India fallback');
-          resolve(fallbackLocation);
-        },
-        {
-          timeout: 5000,
-          enableHighAccuracy: true,
-          maximumAge: 60000 // Accept cached location up to 1 minute old
-        }
-      );
+          // If granted or prompt, proceed with location request
+          requestLocationWithTimeout(fallbackLocation);
+        }).catch(() => {
+          // Permissions API not supported, proceed anyway
+          requestLocationWithTimeout(fallbackLocation);
+        });
+      } else {
+        // Permissions API not supported, proceed directly
+        requestLocationWithTimeout(fallbackLocation);
+      }
     });
+  }
+
+  // Request location with timeout
+  function requestLocationWithTimeout(fallbackLocation) {
+    console.log('Requesting user location...');
+    
+    // Set timeout for location request (5 seconds)
+    const timeoutId = setTimeout(() => {
+      console.log('Location request timeout, using India fallback');
+      showLocationPermissionMessage('Location request timeout. Using New Delhi location.');
+      resolve(fallbackLocation);
+    }, 5000);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        clearTimeout(timeoutId);
+        const location = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+          accuracy: position.coords.accuracy
+        };
+        console.log('Location detected:', location);
+        showLocationPermissionMessage('✅ Location detected successfully!');
+        resolve(location);
+      },
+      (error) => {
+        clearTimeout(timeoutId);
+        let errorType = 'Unknown error';
+        let userMessage = 'Location access failed. Using New Delhi location.';
+        
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            errorType = 'Permission denied';
+            userMessage = 'Location permission denied. Using New Delhi location.';
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorType = 'Position unavailable';
+            userMessage = 'Location unavailable. Using New Delhi location.';
+            break;
+          case error.TIMEOUT:
+            errorType = 'Request timeout';
+            userMessage = 'Location request timeout. Using New Delhi location.';
+            break;
+        }
+        console.log('Location error (' + errorType + '):', error.message, 'using India fallback');
+        showLocationPermissionMessage(userMessage);
+        resolve(fallbackLocation);
+      },
+      {
+        timeout: 5000,
+        enableHighAccuracy: true,
+        maximumAge: 60000 // Accept cached location up to 1 minute old
+      }
+    );
+  }
+
+  // Show location permission message to user
+  function showLocationPermissionMessage(message) {
+    const statusElement = document.getElementById('location-status-text');
+    if (statusElement) {
+      statusElement.innerHTML = message;
+      statusElement.style.color = message.includes('✅') ? '#27ae60' : '#f39c12';
+    }
   }
 
   // Load default prayer times (fallback)

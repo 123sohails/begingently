@@ -44,46 +44,71 @@
         return;
       }
 
-      const timeoutId = setTimeout(() => {
-        console.log('Location request timeout, using India fallback');
-        resolve(fallbackLocation);
-      }, 5000);
-
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          clearTimeout(timeoutId);
-          const location = {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-            accuracy: position.coords.accuracy
-          };
-          console.log('Location detected for Qibla:', location);
-          resolve(location);
-        },
-        (error) => {
-          clearTimeout(timeoutId);
-          let errorType = 'Unknown error';
-          switch(error.code) {
-            case error.PERMISSION_DENIED:
-              errorType = 'Permission denied';
-              break;
-            case error.POSITION_UNAVAILABLE:
-              errorType = 'Position unavailable';
-              break;
-            case error.TIMEOUT:
-              errorType = 'Request timeout';
-              break;
+      // Check current permission status
+      if ('permissions' in navigator) {
+        navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+          console.log('Qibla - Location permission state:', result.state);
+          if (result.state === 'denied') {
+            console.log('Qibla - Location permission denied, using India fallback');
+            resolve(fallbackLocation);
+            return;
           }
-          console.log('Location error for Qibla (' + errorType + '):', error.message, 'using India fallback');
-          resolve(fallbackLocation);
-        },
-        {
-          timeout: 5000,
-          enableHighAccuracy: true,
-          maximumAge: 60000 // Accept cached location up to 1 minute old
-        }
-      );
+          // If granted or prompt, proceed with location request
+          requestQiblaLocationWithTimeout(fallbackLocation);
+        }).catch(() => {
+          // Permissions API not supported, proceed anyway
+          requestQiblaLocationWithTimeout(fallbackLocation);
+        });
+      } else {
+        // Permissions API not supported, proceed directly
+        requestQiblaLocationWithTimeout(fallbackLocation);
+      }
     });
+  }
+
+  // Request Qibla location with timeout
+  function requestQiblaLocationWithTimeout(fallbackLocation) {
+    console.log('Requesting user location for Qibla...');
+    
+    const timeoutId = setTimeout(() => {
+      console.log('Qibla location request timeout, using India fallback');
+      resolve(fallbackLocation);
+    }, 5000);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        clearTimeout(timeoutId);
+        const location = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+          accuracy: position.coords.accuracy
+        };
+        console.log('Location detected for Qibla:', location);
+        resolve(location);
+      },
+      (error) => {
+        clearTimeout(timeoutId);
+        let errorType = 'Unknown error';
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            errorType = 'Permission denied';
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorType = 'Position unavailable';
+            break;
+          case error.TIMEOUT:
+            errorType = 'Request timeout';
+            break;
+        }
+        console.log('Location error for Qibla (' + errorType + '):', error.message, 'using India fallback');
+        resolve(fallbackLocation);
+      },
+      {
+        timeout: 5000,
+        enableHighAccuracy: true,
+        maximumAge: 60000 // Accept cached location up to 1 minute old
+      }
+    );
   }
 
   // Get Qibla direction from official API
