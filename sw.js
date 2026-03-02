@@ -1,4 +1,4 @@
-const CACHE_NAME = 'begingently-v2';
+const CACHE_NAME = 'begingently-v3';
 const OFFLINE_URL = '/offline.html';
 
 const CORE_ASSETS = [
@@ -79,6 +79,31 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (isSameOrigin) {
+    const isDynamicContent =
+      request.destination === 'document' ||
+      request.destination === 'script' ||
+      request.destination === 'style' ||
+      url.pathname.endsWith('.html') ||
+      url.pathname.endsWith('.js') ||
+      url.pathname.endsWith('.css');
+
+    if (isDynamicContent) {
+      // Network-first for pages/scripts/styles to avoid stale deploys.
+      event.respondWith(
+        fetch(request)
+          .then((response) => {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+            return response;
+          })
+          .catch(async () => {
+            const cached = await caches.match(request);
+            return cached || caches.match(OFFLINE_URL);
+          })
+      );
+      return;
+    }
+
     event.respondWith(
       caches.match(request).then((cached) => {
         if (cached) return cached;
