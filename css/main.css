@@ -1639,9 +1639,10 @@ footer p {
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 12px solid #e74c3c;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 15px solid #e74c3c;
+  z-index: 10;
 }
 
 .needle-south {
@@ -1651,9 +1652,10 @@ footer p {
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 12px solid #34495e;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 15px solid #34495e;
+  z-index: 10;
 }
 
 .needle-qibla {
@@ -1661,11 +1663,12 @@ footer p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 2px;
-  height: 30px;
+  width: 3px;
+  height: 35px;
   background: linear-gradient(to top, transparent, #27ae60);
-  border-radius: 1px;
-  box-shadow: 0 0 3px rgba(39, 174, 96, 0.3);
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(39, 174, 96, 0.5);
+  z-index: 15;
 }
 
 .compass-markings {
