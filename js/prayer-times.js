@@ -14,8 +14,15 @@
   // Initialize prayer times
   async function initPrayerTimes() {
     try {
+      console.log('🕌 Initializing prayer times...');
+      showLocationStatus('Detecting your location...');
+      
       // Try to get user location with timeout
       const location = await getUserLocationWithTimeout();
+      console.log('📍 Location obtained:', location);
+      
+      // Update location status in UI
+      updateLocationStatus({ success: true, lat: location.lat, lon: location.lon });
       
       // Format date as DD-MM-YYYY (API requirement)
       const today = new Date();
@@ -26,7 +33,8 @@
       
       const url = `${PRAYER_API}/timings/${formattedDate}?latitude=${location.lat}&longitude=${location.lon}&method=${CALCULATION_METHOD}`;
       
-      console.log('Fetching prayer times for:', location.lat, location.lon, 'Date:', formattedDate);
+      console.log('🌐 Fetching prayer times for:', location.lat, location.lon, 'Date:', formattedDate);
+      console.log('🔗 API URL:', url);
       
       const response = await fetch(url);
       
@@ -38,14 +46,14 @@
       
       if (data.code === 200) {
         prayerTimes = data.data.timings;
+        console.log('✅ Prayer times loaded successfully:', prayerTimes);
         updatePrayerDisplay();
         scheduleReminders();
-        console.log('Prayer times loaded successfully:', prayerTimes);
       } else {
         throw new Error(`API error: ${data.status}`);
       }
     } catch (error) {
-      console.log('Error loading prayer times:', error);
+      console.log('❌ Error loading prayer times:', error);
       // Always fallback to default times
       loadDefaultPrayerTimes();
     }
@@ -64,7 +72,7 @@
       }
 
       // Check if HTTPS (required for geolocation in most browsers)
-      if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+      if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
         console.log('Geolocation requires HTTPS, using India fallback');
         showLocationPermissionMessage('HTTPS required for location access');
         resolve(fallbackLocation);
@@ -219,6 +227,18 @@
 
     let html = '<div class="prayer-times-widget">';
     html += '<h3>🕌 Today\'s Prayers</h3>';
+    html += '<div class="location-status">';
+    html += '<p>📍 <strong>Location:</strong> <span id="current-location">Detecting...</span> <button id="refresh-location" class="refresh-btn" style="margin-left: 10px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">🔄 Refresh</button> <button id="manual-location" class="manual-btn" style="margin-left: 5px; padding: 2px 8px; font-size: 12px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">📍 Set Location</button></p>';
+    html += '<div id="manual-location-form" style="display: none; margin-top: 10px; padding: 10px; background: var(--neutral-light); border-radius: 6px;">';
+    html += '<p style="margin: 0 0 8px 0; font-size: 14px;">Enter your coordinates (decimal degrees):</p>';
+    html += '<div style="display: flex; gap: 10px; align-items: center;">';
+    html += '<input type="number" id="lat-input" placeholder="Latitude" step="0.0001" min="-90" max="90" style="padding: 4px; border: 1px solid var(--sand); border-radius: 4px; width: 100px;">';
+    html += '<input type="number" id="lon-input" placeholder="Longitude" step="0.0001" min="-180" max="180" style="padding: 4px; border: 1px solid var(--sand); border-radius: 4px; width: 100px;">';
+    html += '<button id="set-manual-location" style="padding: 4px 12px; border: 1px solid var(--primary); border-radius: 4px; background: var(--primary); color: white; cursor: pointer;">Set</button>';
+    html += '<button id="cancel-manual-location" style="padding: 4px 8px; border: 1px solid var(--sand); border-radius: 4px; background: var(--neutral-light); cursor: pointer;">Cancel</button>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
     html += '<div class="prayer-times-list">';
 
     prayers.forEach(prayer => {
@@ -244,6 +264,98 @@
 
     html += '</div>';
     container.innerHTML = html;
+    
+    // Add refresh button event listener
+    const refreshBtn = document.getElementById('refresh-location');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => {
+        console.log('🔄 Manual location refresh triggered');
+        refreshBtn.textContent = '🔄 Refreshing...';
+        refreshBtn.disabled = true;
+        initPrayerTimes().then(() => {
+          refreshBtn.textContent = '🔄 Refresh';
+          refreshBtn.disabled = false;
+        });
+      });
+    }
+    
+    // Add manual location button event listener
+    const manualLocationBtn = document.getElementById('manual-location');
+    const manualLocationForm = document.getElementById('manual-location-form');
+    const setManualBtn = document.getElementById('set-manual-location');
+    const cancelManualBtn = document.getElementById('cancel-manual-location');
+    
+    if (manualLocationBtn && manualLocationForm) {
+      manualLocationBtn.addEventListener('click', () => {
+        manualLocationForm.style.display = manualLocationForm.style.display === 'none' ? 'block' : 'none';
+      });
+    }
+    
+    if (setManualBtn) {
+      setManualBtn.addEventListener('click', () => {
+        const latInput = document.getElementById('lat-input');
+        const lonInput = document.getElementById('lon-input');
+        
+        if (latInput && lonInput) {
+          const lat = parseFloat(latInput.value);
+          const lon = parseFloat(lonInput.value);
+          
+          if (!isNaN(lat) && !isNaN(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180) {
+            console.log('📍 Manual location set:', { lat, lon });
+            const manualLocation = { lat, lon };
+            updateLocationStatus({ success: true, lat, lon });
+            loadPrayerTimesForLocation(manualLocation);
+            manualLocationForm.style.display = 'none';
+          } else {
+            alert('Please enter valid coordinates (Latitude: -90 to 90, Longitude: -180 to 180)');
+          }
+        }
+      });
+    }
+    
+    if (cancelManualBtn) {
+      cancelManualBtn.addEventListener('click', () => {
+        manualLocationForm.style.display = 'none';
+      });
+    }
+  }
+
+  // Load prayer times for specific location
+  async function loadPrayerTimesForLocation(location) {
+    try {
+      console.log('🌐 Loading prayer times for manual location:', location);
+      
+      // Format date as DD-MM-YYYY (API requirement)
+      const today = new Date();
+      const day = String(today.getDate()).padStart(2, '0');
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const year = today.getFullYear();
+      const formattedDate = `${day}-${month}-${year}`;
+      
+      const url = `${PRAYER_API}/timings/${formattedDate}?latitude=${location.lat}&longitude=${location.lon}&method=${CALCULATION_METHOD}`;
+      
+      console.log('🔗 API URL for manual location:', url);
+      
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.code === 200) {
+        prayerTimes = data.data.timings;
+        console.log('✅ Manual location prayer times loaded:', prayerTimes);
+        updatePrayerDisplay();
+        scheduleReminders();
+      } else {
+        throw new Error(`API error: ${data.status}`);
+      }
+    } catch (error) {
+      console.log('❌ Error loading manual location prayer times:', error);
+      loadDefaultPrayerTimes();
+    }
   }
 
   // Find next prayer
@@ -388,12 +500,12 @@
   });
 
   // Show location status to user
-  function showLocationStatus() {
+  function showLocationStatus(message = 'Checking...') {
     const container = document.getElementById('prayer-times-container');
     if (container) {
       const statusHtml = `
         <div class="location-status">
-          <p>📍 <strong>Location Status:</strong> <span id="location-status-text">Checking...</span></p>
+          <p>📍 <strong>Location Status:</strong> <span id="location-status-text">${message}</span></p>
         </div>
       `;
       container.innerHTML = statusHtml;
@@ -403,13 +515,22 @@
   // Update location status
   function updateLocationStatus(locationResult) {
     const statusElement = document.getElementById('location-status-text');
+    const locationElement = document.getElementById('current-location');
+    
     if (statusElement) {
       if (locationResult.success) {
-        statusElement.innerHTML = `✅ Located (${locationResult.lat.toFixed(2)}°, ${locationResult.lon.toFixed(2)}°)`;
+        const coords = `${locationResult.lat.toFixed(4)}°, ${locationResult.lon.toFixed(4)}°`;
+        statusElement.innerHTML = `✅ Located (${coords})`;
         statusElement.style.color = '#27ae60';
+        if (locationElement) {
+          locationElement.textContent = coords;
+        }
       } else {
         statusElement.innerHTML = `🏛️ Using New Delhi (location ${locationResult.error || 'not available'})`;
         statusElement.style.color = '#f39c12';
+        if (locationElement) {
+          locationElement.textContent = 'New Delhi (fallback)';
+        }
       }
     }
   }
