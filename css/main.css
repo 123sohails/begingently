@@ -1697,11 +1697,26 @@ footer p {
 }
 
 .api-compass-image {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  border: 3px solid var(--primary);
+  border: 2px solid var(--primary);
   box-shadow: var(--shadow-elevation);
+}
+
+/* Mobile responsive compass */
+@media (max-width: 768px) {
+  .api-compass-image {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .api-compass-image {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 .compass-overlay {
