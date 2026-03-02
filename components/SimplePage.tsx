@@ -1,6 +1,7 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 import type { Locale } from '../lib/types';
 import type { Dictionary } from '../lib/types';
+import { VoiceButton } from './VoiceButton';
 
 type Props = {
   locale: Locale;
@@ -17,8 +18,11 @@ export function SimplePage({ locale, dict, pageKey, showBackToLibrary }: Props) 
       <section className="hero">
         <h1>{page.title}</h1>
         <p>{page.description}</p>
+        <VoiceButton locale={locale} targetId="main-content" />
         {showBackToLibrary ? (
-          <Link href={`/${locale}/library`} className="back-link">{dict.common.backToLibrary}</Link>
+          <Link href={`/${locale}/library`} className="back-link">
+            {dict.common.backToLibrary}
+          </Link>
         ) : null}
       </section>
       <section>
@@ -29,3 +33,4 @@ export function SimplePage({ locale, dict, pageKey, showBackToLibrary }: Props) 
     </main>
   );
 }
+
