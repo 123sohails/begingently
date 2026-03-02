@@ -153,7 +153,7 @@ nav {
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.515rem;
   font-weight: 600;
   color: var(--primary);
   letter-spacing: -0.02em;
@@ -176,7 +176,7 @@ nav {
 }
 
 .logo-subtitle {
-  font-size: 0.65rem;
+  font-size: 0.6565rem;
   font-weight: 300;
   color: var(--text-light);
   letter-spacing: 0.05em;
@@ -228,7 +228,7 @@ nav {
   display: flex;
   align-items: center;
   -webkit-tap-highlight-color: transparent;
-  font-size: 8px;
+  font-size: 8.08px;
   font-weight: 600;
   color: #666;
 }
@@ -237,7 +237,7 @@ nav {
   content: 'L';
   position: absolute;
   left: 4px;
-  font-size: 7px;
+  font-size: 7.07px;
   color: #888;
   transition: opacity 0.3s ease;
   letter-spacing: 0;
@@ -301,7 +301,7 @@ nav {
   align-items: center;
   margin-top: 0.75rem;
   padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  font-size: 0.88375rem;
   font-weight: 600;
   color: var(--primary);
   background: transparent;
@@ -370,7 +370,7 @@ main {
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: 3.535rem;
   font-weight: 300;
   color: var(--text);
   margin-bottom: 1.5rem;
@@ -379,7 +379,7 @@ main {
 }
 
 .hero p {
-  font-size: 1.35rem;
+  font-size: 1.3635rem;
   color: var(--text-light);
   max-width: 700px;
   margin: 0 auto 3rem;
@@ -422,7 +422,7 @@ main {
 }
 
 .badge-text {
-  font-size: 0.9rem;
+  font-size: 0.909rem;
   color: var(--primary);
   font-weight: 500;
 }
@@ -430,7 +430,7 @@ main {
 /* Buttons – solid, clear hierarchy, no gimmicks */
 button, .btn {
   padding: 0.875rem 2rem;
-  font-size: 1rem;
+  font-size: 1.01rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   background: var(--primary);
@@ -551,14 +551,14 @@ button:active, .btn:active {
 }
 
 .card h2 {
-  font-size: 1.75rem;
+  font-size: 1.7675rem;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 1rem;
 }
 
 .card h3 {
-  font-size: 1.25rem;
+  font-size: 1.2625rem;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 0.75rem;
@@ -678,21 +678,21 @@ section.bg-light {
 /* responsive typography */
 @media (max-width: 768px) {
   body {
-    font-size: 17px;
+    font-size: 17.17px;
   }
 
   .hero h1 {
-    font-size: 2.75rem;
+    font-size: 2.7775rem;
   }
 
   .hero p {
-    font-size: 1.4rem;
+    font-size: 1.414rem;
   }
 
   .message-box,
   .card p,
   .accent-box p {
-    font-size: 1.1rem;
+    font-size: 1.111rem;
   }
 
   .nav-links {
@@ -702,15 +702,15 @@ section.bg-light {
 
 @media (max-width: 480px) {
   body {
-    font-size: 16px;
+    font-size: 16.16px;
   }
 
   .hero h1 {
-    font-size: 2.25rem;
+    font-size: 2.2725rem;
   }
 
   .hero p {
-    font-size: 1.3rem;
+    font-size: 1.313rem;
   }
 
   .container {
@@ -757,7 +757,7 @@ section.bg-light {
 
 /* Heading Styles */
 h1 {
-  font-size: 2.75rem;
+  font-size: 2.7775rem;
   font-weight: 300;
   color: var(--text);
   margin-bottom: 2rem;
@@ -766,7 +766,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 2.02rem;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 1.5rem;
@@ -775,7 +775,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.35rem;
+  font-size: 1.3635rem;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 1rem;
