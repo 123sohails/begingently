@@ -682,7 +682,7 @@ section.bg-light {
   }
 
   .hero h1 {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   .hero p {
@@ -706,7 +706,7 @@ section.bg-light {
   }
 
   .hero h1 {
-    font-size: 26px;
+    font-size: 30px;
   }
 
   .hero p {
@@ -1129,13 +1129,13 @@ footer p {
   }
 
   .hero h1 {
-    font-size: 1.85rem;
+    font-size: 28px;
     line-height: 1.1;
     margin-bottom: 1rem;
   }
 
   .hero p {
-    font-size: 1.05rem;
+    font-size: 19px;
     line-height: 1.7;
   }
 
@@ -1278,13 +1278,13 @@ footer p {
   }
 
   .hero h1 {
-    font-size: 1.65rem;
+    font-size: 26px;
     line-height: 1.05;
     margin-bottom: 0.85rem;
   }
 
   .hero p {
-    font-size: 0.95rem;
+    font-size: 18px;
     line-height: 1.6;
   }
 
