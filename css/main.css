@@ -682,7 +682,7 @@ section.bg-light {
   }
 
   .hero h1 {
-    font-size: 32px;
+    font-size: 38px;
   }
 
   .hero p {
@@ -706,7 +706,7 @@ section.bg-light {
   }
 
   .hero h1 {
-    font-size: 30px;
+    font-size: 38px;
   }
 
   .hero p {
@@ -1129,7 +1129,7 @@ footer p {
   }
 
   .hero h1 {
-    font-size: 28px;
+    font-size: 38px;
     line-height: 1.1;
     margin-bottom: 1rem;
   }
@@ -1140,13 +1140,13 @@ footer p {
   }
 
   h1 {
-    font-size: 1.8rem;
+    font-size: 38px;
     line-height: 1.1;
     margin-bottom: 1rem;
   }
 
   h2 {
-    font-size: 1.45rem;
+    font-size: 38px;
     font-weight: 600;
     margin-top: 1.25rem;
     margin-bottom: 0.75rem;
@@ -1154,20 +1154,21 @@ footer p {
   }
 
   h3 {
-    font-size: 1.2rem;
+    font-size: 38px;
     font-weight: 600;
     margin-bottom: 0.65rem;
     line-height: 1.15;
   }
 
   h4 {
-    font-size: 1.05rem;
+    font-size: 38px;
     font-weight: 600;
     margin-bottom: 0.65rem;
+    line-height: 1.15;
   }
 
   p {
-    font-size: 18px;
+    font-size: 24px;
     line-height: 1.65;
     margin-bottom: 0.9rem;
   }
@@ -1278,7 +1279,7 @@ footer p {
   }
 
   .hero h1 {
-    font-size: 26px;
+    font-size: 38px;
     line-height: 1.05;
     margin-bottom: 0.85rem;
   }
@@ -1289,31 +1290,31 @@ footer p {
   }
 
   h1 {
-    font-size: 1.6rem;
+    font-size: 38px;
     line-height: 1.05;
     margin-bottom: 0.85rem;
   }
 
   h2 {
-    font-size: 1.3rem;
+    font-size: 38px;
     margin-top: 1rem;
     margin-bottom: 0.65rem;
     line-height: 1.1;
   }
 
   h3 {
-    font-size: 1.1rem;
+    font-size: 38px;
     margin-bottom: 0.55rem;
     line-height: 1.1;
   }
 
   h4 {
-    font-size: 0.95rem;
+    font-size: 38px;
     margin-bottom: 0.55rem;
   }
 
   p {
-    font-size: 16px;
+    font-size: 24px;
     line-height: 1.6;
     margin-bottom: 0.8rem;
   }
