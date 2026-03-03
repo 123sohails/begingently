@@ -551,20 +551,21 @@ button:active, .btn:active {
 }
 
 .card h2 {
-  font-size: 1.7675rem;
+  font-size: 2rem;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 1rem;
 }
 
 .card h3 {
-  font-size: 1.2625rem;
+  font-size: 1.8rem;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 0.75rem;
 }
 
 .card p {
+  font-size: 1.4rem;
   color: var(--text-light);
   font-weight: 300;
   line-height: 1.8;
