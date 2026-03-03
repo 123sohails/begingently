@@ -757,7 +757,7 @@ section.bg-light {
 
 /* Heading Styles */
 h1 {
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 2rem;
@@ -766,7 +766,7 @@ h1 {
 }
 
 h2 {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 1.5rem;
@@ -776,7 +776,7 @@ h2 {
 }
 
 h3 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 1rem;
@@ -785,16 +785,16 @@ h3 {
 
 /* Body / Paragraph text */
 p {
-  font-size: 20px;
-  line-height: 1.8;
+  font-size: 18px;
+  line-height: 1.6;
   color: var(--text-light);
   margin-bottom: 1rem;
 }
 
 /* Bullet points */
 li {
-  font-size: 20px;
-  line-height: 1.9;
+  font-size: 18px;
+  line-height: 1.8;
   color: var(--text-light);
   margin-bottom: 0.5rem;
 }
@@ -1135,7 +1135,7 @@ footer p {
   }
 
   .hero p {
-    font-size: 19px;
+    font-size: 20px;
     line-height: 1.7;
   }
 
@@ -1167,7 +1167,7 @@ footer p {
   }
 
   p {
-    font-size: 0.95rem;
+    font-size: 18px;
     line-height: 1.65;
     margin-bottom: 0.9rem;
   }
@@ -1313,7 +1313,7 @@ footer p {
   }
 
   p {
-    font-size: 0.9rem;
+    font-size: 16px;
     line-height: 1.6;
     margin-bottom: 0.8rem;
   }
@@ -1333,7 +1333,7 @@ footer p {
   }
 
   .card p {
-    font-size: 0.9rem;
+    font-size: 16px;
     line-height: 1.6;
     margin-bottom: 0.55rem;
   }
