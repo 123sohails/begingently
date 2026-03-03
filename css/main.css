@@ -686,13 +686,13 @@ section.bg-light {
   }
 
   .hero p {
-    font-size: 20px;
+    font-size: 26px;
   }
 
   .message-box,
   .card p,
   .accent-box p {
-    font-size: 20px;
+    font-size: 26px;
   }
 
   .nav-links {
@@ -710,7 +710,7 @@ section.bg-light {
   }
 
   .hero p {
-    font-size: 20px;
+    font-size: 26px;
   }
 
   .container {
@@ -776,7 +776,7 @@ h2 {
 }
 
 h3 {
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 1rem;
@@ -785,7 +785,7 @@ h3 {
 
 /* Body / Paragraph text */
 p {
-  font-size: 20px;
+  font-size: 26px;
   line-height: 1.6;
   color: var(--text-light);
   margin-bottom: 1rem;
@@ -793,7 +793,7 @@ p {
 
 /* Bullet points */
 li {
-  font-size: 20px;
+  font-size: 26px;
   line-height: 1.8;
   color: var(--text-light);
   margin-bottom: 0.5rem;
@@ -1168,7 +1168,7 @@ footer p {
   }
 
   p {
-    font-size: 24px;
+    font-size: 26px;
     line-height: 1.65;
     margin-bottom: 0.9rem;
   }
@@ -1178,17 +1178,17 @@ footer p {
   }
 
   .card h2 {
-    font-size: 1.35rem;
+    font-size: 32px;
     margin-bottom: 0.65rem;
   }
 
   .card h3 {
-    font-size: 1.1rem;
+    font-size: 32px;
     margin-bottom: 0.5rem;
   }
 
   .card p {
-    font-size: 0.95rem;
+    font-size: 26px;
     line-height: 1.65;
     margin-bottom: 0.65rem;
   }
@@ -1314,7 +1314,7 @@ footer p {
   }
 
   p {
-    font-size: 24px;
+    font-size: 26px;
     line-height: 1.6;
     margin-bottom: 0.8rem;
   }
@@ -1324,17 +1324,17 @@ footer p {
   }
 
   .card h2 {
-    font-size: 1.2rem;
-    margin-bottom: 0.55rem;
+    font-size: 32px;
+    margin-bottom: 0.65rem;
   }
 
   .card h3 {
-    font-size: 1rem;
+    font-size: 32px;
     margin-bottom: 0.45rem;
   }
 
   .card p {
-    font-size: 16px;
+    font-size: 26px;
     line-height: 1.6;
     margin-bottom: 0.55rem;
   }
