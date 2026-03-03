@@ -757,7 +757,7 @@ section.bg-light {
 
 /* Heading Styles */
 h1 {
-  font-size: 32px;
+  font-size: 38px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 2rem;
@@ -766,7 +766,7 @@ h1 {
 }
 
 h2 {
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 1.5rem;
@@ -776,7 +776,7 @@ h2 {
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 1rem;
@@ -785,7 +785,7 @@ h3 {
 
 /* Body / Paragraph text */
 p {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.6;
   color: var(--text-light);
   margin-bottom: 1rem;
@@ -793,7 +793,7 @@ p {
 
 /* Bullet points */
 li {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.8;
   color: var(--text-light);
   margin-bottom: 0.5rem;
