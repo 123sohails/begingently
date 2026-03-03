@@ -678,21 +678,21 @@ section.bg-light {
 /* responsive typography */
 @media (max-width: 768px) {
   body {
-    font-size: 17.17px;
+    font-size: 20px;
   }
 
   .hero h1 {
-    font-size: 2.7775rem;
+    font-size: 28px;
   }
 
   .hero p {
-    font-size: 1.414rem;
+    font-size: 20px;
   }
 
   .message-box,
   .card p,
   .accent-box p {
-    font-size: 1.111rem;
+    font-size: 20px;
   }
 
   .nav-links {
@@ -702,15 +702,15 @@ section.bg-light {
 
 @media (max-width: 480px) {
   body {
-    font-size: 16.16px;
+    font-size: 20px;
   }
 
   .hero h1 {
-    font-size: 2.2725rem;
+    font-size: 26px;
   }
 
   .hero p {
-    font-size: 1.313rem;
+    font-size: 20px;
   }
 
   .container {
@@ -757,28 +757,46 @@ section.bg-light {
 
 /* Heading Styles */
 h1 {
-  font-size: 2.7775rem;
-  font-weight: 300;
+  font-size: 30px;
+  font-weight: 700;
   color: var(--text);
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 h2 {
-  font-size: 2.02rem;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: 700;
   color: var(--text);
   margin-bottom: 1.5rem;
   margin-top: 2rem;
   letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
 h3 {
-  font-size: 1.3635rem;
+  font-size: 22px;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+/* Body / Paragraph text */
+p {
+  font-size: 20px;
+  line-height: 1.8;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+/* Bullet points */
+li {
+  font-size: 20px;
+  line-height: 1.9;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
 }
 
 /* Text Utilities */
@@ -925,35 +943,35 @@ footer p {
   }
 
   h1 {
-    font-size: 2.25rem;
-    line-height: 1.15;
+    font-size: 26px;
+    line-height: 1.3;
     margin-bottom: 1.25rem;
   }
 
   h2 {
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 700;
     margin-top: 1.5rem;
     margin-bottom: 1rem;
-    line-height: 1.2;
+    line-height: 1.3;
   }
 
   h3 {
-    font-size: 1.35rem;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 0.75rem;
-    line-height: 1.2;
+    line-height: 1.4;
   }
 
   h4 {
-    font-size: 1.15rem;
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 0.75rem;
   }
 
   p {
-    font-size: 1.05rem;
-    line-height: 1.7;
+    font-size: 20px;
+    line-height: 1.8;
     margin-bottom: 1rem;
   }
 
