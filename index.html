@@ -364,17 +364,213 @@
     </div>
   </section>
 
-  </main>
+  <!-- Daily Reminder Section -->
+  <section class="reminder-section">
+    <div class="container">
+      <h2>💫 Daily Reminder</h2>
+      <p>A daily dose of wisdom to brighten your path</p>
+      
+      <div class="reminder-tabs">
+        <button class="tab-btn active" onclick="showReminder('ayah')">📖 Daily Ayah</button>
+        <button class="tab-btn" onclick="showReminder('hadith')">💬 Daily Hadith</button>
+      </div>
+      
+      <div class="reminder-content">
+        <div id="ayah-reminder" class="reminder-item active">
+          <div class="reminder-text" id="ayah-text">
+            "And whoever does righteous deeds, whether male or female, while being a true believer, those will enter Paradise..."
+          </div>
+          <div class="reminder-source">— Quran 4:124</div>
+        </div>
+        
+        <div id="hadith-reminder" class="reminder-item">
+          <div class="reminder-text" id="hadith-text">
+            "The best among you are those who learn the Quran and teach it."
+          </div>
+          <div class="reminder-source">— Prophet Muhammad ﷺ (Bukhari)</div>
+        </div>
+      </div>
+      
+      <div class="reminder-actions">
+        <button onclick="refreshReminder()" class="refresh-btn">
+          <span>🔄</span> New Reminder
+        </button>
+        
+        <button onclick="shareReminder()" class="share-reminder-btn">
+          <span>📤</span> Share Reminder
+        </button>
+      </div>
+      
+      <div class="reminder-note">
+        <p>💡 Save this page as a daily reminder! Visit tomorrow for a new ayah or hadith.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Share Khair Section -->
+  <section class="share-section">
+    <div class="container">
+      <h2>📢 Share Khair</h2>
+      <p>If this helped you, share it with someone who might benefit.<br>Even guiding one person to something good is a reward.</p>
+      
+      <div class="hadith-box">
+        <p class="hadith">"Whoever guides someone to goodness will have a reward like the one who does it."</p>
+        <p class="hadith-source">— Prophet Muhammad ﷺ</p>
+      </div>
+      
+      <div class="share-buttons">
+        <a href="https://wa.me/?text=Learn Islam gently: https://begingently.vercel.app" target="_blank" class="share-btn whatsapp-btn">
+          <span>📱</span> WhatsApp
+        </a>
+        
+        <a href="https://t.me/share/url?url=https://begingently.vercel.app&text=Learn Islam gently" target="_blank" class="share-btn telegram-btn">
+          <span>✈️</span> Telegram
+        </a>
+        
+        <button onclick="copyLink()" class="share-btn copy-btn">
+          <span>🔗</span> Copy Link
+        </button>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; <span id="year">2025</span> BeginGently. Built as an act of worship (Sadaqah Jariyah). <br> This Website is free and exists to help reverts and seekers.</p>
+    <p>&copy; <span id="year">2026</span> BeginGently. Built as an act of worship (Sadaqah Jariyah). <br> This Website is free and exists to help reverts and seekers.</p>
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   <script src="/js/main.js?v=20260304"></script>
   <script src="/js/readmore.js?v=20260304"></script>
   <script src="/js/prayer-times.js?v=20260305-2"></script>
+  
+  <script>
+  function copyLink() {
+    navigator.clipboard.writeText("https://begingently.vercel.app");
+    // Show success message
+    const copyBtn = document.querySelector('.copy-btn');
+    const originalText = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<span>✅</span> Copied!';
+    copyBtn.style.background = '#22c55e';
+    copyBtn.style.color = 'white';
+    
+    setTimeout(() => {
+      copyBtn.innerHTML = originalText;
+      copyBtn.style.background = '';
+      copyBtn.style.color = '';
+    }, 2000);
+  }
+
+  // Daily Reminder functionality
+  const ayahs = [
+    { text: "And whoever does righteous deeds, whether male or female, while being a true believer, those will enter Paradise...", source: "Quran 4:124" },
+    { text: "Indeed, Allah will not change the condition of a people until they change what is in themselves.", source: "Quran 13:11" },
+    { text: "And He found you lost and guided you.", source: "Quran 93:7" },
+    { text: "So remember Me; I will remember you. And be grateful to Me and do not deny Me.", source: "Quran 2:152" },
+    { text: "Allah does not burden a soul beyond that it can bear.", source: "Quran 2:286" },
+    { text: "Indeed, with hardship comes ease.", source: "Quran 94:6" },
+    { text: "And He is with you wherever you are.", source: "Quran 57:4" },
+    { text: "Call upon Me; I will respond to you.", source: "Quran 40:60" },
+    { text: "My mercy encompasses all things.", source: "Quran 7:156" },
+    { text: "And speak to people good words.", source: "Quran 2:83" }
+  ];
+
+  const hadiths = [
+    { text: "The best among you are those who learn the Quran and teach it.", source: "Prophet Muhammad ﷺ (Bukhari)" },
+    { text: "None of you truly believes until he loves for his brother what he loves for himself.", source: "Prophet Muhammad ﷺ (Bukhari)" },
+    { text: "The most complete of the believers in faith is the one with the best character.", source: "Prophet Muhammad ﷺ (Tirmidhi)" },
+    { text: "Smiling in the face of your brother is charity.", source: "Prophet Muhammad ﷺ (Tirmidhi)" },
+    { text: "The strong is not the one who overcomes the people by his strength, but the strong is the one who controls himself while in anger.", source: "Prophet Muhammad ﷺ (Bukhari)" },
+    { text: "Cleanliness is half of faith.", source: "Prophet Muhammad ﷺ (Muslim)" },
+    { text: "Actions are judged by intentions.", source: "Prophet Muhammad ﷺ (Bukhari)" },
+    { text: "The best of people are those who are most beneficial to people.", source: "Prophet Muhammad ﷺ (Daraqutni)" },
+    { text: "Seeking knowledge is an obligation upon every Muslim.", source: "Prophet Muhammad ﷺ (Ibn Majah)" },
+    { text: "Kindness is a mark of faith.", source: "Prophet Muhammad ﷺ (Adab al-Mufrad)" }
+  ];
+
+  let currentAyahIndex = 0;
+  let currentHadithIndex = 0;
+  let currentType = 'ayah';
+
+  function showReminder(type) {
+    currentType = type;
+    
+    // Update tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`[onclick="showReminder('${type}')"]`).classList.add('active');
+    
+    // Update content
+    document.querySelectorAll('.reminder-item').forEach(item => item.classList.remove('active'));
+    document.getElementById(`${type}-reminder`).classList.add('active');
+  }
+
+  function refreshReminder() {
+    if (currentType === 'ayah') {
+      currentAyahIndex = (currentAyahIndex + 1) % ayahs.length;
+      const ayah = ayahs[currentAyahIndex];
+      document.getElementById('ayah-text').textContent = `"${ayah.text}"`;
+      document.getElementById('ayah-reminder').querySelector('.reminder-source').textContent = `— ${ayah.source}`;
+    } else {
+      currentHadithIndex = (currentHadithIndex + 1) % hadiths.length;
+      const hadith = hadiths[currentHadithIndex];
+      document.getElementById('hadith-text').textContent = `"${hadith.text}"`;
+      document.getElementById('hadith-reminder').querySelector('.reminder-source').textContent = `— ${hadith.source}`;
+    }
+    
+    // Add animation
+    const activeItem = document.querySelector('.reminder-item.active');
+    activeItem.style.opacity = '0';
+    setTimeout(() => {
+      activeItem.style.opacity = '1';
+    }, 150);
+  }
+
+  function shareReminder() {
+    const activeItem = document.querySelector('.reminder-item.active');
+    const text = activeItem.querySelector('.reminder-text').textContent;
+    const source = activeItem.querySelector('.reminder-source').textContent;
+    const shareText = `${text} ${source}`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: 'Daily Islamic Reminder',
+        text: shareText,
+        url: 'https://begingently.vercel.app'
+      });
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(shareText);
+      const shareBtn = document.querySelector('.share-reminder-btn');
+      const originalText = shareBtn.innerHTML;
+      shareBtn.innerHTML = '<span>✅</span> Copied!';
+      
+      setTimeout(() => {
+        shareBtn.innerHTML = originalText;
+      }, 2000);
+    }
+  }
+
+  // Set daily reminder based on date
+  function setDailyReminder() {
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+    
+    currentAyahIndex = dayOfYear % ayahs.length;
+    currentHadithIndex = dayOfYear % hadiths.length;
+    
+    const ayah = ayahs[currentAyahIndex];
+    const hadith = hadiths[currentHadithIndex];
+    
+    document.getElementById('ayah-text').textContent = `"${ayah.text}"`;
+    document.getElementById('ayah-reminder').querySelector('.reminder-source').textContent = `— ${ayah.source}`;
+    
+    document.getElementById('hadith-text').textContent = `"${hadith.text}"`;
+    document.getElementById('hadith-reminder').querySelector('.reminder-source').textContent = `— ${hadith.source}`;
+  }
+
+  // Initialize on page load
+  setDailyReminder();
+  </script>
 </body>
 </html>
 

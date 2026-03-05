@@ -1886,3 +1886,412 @@ footer p {
 .install-app-btn:hover {
   background: var(--accent);
 }
+
+/* Share Khair Section */
+.share-section {
+  background: linear-gradient(135deg, #f8fafb 0%, #f1f5f9 100%);
+  padding: 4rem 0;
+  margin-top: 4rem;
+  border-top: 1px solid rgba(45, 95, 79, 0.1);
+}
+
+.share-section .container {
+  text-align: center;
+  max-width: 600px;
+}
+
+.share-section h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.share-section p {
+  font-size: 1.25rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.hadith-box {
+  background: white;
+  border-left: 4px solid var(--accent);
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.hadith {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.hadith-source {
+  font-size: 0.95rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.whatsapp-btn {
+  background: #25d366;
+  color: white;
+}
+
+.whatsapp-btn:hover {
+  background: #128c7e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.telegram-btn {
+  background: #0088cc;
+  color: white;
+}
+
+.telegram-btn:hover {
+  background: #006699;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
+}
+
+.copy-btn {
+  background: var(--accent);
+  color: white;
+}
+
+.copy-btn:hover {
+  background: var(--accent-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 95, 79, 0.3);
+}
+
+.share-btn span {
+  font-size: 1.2rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .share-section {
+    padding: 3rem 0;
+  }
+  
+  .share-section h2 {
+    font-size: 2rem;
+  }
+  
+  .share-section p {
+    font-size: 1.1rem;
+  }
+  
+  .share-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .share-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .hadith-box {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+  }
+  
+  .hadith {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-section {
+    padding: 2rem 0;
+  }
+  
+  .share-section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .share-section p {
+    font-size: 1rem;
+  }
+}
+
+/* Daily Reminder Section */
+.reminder-section {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  padding: 4rem 0;
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.reminder-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="100" fill="rgba(0,0,0,0.03)">💫</text></svg>');
+  background-size: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.reminder-section .container {
+  text-align: center;
+  max-width: 700px;
+  position: relative;
+  z-index: 1;
+}
+
+.reminder-section h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.reminder-section > p {
+  font-size: 1.25rem;
+  color: #92400e;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.reminder-tabs {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.tab-btn {
+  background: white;
+  border: 2px solid #fbbf24;
+  color: #92400e;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(146, 64, 14, 0.1);
+}
+
+.tab-btn:hover {
+  background: #fef3c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(146, 64, 14, 0.2);
+}
+
+.tab-btn.active {
+  background: #f59e0b;
+  color: white;
+  border-color: #f59e0b;
+}
+
+.reminder-content {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px rgba(146, 64, 14, 0.15);
+  margin-bottom: 2rem;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reminder-item {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.reminder-item.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reminder-text {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.reminder-source {
+  font-size: 1rem;
+  color: #f59e0b;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.reminder-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.refresh-btn, .share-reminder-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.refresh-btn {
+  background: #10b981;
+  color: white;
+}
+
+.refresh-btn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.share-reminder-btn {
+  background: #8b5cf6;
+  color: white;
+}
+
+.share-reminder-btn:hover {
+  background: #7c3aed;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.reminder-note {
+  background: rgba(146, 64, 14, 0.1);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #f59e0b;
+}
+
+.reminder-note p {
+  margin: 0;
+  font-size: 1rem;
+  color: #92400e;
+  font-weight: 500;
+}
+
+/* Mobile Responsive for Reminder */
+@media (max-width: 768px) {
+  .reminder-section {
+    padding: 3rem 0;
+  }
+  
+  .reminder-section h2 {
+    font-size: 2rem;
+  }
+  
+  .reminder-section > p {
+    font-size: 1.1rem;
+  }
+  
+  .reminder-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tab-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .reminder-content {
+    padding: 2rem;
+    min-height: 180px;
+  }
+  
+  .reminder-text {
+    font-size: 1.2rem;
+  }
+  
+  .reminder-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .refresh-btn, .share-reminder-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reminder-section {
+    padding: 2rem 0;
+  }
+  
+  .reminder-section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .reminder-section > p {
+    font-size: 1rem;
+  }
+  
+  .reminder-content {
+    padding: 1.5rem;
+    min-height: 160px;
+  }
+  
+  .reminder-text {
+    font-size: 1.1rem;
+  }
+  
+  .reminder-source {
+    font-size: 0.9rem;
+  }
+}
