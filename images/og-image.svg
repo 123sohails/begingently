@@ -1,0 +1,67 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f0fdf4;stop-opacity:0.95" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Subtle Islamic pattern -->
+  <g opacity="0.08">
+    <path d="M50 50 Q100 30 150 50 T250 50" stroke="white" stroke-width="2" fill="none"/>
+    <path d="M950 580 Q1000 560 1050 580 T1150 580" stroke="white" stroke-width="2" fill="none"/>
+    <circle cx="200" cy="150" r="30" fill="none" stroke="white" stroke-width="2"/>
+    <circle cx="1000" cy="480" r="40" fill="none" stroke="white" stroke-width="2"/>
+  </g>
+  
+  <!-- Main Card -->
+  <rect x="100" y="115" width="1000" height="400" rx="20" fill="url(#cardBg)" filter="url(#shadow)"/>
+  
+  <!-- Top decorative element -->
+  <rect x="500" y="80" width="200" height="4" rx="2" fill="white" opacity="0.9"/>
+  
+  <!-- Main Title -->
+  <text x="600" y="200" font-family="Arial, sans-serif" font-size="52" font-weight="bold" text-anchor="middle" fill="#047857">
+    BeginGently
+  </text>
+  
+  <!-- Tagline -->
+  <text x="600" y="250" font-family="Arial, sans-serif" font-size="26" text-anchor="middle" fill="#6b7280">
+    Your Free Guide to Islam
+  </text>
+  
+  <!-- Key Features -->
+  <g font-family="Arial, sans-serif" font-size="20" fill="#4b5563">
+    <text x="600" y="310" text-anchor="middle">
+      <tspan x="600" dy="0">📖 Learn Qur'an • 🕌 Master Salah</tspan>
+      <tspan x="600" dy="30">💫 Daily Reminders • 🤝 Join Community</tspan>
+    </text>
+  </g>
+  
+  <!-- Call to Action -->
+  <rect x="450" y="360" width="300" height="50" rx="25" fill="#059669"/>
+  <text x="600" y="390" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="white">
+    Start Your Journey Today
+  </text>
+  
+  <!-- Bottom URL -->
+  <text x="600" y="550" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="white" opacity="0.8">
+    begingently.vercel.app
+  </text>
+  
+  <!-- Trust indicators -->
+  <g font-family="Arial, sans-serif" font-size="14" fill="white" opacity="0.7">
+    <text x="100" y="600">✓ 100% Free</text>
+    <text x="1000" y="600" text-anchor="end">✓ Trusted by Muslims Worldwide</text>
+  </g>
+</svg>
