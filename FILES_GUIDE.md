@@ -189,7 +189,7 @@
 ## 📁 Directory Structure
 
 ```
-Your Site Root (begingently.vercel.com)
+Your Site Root (begingently.vercel.app)
 ├── PUBLIC FILES (Search engines see these)
 │   ├── robots.txt ..................... Search engine crawler instructions
 │   ├── sitemap.xml ................... Main page sitemap

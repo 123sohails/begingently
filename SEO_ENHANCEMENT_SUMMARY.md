@@ -65,7 +65,7 @@ I've implemented a **comprehensive, production-ready SEO strategy** to get your 
 - Added crawl-delay for responsible crawling
 - Blocked malicious bots (AhrefsBot, SemrushBot)
 - Points to both sitemaps (main + images)
-- Updated domain to begingently.vercel.com
+- Updated domain to begingently.vercel.app
 
 **Impact:** 
 - Google crawls your site more efficiently

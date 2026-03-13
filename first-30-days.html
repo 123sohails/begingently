@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First 30 Days as a Muslim — BeginGently</title>
+  <meta name="description" content="Your 30-day journey as a new Muslim. Week-by-week guide: Shahada, Wudu, prayer, building routine. Simple, gentle, achievable.">
+  <meta name="keywords" content="new Muslim 30 days, revert guide, first month Islam, Islamic routine, beginner Muslim">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#2D5F4F">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="First 30 Days as a Muslim — BeginGently">
+  <meta property="og:description" content="Your gentle 30-day journey to building a sustainable Islamic practice.">
+  <meta property="og:url" content="https://begingently.vercel.app/first-30-days">
+  
+  <meta property="og:site_name" content="BeginGently">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="First 30 Days as a Muslim">
+  <meta name="twitter:description" content="A practical, gentle guide for your first month as a Muslim.">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="https://begingently.vercel.app/first-30-days">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%232D5F4F'>ب</text></svg">
+  
+  <style>
+    .hero-30days {
+      background: linear-gradient(135deg, rgba(45, 95, 79, 0.08), rgba(201, 168, 124, 0.05));
+      padding: 3rem 0;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .hero-30days h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .hero-30days p {
+      font-size: 1.3rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    
+    .week-container {
+      margin-bottom: 4rem;
+    }
+    
+    .week-header {
+      background: var(--primary);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .week-number {
+      width: 60px;
+      height: 60px;
+      background: white;
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .week-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .week-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 0 0 12px 12px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(44, 56, 50, 0.06);
+      border-top: none;
+    }
+    
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+    
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      background: var(--neutral-light);
+      border-radius: 8px;
+      transition: background 0.2s ease;
+    }
+    
+    .checklist-item:hover {
+      background: rgba(45, 95, 79, 0.05);
+    }
+    
+    .checklist-checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--primary);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: background 0.2s ease;
+    }
+    
+    .checklist-checkbox:hover {
+      background: rgba(45, 95, 79, 0.1);
+    }
+    
+    .checklist-checkbox.checked {
+      background: var(--primary);
+    }
+    
+    .checklist-checkbox.checked::after {
+      content: '✓';
+      color: white;
+      font-weight: 600;
+    }
+    
+    .checklist-text {
+      flex: 1;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    
+    .checklist-text strong {
+      color: var(--primary);
+    }
+    
+    .progress-bar {
+      background: var(--neutral-light);
+      height: 8px;
+      border-radius: 4px;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+    
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(44, 56, 50, 0.06);
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    
+    .encouragement-box {
+      background: rgba(201, 168, 124, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+    
+    .encouragement-box h4 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    
+    .encouragement-box p {
+      color: var(--text);
+      margin: 0;
+      font-style: italic;
+    }
+    
+    .final-section {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--neutral-light);
+      border-radius: 12px;
+      margin-top: 3rem;
+    }
+    
+    .final-section h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-30days h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-30days p {
+        font-size: 1.1rem;
+      }
+      
+      .week-header {
+        padding: 1rem 1.5rem;
+      }
+      
+      .week-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+      
+      .week-title {
+        font-size: 1.3rem;
+      }
+      
+      .week-content {
+        padding: 1.5rem;
+      }
+      
+      .checklist-item {
+        padding: 0.75rem;
+      }
+    }
+    
+    /* Dark Mode Styles */
+    [data-theme="dark"] .hero-30days {
+      background: linear-gradient(135deg, rgba(74, 139, 116, 0.1), rgba(201, 168, 124, 0.05));
+    }
+    
+    [data-theme="dark"] .hero-30days h1 {
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .hero-30days p {
+      color: var(--text-light);
+    }
+    
+    [data-theme="dark"] .week-content {
+      background: var(--dark-card);
+      border-color: var(--dark-border);
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .checklist-item {
+      background: var(--dark-card);
+      border: 1px solid var(--dark-border);
+    }
+    
+    [data-theme="dark"] .checklist-item:hover {
+      background: rgba(74, 139, 116, 0.1);
+    }
+    
+    [data-theme="dark"] .checklist-text {
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .checklist-text strong {
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .progress-bar {
+      background: var(--dark-border);
+    }
+    
+    [data-theme="dark"] .week-header {
+      background: var(--primary);
+      color: var(--white);
+    }
+    
+    [data-theme="dark"] .week-number {
+      background: var(--dark-card);
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .week-title {
+      color: var(--white);
+    }
+    
+    [data-theme="dark"] .checklist-checkbox {
+      border-color: var(--primary);
+    }
+    
+    [data-theme="dark"] .checklist-checkbox.checked {
+      background: var(--primary);
+    }
+    
+    [data-theme="dark"] .checklist-checkbox.checked::after {
+      color: var(--white);
+    }
+  </style>
+
+  <!-- Structured Data - Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "BeginGently",
+    "url": "https://begingently.vercel.app",
+    "logo": "https://begingently.vercel.app/logo.png",
+    "description": "Complete guide for Muslim reverts and converts to learn Islam step by step with prayer, Quran, fasting, and daily practices.",
+    "sameAs": [
+      "https://twitter.com/BeginGently",
+      "https://facebook.com/BeginGently",
+      "https://instagram.com/BeginGently"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "availableLanguage": "English"
+    }
+  }
+  </script>
+
+  <!-- Structured Data - Website -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "BeginGently",
+    "url": "https://begingently.vercel.app",
+    "description": "The ultimate guide for Muslim reverts and converts. Learn Islam step by step with prayer, Quran, fasting, and daily practices.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://begingently.vercel.app/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+</head>
+<body>
+  <!-- Navigation - Professional -->
+  <nav aria-label="Main navigation">
+    <div class="navbar">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">ب</div>
+        <div class="logo-text">
+          <span class="logo-name">BeginGently</span>
+          <span class="logo-subtitle">Patience & Peace</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="start-here.html" class="nav-highlight">🌱 Start Here</a></li>
+        <li><a href="first-30-days.html" class="active">30 Days</a></li>
+        <li><a href="common-doubts.html">Doubts</a></li>
+        <li><a href="islamic-practice.html">Practice</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="library.html">Library</a></li>
+        <li><a href="guides/beginners-guide.html">Guides</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn btn-secondary btn-sm" onclick="window.location.href='common-doubts.html'">
+          Get Support
+        </button>
+        <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero-30days">
+      <div class="container">
+        <h1>🕊 First 30 Days as a Muslim</h1>
+        <p>Your gentle journey to building a sustainable Islamic practice. One week at a time.</p>
+        
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-number">30</div>
+            <div class="stat-label">Days to Transform</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Weeks of Growth</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Small Step Daily</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress Overview -->
+    <section>
+      <div class="container">
+        <h2 class="text-center">Your Journey Progress</h2>
+        <div class="progress-bar">
+          <div class="progress-fill" id="overallProgress"></div>
+        </div>
+        <p class="text-center text-light">Complete checklists to track your progress</p>
+      </div>
+    </section>
+
+    <!-- Week 1 -->
+    <section class="week-container">
+      <div class="container">
+        <div class="week-header">
+          <div class="week-number">1</div>
+          <h2 class="week-title">Learn Shahada Meaning</h2>
+        </div>
+        
+        <div class="week-content">
+          <h3>🎯 This Week's Focus</h3>
+          <p>Understand what you believe and why it matters. The Shahada is the foundation of everything.</p>
+          
+          <h3>📋 Your Checklist</h3>
+          <ul class="checklist" id="week1-checklist">
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Memorize the Shahada</strong> in Arabic and English
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Understand "La ilaha illallah"</strong> - No god except Allah
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Understand "Muhammadur rasulullah"</strong> - Muhammad is messenger of Allah
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Say the Shahada daily</strong> with reflection and sincerity
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Read about Prophet Muhammad's life</strong> - Basic introduction
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Write what the Shahada means to you</strong> - Personal reflection
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Share with someone (optional)</strong> - If you feel comfortable
+              </div>
+            </li>
+          </ul>
+          
+          <div class="encouragement-box">
+            <h4>💡 Week 1 Wisdom</h4>
+            <p>"The Shahada isn't just words—it's the key that opens the door to Islam. Understand it, feel it, live it."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Week 2 -->
+    <section class="week-container">
+      <div class="container">
+        <div class="week-header">
+          <div class="week-number">2</div>
+          <h2 class="week-title">Learn Wudu + 1 Short Surah</h2>
+        </div>
+        
+        <div class="week-content">
+          <h3>🎯 This Week's Focus</h3>
+          <p>Physical purification and connecting with God's words. Wudu cleanses body and soul.</p>
+          
+          <h3>📋 Your Checklist</h3>
+          <ul class="checklist" id="week2-checklist">
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Learn the 8 steps of wudu</strong> - Watch videos, read guides
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Practice wudu daily</strong> - Before prayer or just for purification
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Memorize Surah Al-Fatiha</strong> - The opening chapter (7 verses)
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Learn Surah Al-Ikhlas</strong> - Purity of faith (4 verses)
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Understand the meaning</strong> of both surahs in English
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Recite both surahs daily</strong> - After wudu or before sleep
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Learn what breaks wudu</strong> - Common situations
+              </div>
+            </li>
+          </ul>
+          
+          <div class="encouragement-box">
+            <h4>💡 Week 2 Wisdom</h4>
+            <p>"Wudu isn't just washing—it's preparing your heart to meet God. Each drop cleanses more than skin."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Week 3 -->
+    <section class="week-container">
+      <div class="container">
+        <div class="week-header">
+          <div class="week-number">3</div>
+          <h2 class="week-title">Pray 1 Prayer Consistently</h2>
+        </div>
+        
+        <div class="week-content">
+          <h3>🎯 This Week's Focus</h3>
+          <p>Build consistency with one prayer. Quality over quantity. Sincerity over perfection.</p>
+          
+          <h3>📋 Your Checklist</h3>
+          <ul class="checklist" id="week3-checklist">
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Choose ONE prayer time</strong> - Maghrib (sunset) is recommended
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Learn the prayer times</strong> - Download a prayer time app
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Master 2-rakat prayer</strong> - Basic movements and words
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Pray your chosen prayer daily</strong> - For 7 consecutive days
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Set phone reminders</strong> - 15 minutes before prayer time
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Create a prayer space</strong> - Clean, quiet area in your home
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Journal your experience</strong> - How did prayer feel?
+              </div>
+            </li>
+          </ul>
+          
+          <div class="encouragement-box">
+            <h4>💡 Week 3 Wisdom</h4>
+            <p>"One prayer done with sincerity is better than five done with resentment. Consistency builds faith."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Week 4 -->
+    <section class="week-container">
+      <div class="container">
+        <div class="week-header">
+          <div class="week-number">4</div>
+          <h2 class="week-title">Build Routine</h2>
+        </div>
+        
+        <div class="week-content">
+          <h3>🎯 This Week's Focus</h3>
+          <p>Expand your practice and create sustainable habits. Islam becomes part of your daily life.</p>
+          
+          <h3>📋 Your Checklist</h3>
+          <ul class="checklist" id="week4-checklist">
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Add a second prayer</strong> - Choose another prayer time
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Learn morning adhkar</strong> - Simple morning remembrances
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Learn evening adhkar</strong> - Simple evening remembrances
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Start daily gratitude</strong> - Thank God for 3 things before sleep
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Read 5 minutes daily</strong> - Quran or Islamic book
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Connect with one Muslim</strong> - Online or in person
+              </div>
+            </li>
+            <li class="checklist-item">
+              <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+              <div class="checklist-text">
+                <strong>Plan your next 30 days</strong> - What will you continue/grow?
+              </div>
+            </li>
+          </ul>
+          
+          <div class="encouragement-box">
+            <h4>💡 Week 4 Wisdom</h4>
+            <p>"Routine creates rhythm. Rhythm creates peace. Peace creates connection with God."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final Section -->
+    <section class="final-section">
+      <div class="container">
+        <h3>🌟 You Did It!</h3>
+        <p>30 days ago, you were just starting. Today, you have a foundation.</p>
+        <p style="margin-top: 1rem;">Remember: This isn't the end—it's the beginning of a beautiful journey.</p>
+        
+        <div style="margin-top: 2rem;">
+          <div class="stat-card" style="display: inline-block; margin: 0.5rem;">
+            <div class="stat-number" id="completedTasks">0</div>
+            <div class="stat-label">Tasks Completed</div>
+          </div>
+          <div class="stat-card" style="display: inline-block; margin: 0.5rem;">
+            <div class="stat-number" id="weeksCompleted">0</div>
+            <div class="stat-label">Weeks Finished</div>
+          </div>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+          <a href="library.html" class="btn btn-primary" style="margin-right: 1rem;">
+            📚 Continue Learning
+          </a>
+          <a href="guides/beginners-guide.html" class="btn btn-secondary">
+            📥 Download Resources
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year">2025</span> BeginGently. Built as an act of worship (صدقة جارية). <br> This Website is free and exists to help reverts and seekers.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Checkbox functionality
+    function toggleCheck(checkbox) {
+      checkbox.classList.toggle('checked');
+      updateProgress();
+      saveProgress();
+    }
+    
+    // Update progress bars and stats
+    function updateProgress() {
+      const allChecklists = document.querySelectorAll('.checklist');
+      let totalItems = 0;
+      let checkedItems = 0;
+      
+      allChecklists.forEach(checklist => {
+        const items = checklist.querySelectorAll('.checklist-checkbox');
+        const checked = checklist.querySelectorAll('.checklist-checkbox.checked');
+        
+        totalItems += items.length;
+        checkedItems += checked.length;
+      });
+      
+      // Update overall progress bar
+      const progressPercentage = totalItems > 0 ? (checkedItems / totalItems) * 100 : 0;
+      document.getElementById('overallProgress').style.width = progressPercentage + '%';
+      
+      // Update stats
+      document.getElementById('completedTasks').textContent = checkedItems;
+      
+      // Calculate completed weeks (all items checked in a week)
+      let weeksCompleted = 0;
+      for (let i = 1; i <= 4; i++) {
+        const weekChecklist = document.getElementById(`week${i}-checklist`);
+        if (weekChecklist) {
+          const weekItems = weekChecklist.querySelectorAll('.checklist-checkbox');
+          const weekChecked = weekChecklist.querySelectorAll('.checklist-checkbox.checked');
+          if (weekItems.length > 0 && weekItems.length === weekChecked.length) {
+            weeksCompleted++;
+          }
+        }
+      }
+      document.getElementById('weeksCompleted').textContent = weeksCompleted;
+    }
+    
+    // Save progress to localStorage
+    function saveProgress() {
+      const checkboxes = document.querySelectorAll('.checklist-checkbox');
+      const progress = {};
+      
+      checkboxes.forEach((checkbox, index) => {
+        progress[index] = checkbox.classList.contains('checked');
+      });
+      
+      localStorage.setItem('30days-progress', JSON.stringify(progress));
+    }
+    
+    // Load progress from localStorage
+    function loadProgress() {
+      const saved = localStorage.getItem('30days-progress');
+      if (saved) {
+        const progress = JSON.parse(saved);
+        const checkboxes = document.querySelectorAll('.checklist-checkbox');
+        
+        Object.keys(progress).forEach(index => {
+          if (checkboxes[index] && progress[index]) {
+            checkboxes[index].classList.add('checked');
+          }
+        });
+        
+        updateProgress();
+      }
+    }
+    
+    // Load progress when page loads
+    document.addEventListener('DOMContentLoaded', loadProgress);
+    
+    // Add smooth scrolling for better UX
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+  
+  <script src="js/main.js"></script>
+  <script src="js/readmore.js"></script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+/* Enhanced UI/UX Animations and Interactions */
+/* Smooth, modern, and accessible user experience */
+
+/* Enhanced Transitions and Variables */
+:root {
+  /* Smooth transitions */
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Animation durations */
+  --duration-fast: 0.2s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.5s;
+  --duration-extra-slow: 0.8s;
+}
+
+/* Smooth scrolling and theme transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition: background var(--duration-slow) var(--transition-smooth), 
+              color var(--duration-slow) var(--transition-smooth);
+}
+
+/* Enhanced Navigation */
+nav {
+  transition: background var(--duration-normal) var(--transition-smooth),
+              border-color var(--duration-normal) var(--transition-smooth),
+              box-shadow var(--duration-normal) var(--transition-smooth);
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  transition: transform var(--duration-fast) var(--transition-bounce);
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logo-icon {
+  transition: all var(--duration-normal) var(--transition-smooth);
+}
+
+.logo:hover .logo-icon {
+  background: var(--primary-dark);
+  transform: rotate(5deg);
+}
+
+.logo-name,
+.logo-subtitle {
+  transition: color var(--duration-normal) var(--transition-smooth);
+}
+
+.logo:hover .logo-name {
+  color: var(--primary);
+}
+
+.logo:hover .logo-subtitle {
+  color: var(--text-light);
+}
+
+.nav-links a {
+  transition: all var(--duration-normal) var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left var(--duration-slow) var(--transition-smooth);
+}
+
+.nav-links a:hover::before {
+  left: 100%;
+}
+
+.nav-links a:hover {
+  transform: translateY(-1px);
+}
+
+.btn-sm {
+  transition: all var(--duration-normal) var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sm::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width var(--duration-normal) var(--transition-smooth),
+              height var(--duration-normal) var(--transition-smooth);
+}
+
+.btn-sm:hover::before {
+  width: 200px;
+  height: 200px;
+}
+
+.btn-sm:hover {
+  transform: translateY(-2px);
+}
+
+/* Enhanced Buttons */
+button, .btn {
+  transition: all var(--duration-normal) var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+button::before, .btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width var(--duration-normal) var(--transition-smooth),
+              height var(--duration-normal) var(--transition-smooth);
+}
+
+button:hover::before, .btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-2px);
+}
+
+button:active, .btn:active {
+  transform: translateY(0);
+  transition: all var(--duration-fast) var(--transition-smooth);
+}
+
+/* Enhanced Cards */
+.card {
+  transition: all var(--duration-normal) var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp var(--duration-slow) var(--transition-smooth) 0.8s both;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(45, 95, 79, 0.05), transparent);
+  transition: left var(--duration-slow) var(--transition-smooth);
+}
+
+.card:hover::before {
+  left: 100%;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Enhanced Message Boxes */
+.message-box {
+  transition: all var(--duration-normal) var(--transition-smooth);
+  animation: fadeInUp var(--duration-slow) var(--transition-smooth) 0.6s both;
+}
+
+.message-box:hover {
+  transform: translateY(-2px);
+}
+
+/* Hero Animations */
+.hero-title {
+  animation: fadeInUp var(--duration-slow) var(--transition-smooth);
+}
+
+.hero-description {
+  animation: fadeInUp var(--duration-slow) var(--transition-smooth) 0.2s both;
+}
+
+.hero-actions {
+  animation: fadeInUp var(--duration-slow) var(--transition-smooth) 0.4s both;
+}
+
+.hero-visual {
+  animation: fadeIn var(--duration-slow) var(--transition-smooth) 0.6s both;
+}
+
+.hero-card {
+  transition: all var(--duration-normal) var(--transition-smooth);
+}
+
+.hero-card:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+/* Button Animations */
+.btn-primary {
+  animation: slideInUp var(--duration-slow) var(--transition-smooth) 0.8s both;
+}
+
+.btn-secondary {
+  animation: slideInUp var(--duration-slow) var(--transition-smooth) 1s both;
+}
+
+/* Keyframe Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Enhanced Focus States */
+button:focus, .btn:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+button:focus-visible, .btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Accessibility - Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Enhanced Selection Styling */
+::selection {
+  background: var(--primary);
+  color: var(--white);
+}
+
+::-moz-selection {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* Smooth Hover Effects for Interactive Elements */
+a {
+  transition: color var(--duration-normal) var(--transition-smooth);
+}
+
+input, textarea, select {
+  transition: border-color var(--duration-normal) var(--transition-smooth),
+              box-shadow var(--duration-normal) var(--transition-smooth);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(45, 95, 79, 0.1);
+}
+
+/* Loading States */
+.loading {
+  animation: pulse var(--duration-slow) var(--transition-smooth) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Tooltip Animations */
+.tooltip {
+  transition: opacity var(--duration-normal) var(--transition-smooth),
+              transform var(--duration-normal) var(--transition-smooth);
+}
+
+.tooltip:hover {
+  transform: translateY(-2px);
+}
+
+/* Enhanced Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+  transition: background var(--duration-normal) var(--transition-smooth);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Dark Mode Scrollbar */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--dark-border);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--primary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}

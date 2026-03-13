@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Common Doubts — For Reverts — BeginGently</title>
+  <meta name="description" content="Struggling with family pressure, guilt, Arabic, missed prayers? Gentle answers for reverts' common doubts and fears.">
+  <meta name="keywords" content="revert doubts, Muslim convert struggles, family pressure Islam, guilt new Muslim, Arabic learning">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#2D5F4F">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Common Doubts — For Reverts — BeginGently">
+  <meta property="og:description" content="Gentle, comforting answers to the real struggles reverts face. You're not alone.">
+  <meta property="og:url" content="https://begingently.vercel.app/common-doubts">
+  
+  <meta property="og:site_name" content="BeginGently">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Common Doubts — For Reverts">
+  <meta name="twitter:description" content="Comforting answers to the struggles every revert faces.">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="https://begingently.vercel.app/common-doubts">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%232D5F4F'>ب</text></svg">
+  
+  <style>
+    .doubts-hero {
+      background: linear-gradient(135deg, rgba(45, 95, 79, 0.06), rgba(201, 168, 124, 0.04));
+      padding: 3rem 0;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .doubts-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .doubts-hero p {
+      font-size: 1.3rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      overflow: visible;
+      height: auto;
+    }
+    
+    .doubt-category {
+      margin-bottom: 3rem;
+    }
+    
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 12px;
+    }
+    
+    .category-icon {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .category-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .doubt-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--sand);
+      overflow: visible;
+      height: auto;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .doubt-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .doubt-question {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .question-mark {
+      width: 32px;
+      height: 32px;
+      background: rgba(45, 95, 79, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    
+    .doubt-answer {
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      overflow: visible;
+      height: auto;
+    }
+    
+    .doubt-answer p {
+      margin-bottom: 1rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      max-width: 100%;
+    }
+    
+    .doubt-answer p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .comfort-box {
+      background: rgba(201, 168, 124, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    
+    .comfort-box h4 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .comfort-box p {
+      color: var(--text);
+      margin: 0;
+      font-style: italic;
+    }
+    
+    .action-steps {
+      background: var(--neutral-light);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    
+    .action-steps h4 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .action-steps ul {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+    
+    .action-steps li {
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .reassurance-banner {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin: 3rem 0;
+    }
+    
+    .reassurance-banner h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .reassurance-banner p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+    
+    @media (max-width: 768px) {
+      .doubts-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .doubts-hero p {
+        font-size: 1.1rem;
+      }
+      
+      .category-header {
+        padding: 1rem 1.5rem;
+      }
+      
+      .category-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      
+      .category-title {
+        font-size: 1.3rem;
+      }
+      
+      .doubt-card {
+        padding: 1.5rem;
+      }
+    }
+    
+    /* Dark Mode Styles */
+    [data-theme="dark"] .doubts-hero {
+      background: linear-gradient(135deg, rgba(74, 139, 116, 0.1), rgba(201, 168, 124, 0.05));
+    }
+    
+    [data-theme="dark"] .doubt-card {
+      background: var(--dark-card);
+      border-color: var(--dark-border);
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .doubt-question {
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .doubt-answer {
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .doubt-answer p {
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .doubt-answer strong {
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .comfort-box {
+      background: rgba(74, 139, 116, 0.15);
+      border-left-color: var(--accent);
+    }
+    
+    [data-theme="dark"] .comfort-box h4 {
+      color: var(--accent);
+    }
+    
+    [data-theme="dark"] .comfort-box p {
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .action-steps {
+      background: var(--dark-card);
+      border: 1px solid var(--dark-border);
+    }
+    
+    [data-theme="dark"] .action-steps h4 {
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .action-steps li {
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .question-mark {
+      background: rgba(74, 139, 116, 0.2);
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .category-icon {
+      background: var(--dark-card);
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .reassurance-banner {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    }
+    
+    [data-theme="dark"] .reassurance-banner h3 {
+      color: var(--white);
+    }
+    
+    [data-theme="dark"] .reassurance-banner p {
+      color: var(--white);
+      opacity: 0.9;
+    }
+    
+    [data-theme="dark"] .doubts-hero h1 {
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .doubts-hero p {
+      color: var(--text-light);
+    }
+    
+    [data-theme="dark"] .category-header {
+      background: var(--primary);
+      color: var(--white);
+    }
+    
+    [data-theme="dark"] .category-title {
+      color: var(--white);
+    }
+    
+    [data-theme="dark"] ul li {
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .doubt-answer ul {
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .doubt-answer ul li {
+      color: var(--text);
+    }
+    
+    [data-theme="dark"] .action-steps ul li {
+      color: var(--text);
+    }
+  </style>
+
+  <!-- Structured Data - Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "BeginGently",
+    "url": "https://begingently.vercel.app",
+    "logo": "https://begingently.vercel.app/logo.png",
+    "description": "Complete guide for Muslim reverts and converts to learn Islam step by step with prayer, Quran, fasting, and daily practices.",
+    "sameAs": [
+      "https://twitter.com/BeginGently",
+      "https://facebook.com/BeginGently",
+      "https://instagram.com/BeginGently"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "availableLanguage": "English"
+    }
+  }
+  </script>
+
+  <!-- Structured Data - Website -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "BeginGently",
+    "url": "https://begingently.vercel.app",
+    "description": "The ultimate guide for Muslim reverts and converts. Learn Islam step by step with prayer, Quran, fasting, and daily practices.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://begingently.vercel.app/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+</head>
+<body>
+  <!-- Navigation - Professional -->
+  <nav aria-label="Main navigation">
+    <div class="navbar">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">ب</div>
+        <div class="logo-text">
+          <span class="logo-name">BeginGently</span>
+          <span class="logo-subtitle">Patience & Peace</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="start-here.html" class="nav-highlight">🌱 Start Here</a></li>
+        <li><a href="first-30-days.html">30 Days</a></li>
+        <li><a href="common-doubts.html" class="active">Doubts</a></li>
+        <li><a href="islamic-practice.html">Practice</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="library.html">Library</a></li>
+        <li><a href="guides/beginners-guide.html">Guides</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn btn-secondary btn-sm" onclick="window.location.href='start-here.html'">
+          Get Started
+        </button>
+        <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="doubts-hero">
+      <div class="container">
+        <h1>💬 Common Doubts</h1>
+        <p>Your struggles are normal. Your questions are valid. You're not alone in this journey.</p>
+      </div>
+    </section>
+
+    <!-- Family Pressure -->
+    <section class="doubt-category">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-icon">👨‍👩‍👧‍👦</div>
+          <h2 class="category-title">Family Pressure</h2>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>My family doesn't understand. They think I'm joining a cult or abandoning them.</div>
+          </div>
+          <div class="doubt-answer">
+            <p>This is one of the hardest parts of reverting. Your family's fear comes from love and misinformation, not understanding what Islam really is.</p>
+            
+            <div class="comfort-box">
+              <h4>💝 Remember This</h4>
+              <p>"Islam doesn't ask you to abandon your family. It asks you to honor them more deeply, with patience and kindness."</p>
+            </div>
+            
+            <p><strong>What helped others:</strong></p>
+            <ul>
+              <li>Focus on your character improvement - they'll notice positive changes</li>
+              <li>Be patient with their questions, even when they're difficult</li>
+              <li>Show them Islam through your actions, not just words</li>
+              <li>Find one family member who's open-minded and start there</li>
+              <li>Remember: Prophet Abraham faced similar challenges with his father</li>
+            </ul>
+            
+            <div class="action-steps">
+              <h4>🌱 Gentle Approach</h4>
+              <ul>
+                <li>Don't force discussions about Islam</li>
+                <li>Continue being the loving son/daughter they've always known</li>
+                <li>Share how Islam has made you a better person</li>
+                <li>Give them time - this is a journey for them too</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>My parents are threatening to disown me. I'm terrified of losing my family.</div>
+          </div>
+          <div class="doubt-answer">
+            <p>This fear is real and valid. Many reverts face this exact situation. Islam doesn't want you to choose between faith and family - it wants you to balance both with wisdom.</p>
+            
+            <div class="comfort-box">
+              <h4>🤲 Allah's Promise</h4>
+              <p>"Those who believe and whose hearts find comfort in the remembrance of Allah - truly in the remembrance of Allah do hearts find comfort." (Quran 13:28)</p>
+            </div>
+            
+            <p><strong>Practical guidance:</strong></p>
+            <ul>
+              <li>If you're dependent on your parents, consider gradual practice rather than immediate changes</li>
+              <li>Find a Muslim community or mentor who can support you emotionally</li>
+              <li>Make dua (supplication) for your family's guidance</li>
+              <li>Remember: many families eventually come around when they see the positive changes</li>
+            </ul>
+            
+            <p><strong>You're not alone:</strong> There are thousands of reverts who've walked this path. Find them. They'll understand your pain.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guilt and Emotions -->
+    <section class="doubt-category">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-icon">💔</div>
+          <h2 class="category-title">Feeling Guilty</h2>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>I feel guilty about my past - the things I did, the relationships I had, the person I was.</div>
+          </div>
+          <div class="doubt-answer">
+            <p>Guilt about the past is a sign that your heart is alive and conscience is working. But Islam doesn't want you trapped in guilt - it wants you moving forward with hope.</p>
+            
+            <div class="comfort-box">
+              <h4>🌅 The Beauty of Islam</h4>
+              <p>"Say, 'O My servants who have transgressed against themselves, do not despair of the mercy of Allah. Indeed, Allah forgives all sins.'" (Quran 39:53)</p>
+            </div>
+            
+            <p><strong>Understanding repentance:</strong></p>
+            <ul>
+              <li>Your past is forgiven the moment you sincerely repent</li>
+              <li>Allah is more pleased with your repentance than a person who finds their lost treasure</li>
+              <li>Don't let Satan make you feel unworthy of Allah's mercy</li>
+              <li>Your past experiences might even help you guide others someday</li>
+            </ul>
+            
+            <p><strong>Move forward gently:</strong> Use your past as motivation to be better, not as a weight holding you back. Every day is a new beginning.</p>
+          </div>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>I feel like a hypocrite. I say I'm Muslim but I still struggle with bad habits and thoughts.</div>
+          </div>
+          <div class="doubt-answer">
+            <p>Welcome to being human. Every Muslim - including the most pious - struggles with their lower self. The difference isn't perfection, it's the direction you're moving.</p>
+            
+            <div class="comfort-box">
+              <h4>💡 Prophet's Wisdom</h4>
+              <p>"All of the children of Adam are sinners, and the best of sinners are those who repent frequently." - Prophet Muhammad ﷺ</p>
+            </div>
+            
+            <p><strong>You're not a hypocrite - you're growing:</strong></p>
+            <ul>
+              <li>Hypocrisy is pretending to be perfect while secretly not caring</li>
+              <li>Struggling and trying sincerely is the essence of faith</li>
+              <li>Every time you fall and get back up, Allah loves your effort</li>
+              <li>Focus on progress, not perfection</li>
+            </ul>
+            
+            <p><strong>Remember:</strong> The companions of the Prophet made mistakes too. What made them great was they kept trying.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arabic Language -->
+    <section class="doubt-category">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-icon">📖</div>
+          <h2 class="category-title">Not Knowing Arabic</h2>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>I don't know Arabic. Can I really be Muslim if I can't read the Quran in Arabic?</div>
+          </div>
+          <div class="doubt-answer">
+            <p>Absolutely, 100% yes. The majority of Muslims worldwide don't speak Arabic as their first language. Islam is for all humanity, not just Arabs.</p>
+            
+            <div class="comfort-box">
+              <h4>🌍 Universal Message</h4>
+              <p>"And We did not send any messenger except [speaking] in the language of his people to state clearly for them." (Quran 14:4)</p>
+            </div>
+            
+            <p><strong>You can be a perfect Muslim without Arabic:</strong></p>
+            <ul>
+              <li>Read Quran in translation - the meaning is what matters most</li>
+              <li>Make dua in your native language - Allah understands every language</li>
+              <li>Learn essential phrases gradually, at your own pace</li>
+              <li>Focus on understanding and implementing the message</li>
+            </ul>
+            
+            <div class="action-steps">
+              <h4>📚 Simple Arabic Learning Path</h4>
+              <ul>
+                <li>Start with "Bismillah" (In God's name)</li>
+                <li>Learn Surah Al-Fatiha (7 verses)</li>
+                <li>Learn basic prayer phrases</li>
+                <li>Consider Arabic classes later if interested, but no pressure</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>I feel embarrassed in the mosque when I can't follow along in Arabic.</div>
+          </div>
+          <div class="doubt-answer">
+            <p>Every Muslim was once a beginner. The mosque community should welcome and support you, not judge you. Your sincerity is more valuable than perfect recitation.</p>
+            
+            <p><strong>Practical tips:</strong></p>
+            <ul>
+              <li>Arrive early and ask someone to show you the basics</li>
+              <li>Stand in the back rows where you can observe comfortably</li>
+              <li>Focus on the movements and meaning rather than perfect Arabic</li>
+              <li>Many mosques have translation apps or devices available</li>
+              <li>Remember: The Prophet said actions are judged by intentions</li>
+            </ul>
+            
+            <p><strong>Find the right mosque:</strong> Some communities are more welcoming to reverts than others. Don't be discouraged by one bad experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Missed Prayers -->
+    <section class="doubt-category">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-icon">⏰</div>
+          <h2 class="category-title">Missing Prayers</h2>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>I keep missing prayers. I feel like such a failure. Am I even Muslim if I can't pray 5 times?</div>
+          </div>
+          <div class="doubt-answer">
+            <p>Missing prayers doesn't make you less Muslim. It makes you human. What matters is that you care enough to feel bad about missing them - that's faith working in your heart.</p>
+            
+            <div class="comfort-box">
+              <h4>🌸 Allah's Mercy</h4>
+              <p>"My servants, you will not attain harm from Me nor will you attain benefit. Even if your sins were to reach the clouds of the sky, you would seek forgiveness from Me and I would forgive you." - Hadith Qudsi</p>
+            </div>
+            
+            <p><strong>Build gradually - this is Islam's way:</strong></p>
+            <ul>
+              <li>Start with ONE prayer consistently (many choose Maghrib/sunset)</li>
+              <li>When that becomes habit, add a second</li>
+              <li>Missing prayers happens to everyone - even scholars</li>
+              <li>When you miss one, just make it up when you remember</li>
+              <li>Don't let missing one prayer make you miss the next</li>
+            </ul>
+            
+            <p><strong>The goal is consistency, not perfection:</strong> One prayer done sincerely is better than five rushed without heart.</p>
+          </div>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>I work/study/go to school. It's impossible to pray on time. What do I do?</div>
+          </div>
+          <div class="doubt-answer">
+            <p>Islam is practical and understands real life. Allah doesn't burden you beyond your capacity. There's always a solution.</p>
+            
+            <p><strong>Practical solutions:</strong></p>
+            <ul>
+              <li>Combine prayers when permitted (Dhuhr+Asr, Maghrib+Isha)</li>
+              <li>Make wudu in the bathroom and pray in any clean space</li>
+              <li>Use your break times for prayer</li>
+              <li>Pray in your car if needed (many Muslims do this)</li>
+              <li>Remember: Short, sincere prayer is better than no prayer</li>
+            </ul>
+            
+            <div class="action-steps">
+              <h4>🕐 Work/School Strategy</h4>
+              <ul>
+                <li>Check prayer times before your day starts</li>
+                <li>Keep a prayer mat in your bag/car</li>
+                <li>Find a quiet corner or unused room</li>
+                <li>Explain to your boss/teacher if needed - many are understanding</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Music and Habits -->
+    <section class="doubt-category">
+      <div class="container">
+        <div class="category-header">
+          <div class="category-icon">🎵</div>
+          <h2 class="category-title">Music, Habits, Old Lifestyle</h2>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>I love music. Is it haram? Do I have to give up everything I enjoy?</div>
+          </div>
+          <div class="doubt-answer">
+            <p>This is one of the most common struggles, and scholars have different opinions. Islam doesn't want to take away your joy - it wants to elevate it.</p>
+            
+            <div class="comfort-box">
+              <h4>🎭 Balanced Approach</h4>
+              <p>"Allah is beautiful and loves beauty." - Prophet Muhammad ﷺ</p>
+            </div>
+            
+            <p><strong>Understanding the spectrum:</strong></p>
+            <ul>
+              <li>Some scholars permit all music that doesn't promote sin</li>
+              <li>Some discourage music with inappropriate content</li>
+              <li>Some prefer nasheeds (Islamic songs) instead</li>
+              <li>Most agree: Music that distracts from remembrance of Allah is problematic</li>
+            </ul>
+            
+            <p><strong>Gentle transition approach:</strong></p>
+            <ul>
+              <li>Start by reducing music with negative themes</li>
+              <li>Explore Islamic nasheeds and nature sounds</li>
+              <li>Use music for positive purposes (exercise, cleaning)</li>
+              <li>Don't make sudden drastic changes that you can't maintain</li>
+            </ul>
+            
+            <p><strong>Remember:</strong> This is a personal journey. What works for others might not work for you. Focus on gradual improvement.</p>
+          </div>
+        </div>
+        
+        <div class="doubt-card">
+          <div class="doubt-question">
+            <div class="question-mark">?</div>
+            <div>I still have non-Muslim friends and go to parties. Am I doing something wrong?</div>
+          </div>
+          <div class="doubt-answer">
+            <p>Islam doesn't isolate you from the world - it gives you principles to navigate it wisely. You can be a good Muslim and still have non-Muslim friends.</p>
+            
+            <div class="comfort-box">
+              <h4>🤝 Wisdom in Relationships</h4>
+              <p>"The best of people are those who are most beneficial to people." - Prophet Muhammad ﷺ</p>
+            </div>
+            
+            <p><strong>Healthy boundaries:</strong></p>
+            <ul>
+              <li>Choose friends who respect your values and boundaries</li>
+              <li>You don't have to attend every party or gathering</li>
+              <li>Be a good example through your character and choices</li>
+              <li>It's okay to politely decline activities that don't align with your values</li>
+            </ul>
+            
+            <p><strong>You might be their bridge to Islam:</strong> Your friends might become curious about Islam because of the positive changes they see in you.</p>
+            
+            <div class="action-steps">
+              <h4>🌱 Gradual Social Transition</h4>
+              <ul>
+                <li>Keep good friends who support your growth</li>
+                <li>Find Muslim friends who understand your journey</li>
+                <li>Suggest alternative activities (hiking, coffee, volunteering)</li>
+                <li>Be honest but gentle about your boundaries</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reassurance Banner -->
+    <section class="reassurance-banner">
+      <div class="container">
+        <h3>💚 You're Exactly Where You Need to Be</h3>
+        <p>Every doubt you have is normal. Every question you ask is valid. Every struggle you face is shared by thousands of reverts worldwide.</p>
+        <p>You're not failing - you're growing. You're not lost - you're finding your way. You're not alone - Allah is with you, and we're here for you too.</p>
+        <div style="margin-top: 1.5rem;">
+          <a href="first-30-days.html" class="btn btn-secondary" style="background: white; color: var(--primary); margin-right: 1rem;">
+            📅 Continue Your Journey
+          </a>
+          <a href="library.html" class="btn btn-secondary" style="background: white; color: var(--primary);">
+            📚 Learn More
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year">2025</span> BeginGently. Built as an act of worship (صدقة جارية). <br> This Website is free and exists to help reverts and seekers.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+  
+  <script src="js/main.js"></script>
+  <script src="js/readmore.js"></script>
+</body>
+</html>

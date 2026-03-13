@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Downloadable Guides — BeginGently</title>
+  <meta name="description" content="Free PDF guides and visual tutorials for learning Islam offline. Prayer guides, wudu instructions, and beginner resources.">
+  <meta name="keywords" content="Islamic guides PDF, prayer guide download, wudu guide, beginner Islam resources">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#2D5F4F">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Downloadable Guides — BeginGently">
+  <meta property="og:description" content="Free PDF guides and visual tutorials for learning Islam offline">
+  <meta property="og:url" content="https://begingently.vercel.app/guides/">
+  
+  <meta property="og:site_name" content="BeginGently">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://begingently.vercel.app/guides/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%232D5F4F'>ب</text></svg">
+  <style>
+    .guide-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--sand);
+      transition: var(--transition-slow);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    [data-theme="dark"] .guide-card {
+      background: var(--dark-card);
+      border-color: var(--dark-border);
+      color: var(--text);
+    }
+    
+    .guide-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    
+    .guide-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .guide-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .guide-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    [data-theme="dark"] .guide-title {
+      color: var(--text);
+    }
+    
+    .guide-description {
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    
+    [data-theme="dark"] .guide-description {
+      color: var(--text-light);
+    }
+    
+    .guide-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1.5rem;
+    }
+    
+    .guide-features li {
+      padding: 0.5rem 0;
+      color: var(--text);
+      border-bottom: 1px solid var(--sand);
+    }
+    
+    [data-theme="dark"] .guide-features li {
+      color: var(--text-light);
+      border-bottom-color: var(--dark-border);
+    }
+    
+    .guide-features li:last-child {
+      border-bottom: none;
+    }
+    
+    .download-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn-download {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .btn-pdf {
+      background: var(--primary);
+      color: var(--white);
+    }
+    
+    .btn-pdf:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    
+    .btn-audio {
+      background: var(--secondary);
+      color: var(--text);
+    }
+    
+    .btn-audio:hover {
+      background: var(--accent);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+    
+    .preview-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--sand);
+    }
+    
+    [data-theme="dark"] .preview-section {
+      border-top-color: var(--dark-border);
+    }
+    
+    .preview-content {
+      background: var(--neutral-light);
+      padding: 1.5rem;
+      border-radius: 8px;
+      font-family: 'Crimson Pro', serif;
+      line-height: 1.6;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    [data-theme="dark"] .preview-content {
+      background: var(--dark-card);
+      color: var(--text-light);
+    }
+    
+    .visual-guide {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .step-card {
+      background: var(--neutral-light);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .step-number {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.5rem;
+      font-weight: 600;
+    }
+    
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .step-description {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    @media (max-width: 768px) {
+      .guide-actions {
+        flex-direction: column;
+      }
+      
+      .btn-download, .btn-preview {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+
+  <!-- Structured Data - Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "BeginGently",
+    "url": "https://begingently.vercel.app",
+    "logo": "https://begingently.vercel.app/logo.png",
+    "description": "Complete guide for Muslim reverts and converts to learn Islam step by step with prayer, Quran, fasting, and daily practices.",
+    "sameAs": [
+      "https://twitter.com/BeginGently",
+      "https://facebook.com/BeginGently",
+      "https://instagram.com/BeginGently"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "availableLanguage": "English"
+    }
+  }
+  </script>
+
+  <!-- Structured Data - Website -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "BeginGently",
+    "url": "https://begingently.vercel.app",
+    "description": "The ultimate guide for Muslim reverts and converts. Learn Islam step by step with prayer, Quran, fasting, and daily practices.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://begingently.vercel.app/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+</head>
+<body>
+  <!-- Navigation - Professional -->
+  <nav aria-label="Main navigation">
+    <div class="navbar">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">ب</div>
+        <div class="logo-text">
+          <span class="logo-name">BeginGently</span>
+          <span class="logo-subtitle">Patience & Peace</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../start-here.html" class="nav-highlight">🌱 Start Here</a></li>
+        <li><a href="../first-30-days.html">30 Days</a></li>
+        <li><a href="../common-doubts.html">Doubts</a></li>
+        <li><a href="../islamic-practice.html">Practice</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../library.html">Library</a></li>
+        <li><a href="beginners-guide.html" class="active">Guides</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn btn-secondary btn-sm" onclick="window.location.href='../start-here.html'">
+          Get Started
+        </button>
+        <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Downloadable Guides</h1>
+        <p>Free PDF guides and visual tutorials to support your learning journey, even when you're offline.</p>
+      </div>
+    </section>
+
+    <!-- PDF Guides Section -->
+    <section>
+      <div class="container">
+        <h2>PDF Guides for Offline Learning</h2>
+        
+        <!-- Beginner's Guide -->
+        <div class="guide-card">
+          <div class="guide-header">
+            <div class="guide-icon">📚</div>
+            <h3 class="guide-title">Beginner's Complete Guide</h3>
+          </div>
+          <p class="guide-description">
+            A comprehensive 30-page guide covering the essentials for new reverts: basic beliefs, 
+            first prayer steps, common questions, and daily practices. Perfect for offline reading and reference.
+          </p>
+          <div class="guide-actions">
+            <a href="#" class="btn-download" onclick="downloadPDF('beginners-guide'); return false;">
+              <span>📥</span> Download PDF
+            </a>
+            <a href="#" class="btn-preview" onclick="previewGuide('beginners-guide'); return false;">
+              <span>👁️</span> Preview
+            </a>
+          </div>
+        </div>
+
+        <!-- Prayer Guide -->
+        <div class="guide-card">
+          <div class="guide-header">
+            <div class="guide-icon">🕌</div>
+            <h3 class="guide-title">Step-by-Step Prayer Guide</h3>
+          </div>
+          <p class="guide-description">
+            Visual guide to performing the five daily prayers with illustrations, Arabic text with transliteration, 
+            and English translations. Includes common mistakes and how to correct them.
+          </p>
+          <div class="guide-actions">
+            <a href="#" class="btn-download" onclick="downloadPDF('prayer-guide'); return false;">
+              <span>📥</span> Download PDF
+            </a>
+            <a href="#" class="btn-preview" onclick="previewGuide('prayer-guide'); return false;">
+              <span>👁️</span> Preview
+            </a>
+          </div>
+        </div>
+
+        <!-- Wudu Guide -->
+        <div class="guide-card">
+          <div class="guide-header">
+            <div class="guide-icon">💧</div>
+            <h3 class="guide-title">Wudu (Ablution) Guide</h3>
+          </div>
+          <p class="guide-description">
+            Complete illustrated guide to performing wudu correctly, with step-by-step instructions, 
+            common questions answered, and what to do if water isn't available.
+          </p>
+          <div class="guide-actions">
+            <a href="#" class="btn-download" onclick="downloadPDF('wudu-guide'); return false;">
+              <span>📥</span> Download PDF
+            </a>
+            <a href="#" class="btn-preview" onclick="previewGuide('wudu-guide'); return false;">
+              <span>👁️</span> Preview
+            </a>
+          </div>
+        </div>
+
+        <!-- Quran Intro -->
+        <div class="guide-card">
+          <div class="guide-header">
+            <div class="guide-icon">📖</div>
+            <h3 class="guide-title">Quran Introduction</h3>
+          </div>
+          <p class="guide-description">
+            Getting started with the Quran: how to read, understand, and reflect on key verses. 
+            Includes recommended starting chapters and reading schedule for beginners.
+          </p>
+          <div class="guide-actions">
+            <a href="#" class="btn-download" onclick="downloadPDF('quran-intro'); return false;">
+              <span>📥</span> Download PDF
+            </a>
+            <a href="#" class="btn-preview" onclick="previewGuide('quran-intro'); return false;">
+              <span>👁️</span> Preview
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Guides Section -->
+    <section class="bg-neutral">
+      <div class="container">
+        <h2>Visual Guides</h2>
+        
+        <!-- Prayer Positions -->
+        <div class="guide-card">
+          <div class="guide-header">
+            <div class="guide-icon">🙏</div>
+            <h3 class="guide-title">Prayer Positions Visual Guide</h3>
+          </div>
+          <p class="guide-description">
+            Interactive visual guide showing each position in prayer with proper posture and focus points.
+          </p>
+          
+          <div class="visual-guide">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <div class="step-title">Standing (Qiyam)</div>
+              <div class="step-description">Feet shoulder-width, hands folded, eyes looking at prayer place</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <div class="step-title">Bowing (Ruku)</div>
+              <div class="step-description">Back straight, hands on knees, eyes looking at feet</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <div class="step-title">Standing from Ruku</div>
+              <div class="step-description">Straighten back completely, arms at sides</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <div class="step-title">Prostration (Sujud)</div>
+              <div class="step-description">Forehead, nose, palms, knees, toes on ground</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">5</div>
+              <div class="step-title">Sitting (Jalsa)</div>
+              <div class="step-description">Sit on left foot, right foot upright, hands on thighs</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">6</div>
+              <div class="step-title">Tashahhud</div>
+              <div class="step-description">Point index finger during "la ilaha illallah"</div>
+            </div>
+          </div>
+          
+          <div class="guide-actions" style="margin-top: 1.5rem;">
+            <a href="#" class="btn-download" onclick="downloadPDF('prayer-positions'); return false;">
+              <span>📥</span> Download Visual Guide
+            </a>
+          </div>
+        </div>
+
+        <!-- Wudu Steps -->
+        <div class="guide-card">
+          <div class="guide-header">
+            <div class="guide-icon">💧</div>
+            <h3 class="guide-title">Wudu Steps Visual Guide</h3>
+          </div>
+          <p class="guide-description">
+            Step-by-step visual guide to performing wudu with illustrations and key points to remember.
+          </p>
+          
+          <div class="visual-guide">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <div class="step-title">Intention (Niyyah)</div>
+              <div class="step-description">Intend to perform wudu for purification</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <div class="step-title">Wash Hands</div>
+              <div class="step-description">3 times up to wrists, between fingers</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <div class="step-title">Rinse Mouth</div>
+              <div class="step-description">3 times, swish water thoroughly</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <div class="step-title">Clean Nose</div>
+              <div class="step-description">3 times, inhale and exhale water</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">5</div>
+              <div class="step-title">Wash Face</div>
+              <div class="step-description">3 times from forehead to chin</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">6</div>
+              <div class="step-title">Wash Arms</div>
+              <div class="step-description">3 times up to elbows, right then left</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">7</div>
+              <div class="step-title">Wipe Head</div>
+              <div class="step-description">Once from front to back</div>
+            </div>
+            <div class="step-card">
+              <div class="step-number">8</div>
+              <div class="step-title">Wash Feet</div>
+              <div class="step-description">3 times up to ankles, right then left</div>
+            </div>
+          </div>
+          
+          <div class="guide-actions" style="margin-top: 1.5rem;">
+            <a href="#" class="btn-download" onclick="downloadPDF('wudu-steps'); return false;">
+              <span>📥</span> Download Visual Guide
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Audio Resources Section -->
+    <section>
+      <div class="container">
+        <h2>Audio Content</h2>
+        
+        <!-- Audio Player -->
+        <div class="guide-card">
+          <div class="guide-header">
+            <div class="guide-icon">🎧</div>
+            <h3 class="guide-title">Audio Learning Resources</h3>
+          </div>
+          <p class="guide-description">
+            Listen to key content in audio format for accessibility and learning on the go. 
+            Perfect for commuting, exercising, or when you prefer audio learning.
+          </p>
+          
+          <div style="margin-top: 1.5rem;">
+            <h4>Available Audio Content:</h4>
+            <div style="margin-top: 1rem;">
+              <div style="padding: 1rem; background: var(--neutral-light); border-radius: 8px; margin-bottom: 1rem;">
+                <div style="font-weight: 600; margin-bottom: 0.5rem;">Introduction to Islam</div>
+                <audio controls style="width: 100%; margin-bottom: 0.5rem;">
+                  <source src="#" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                <button class="btn-download" onclick="downloadAudio('intro-islam'); return false;" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                  <span>⬇️</span> Download Audio
+                </button>
+              </div>
+              
+              <div style="padding: 1rem; background: var(--neutral-light); border-radius: 8px; margin-bottom: 1rem;">
+                <div style="font-weight: 600; margin-bottom: 0.5rem;">How to Perform Prayer</div>
+                <audio controls style="width: 100%; margin-bottom: 0.5rem;">
+                  <source src="#" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                <button class="btn-download" onclick="downloadAudio('prayer-guide'); return false;" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                  <span>⬇️</span> Download Audio
+                </button>
+              </div>
+              
+              <div style="padding: 1rem; background: var(--neutral-light); border-radius: 8px;">
+                <div style="font-weight: 600; margin-bottom: 0.5rem;">Common Questions for Reverts</div>
+                <audio controls style="width: 100%; margin-bottom: 0.5rem;">
+                  <source src="#" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                <button class="btn-download" onclick="downloadAudio('common-questions'); return false;" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                  <span>⬇️</span> Download Audio
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage Guide -->
+    <section class="bg-neutral">
+      <div class="container">
+        <h2>How to Use These Guides</h2>
+        <div class="card">
+          <p><strong>PDF Guides:</strong> Download and print for offline reference. Keep them in your prayer space or carry them with you.</p>
+          <p style="margin-top: 1rem;"><strong>Visual Guides:</strong> Follow step-by-step illustrations. Perfect for visual learners and quick reference during prayer.</p>
+          <p style="margin-top: 1rem;"><strong>Audio Content:</strong> Listen while commuting, exercising, or relaxing. Reinforce your learning through repetition.</p>
+          <p style="margin-top: 1rem;"><strong>All resources are completely free</strong> and can be shared with others who may benefit from them.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year">2025</span> BeginGently. Built as an act of worship (صدقة جارية). <br> This Website is free and exists to help reverts and seekers.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // PDF Download Function
+    function downloadPDF(guideName) {
+      // In a real implementation, this would generate and serve actual PDF files
+      // For now, we'll create a simple text-based "PDF" as a demonstration
+      const content = generatePDFContent(guideName);
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${guideName}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      showNotification(`Downloaded: ${guideName} guide successfully!`);
+    }
+    
+    // Download Audio Function
+    function downloadAudio(audioName) {
+      // Create a simple audio file placeholder (in real app, this would be actual audio)
+      const audioContent = `Audio Guide: ${audioName}\n\nThis would be an actual audio file in production.\nFor now, this is a placeholder text file.\n\nVisit our website for the actual audio content.`;
+      const blob = new Blob([audioContent], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${audioName}-audio.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      showNotification(`Downloaded: ${audioName} audio guide!`);
+    }
+    
+    // Generate PDF Content (comprehensive version)
+    function generatePDFContent(guideName) {
+      const guides = {
+        'beginners-guide': `BEGINNER'S COMPLETE GUIDE TO ISLAM
+=====================================
+Written by: BeginGently - Muslim Revert Support
+Website: https://begingently.vercel.app
+
+TABLE OF CONTENTS
+==================
+1. Welcome to Islam - Your Journey Begins
+2. Understanding the Shahada (Declaration of Faith)
+3. The Six Pillars of Iman (Faith)
+4. The Five Pillars of Islam
+5. Your First Prayer (Salah) - Step by Step
+6. Wudu (Ablution) - Complete Guide
+7. Daily Islamic Practices
+8. Common Questions and Concerns
+9. Building Your Islamic Identity
+10. Next Steps and Resources
+
+1. WELCOME TO ISLAM - YOUR JOURNEY BEGINS
+==========================================
+Assalamu Alaikum (Peace be upon you)!
+
+Dear Brother/Sister in Islam,
+
+Congratulations on beginning your journey to Islam! This is one of the most important decisions you will ever make, and we want you to know that you are exactly where you need to be.
+
+Remember these important truths:
+• Allah sees your sincere heart and intention
+• Mistakes are normal and part of learning
+• Every small step is significant and beloved to Allah
+• You are not alone - millions have walked this path
+• Take your time - Islam is a journey, not a race
+
+The Prophet Muhammad (peace be upon him) said: "Indeed, Allah does not look at your appearance or wealth, but rather He looks at your hearts and deeds." (Sahih Muslim)
+
+This guide will help you take your first steps with confidence, peace, and proper understanding.
+
+2. UNDERSTANDING THE SHAHADA (DECLARATION OF FAITH)
+==================================================
+
+The Shahada is the foundation of Islam. When you recite it with sincerity and understanding, you become a Muslim.
+
+ARABIC:
+"أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللهِ"
+
+TRANSLITERATION:
+"Ashhadu an la ilaha illallah, wa ashhadu anna Muhammadan rasulullah"
+
+TRANSLATION:
+"I bear witness that there is no god except Allah, and I bear witness that Muhammad is the messenger of Allah."
+
+WHAT THIS MEANS:
+• La ilaha illallah: There is no deity worthy of worship except Allah
+• Muhammad rasulullah: Muhammad is the final messenger of Allah
+
+HOW TO RECITE IT:
+1. Make sincere intention in your heart
+2. Say it out loud with understanding
+3. Mean every word you say
+4. You can do this alone or with witnesses
+
+The Prophet (pbuh) said: "Whoever says 'La ilaha illallah' sincerely will enter Paradise." (Sahih Bukhari)
+
+3. THE SIX PILLARS OF IMAN (FAITH)
+===================================
+
+Iman means faith/belief. These six beliefs form the foundation of a Muslim's creed:
+
+1. BELIEF IN ALLAH (GOD)
+   • Allah is One, Unique, without partners
+   • He is the Creator, Sustainer, and Controller of everything
+   • He has 99 Beautiful Names (Asma al-Husna)
+   • He is beyond human limitations but knows everything
+   • He is Merciful, Forgiving, and Just
+
+2. BELIEF IN ANGELS (Mala'ika)
+   • Angels are created from light
+   • They never disobey Allah
+   • They have specific duties (recording deeds, delivering messages)
+   • Key angels: Jibril (Gabriel), Mikail, Israfil, Azrael
+   • Each person has two angels recording good and bad deeds
+
+3. BELIEF IN HOLY BOOKS (Kutub)
+   • Allah revealed books to guide humanity
+   • Original Torah (to Moses), Psalms (to David), Gospel (to Jesus)
+   • The Quran is the final, preserved revelation
+   • Previous books were altered by humans
+   • The Quran is Allah's exact words
+
+4. BELIEF IN PROPHETS (Anbiya)
+   • Allah sent prophets to guide every nation
+   • All prophets taught the same core message: worship Allah alone
+   • 25 prophets mentioned by name in Quran
+   • Adam, Noah, Abraham, Moses, Jesus, Muhammad (peace upon them all)
+   • Muhammad is the final prophet for all humanity
+
+5. BELIEF IN DAY OF JUDGMENT (Yawm al-Qiyamah)
+   • Everyone will be resurrected after death
+   • Deeds will be weighed on a scale
+   • Paradise (Jannah) for believers, Hell (Jahannam) for disbelievers
+   • Allah's mercy will outweigh His anger
+   • This life is a test; the afterlife is eternal
+
+6. BELIEF IN DIVINE DESTINY (Qadar)
+   • Allah knows and has decreed all things
+   • Humans have free will within Allah's knowledge
+   • Everything happens for a reason, though we may not understand
+   • Trust in Allah's plan (has a good and bad)
+   • Prayer and effort can change what is decreed
+
+4. THE FIVE PILLARS OF ISLAM
+=============================
+
+These are the practical actions that demonstrate your faith:
+
+1. SHAHADA (Declaration of Faith)
+   • Already covered - foundation of Islam
+   • Must be said with understanding and sincerity
+   • Repeated in each prayer
+
+2. SALAH (Prayer) - 5 Times Daily
+   Fajr (Dawn): 2 rakat - before sunrise
+   Dhuhr (Midday): 4 rakat - after noon
+   Asr (Afternoon): 4 rakat - late afternoon  
+   Maghrib (Sunset): 3 rakat - after sunset
+   Isha (Night): 4 rakat - after twilight
+
+3. ZAKAT (Charity) - 2.5% of wealth annually
+   • Purifies your wealth
+   • Helps the poor and needy
+   • Calculated on savings, gold, silver, business goods
+   • Paid once per lunar year
+
+4. SAWM (Fasting) - Ramadan
+   • No food/drink from dawn to sunset
+   • Month of spiritual reflection
+   • Quran was revealed in Ramadan
+   • Eid al-Fitr celebration at the end
+
+5. HAJJ (Pilgrimage) - Once in lifetime
+   • To Mecca, Saudi Arabia
+   • Must be physically and financially able
+   • Specific rituals performed over 5 days
+   • Unites Muslims from around the world
+
+5. YOUR FIRST PRAYER (SALAH) - STEP BY STEP
+============================================
+
+PREPARATION:
+1. Make wudu (ablution) - see next section
+2. Face the Qibla (direction of Mecca)
+3. Wear clean, modest clothes
+4. Have a clean prayer space
+5. Make intention (niyyah) in your heart
+
+THE PRAYER MOVEMENTS (RAKAT):
+
+1. STANDING (Qiyam)
+   • Raise hands to ears, say "Allahu Akbar" (Allah is Greatest)
+   • Place right hand over left, below navel
+   • Recite Surah Al-Fatihah (Opening Chapter)
+   • Recite additional verses from Quran
+
+2. BOWING (Ruku)
+   • Say "Allahu Akbar"
+   • Bend from waist, back straight, head level with back
+   • Place hands on knees, fingers spread
+   • Say "Subhana Rabbiyal Adhim" (Glory be to my Lord, the Mighty) 3x
+   • Stand back up saying "Sami Allahu liman hamidah" (Allah hears those who praise Him)
+   • Say "Rabbana lakal hamd" (Our Lord, to You be all praise)
+
+3. PROSTRATION (Sujud) - First
+   • Say "Allahu Akbar"
+   • Kneel and place forehead, nose, hands, knees, toes on ground
+   • Say "Subhana Rabbiyal A'la" (Glory be to my Lord, the Highest) 3x
+   • Make personal du'a (supplication)
+
+4. SITTING BETWEEN PROSTRATIONS (Jalsa)
+   • Say "Allahu Akbar"
+   • Sit briefly, say "Rabbighfirli" (Lord forgive me)
+
+5. PROSTRATION (Sujud) - Second
+   • Say "Allahu Akbar"
+   • Prostrate again as before
+   • Say "Subhana Rabbiyal A'la" 3x
+
+6. FINAL SITTING (Tashahhud)
+   • Say "Allahu Akbar" and sit
+   • Recite Tashahhud: "At-tahiyyatu lillahi..."
+   • Send blessings on Prophet: "Allahumma salli ala Muhammad..."
+   • Turn head right: "As-salamu alaykum wa rahmatullah"
+   • Turn head left: "As-salamu alaykum wa rahmatullah"
+
+FOR BEGINNERS:
+• Start with just Fajr prayer
+• Learn the movements first, then the Arabic
+• Use translations until you memorize
+• Don't worry about perfection - Allah rewards effort
+
+6. WUDU (ABLUTION) - COMPLETE GUIDE
+=====================================
+
+Wudu is ritual purification before prayer and Quran recitation.
+
+WHEN TO PERFORM WUDU:
+• Before each prayer
+• After using the bathroom
+• After losing consciousness (sleep, fainting)
+• After touching impure things
+• When feeling angry or upset
+
+STEP-BY-STEP WUDU:
+
+1. INTENTION (Niyyah)
+   • Make intention in heart: "I am making wudu for prayer"
+   • Say "Bismillah" (In the name of Allah)
+
+2. WASH HANDS
+   • Wash right hand up to wrists 3 times
+   • Wash left hand up to wrists 3 times
+   • Rub between fingers
+
+3. RINSE MOUTH
+   • Take water in right hand
+   • Rinse mouth 3 times, swishing water around
+   • Use miswak (tooth stick) if available
+
+4. CLEANSE NOSE
+   • Sniff water into nose 3 times
+   • Blow out with left hand
+   • Use clean water each time
+
+5. WASH FACE
+   • Cup hands, splash water on face
+   • Cover from forehead to chin
+   • From ear to ear
+   • Wash 3 times
+
+6. WASH ARMS
+   • Wash right arm from elbow to fingertips 3 times
+   • Wash left arm from elbow to fingertips 3 times
+   • Ensure water reaches all parts
+
+7. WIPE HEAD
+   • Wet hands, shake off excess
+   • Wipe from forehead to back of head
+   • Return to forehead (once only)
+
+8. WIPE EARS
+   • Use fresh water or remaining from head
+   • Wipe inside ears with index fingers
+   • Wipe behind ears with thumbs
+
+9. WASH FEET
+   • Wash right foot up to ankle 3 times
+   • Wash left foot up to ankle 3 times
+   • Rub between toes
+
+10. FINAL DU'A
+    • Recite: "Ashhadu an la ilaha illallah, wahdahu la sharika lah, wa ashhadu anna Muhammadan abduhu wa rasuluhu"
+    • "I bear witness that none has the right to be worshipped except Allah alone, without partner, and I bear witness that Muhammad is His slave and messenger."
+
+WHAT INVALIDATES WUDU:
+• Using the bathroom
+• Passing gas
+• Deep sleep
+• Bleeding
+• Vomiting
+• Touching private parts
+• Losing consciousness
+
+DRY ABLUTION (Tayammum):
+• When no water available
+• Use clean dust/soil
+• Strike ground with hands, wipe face, then hands to elbows
+• Same conditions as wudu
+
+7. DAILY ISLAMIC PRACTICES
+===========================
+
+MORNING ADHKAR (Remembrances):
+• Upon waking: "Alhamdulillah alladhi ahyana..." (Praise Allah who gave us life)
+• Use miswak (tooth stick)
+• Make wudu
+• Pray Fajr in congregation if possible
+• Read morning Quran (even 3 verses)
+• Make du'a for the day
+
+DAILY HABITS:
+• Eat with right hand, say "Bismillah" before eating
+• Say "Alhamdulillah" after eating
+• Enter bathroom with left foot, exit with right
+• Say "Ghufranak" (seeking forgiveness) when leaving bathroom
+• Use siwak frequently
+• Keep clothes clean
+• Be kind to family and neighbors
+
+EVENING ADHKAR:
+• Pray Maghrib and Isha on time
+• Read evening Quran
+• Make du'a for forgiveness
+• Recite last 3 surahs of Quran (Ikhlas, Falaq, Nas)
+• Sleep in state of wudu
+• Sleep on right side
+• Make du'a for protection
+
+WEEKLY PRACTICES:
+• Friday prayer (Jumu'ah) - special for men
+• Read Surah Al-Kahf on Friday
+• Give charity regularly
+• Visit the sick
+• Contact family members
+
+MONTHLY PRACTICES:
+• Pay Zakat if due
+• Fast on Mondays and Thursdays (Sunnah)
+• Fast 3 days each month (13th, 14th, 15th of lunar month)
+• Review Islamic knowledge
+
+8. COMMON QUESTIONS AND CONCERNS
+==================================
+
+Q: "I don't know Arabic yet. Can I still pray?"
+A: Yes! Learn the movements first. You can pray in your language until you learn Arabic. Allah rewards effort.
+
+Q: "I miss prayers sometimes. Am I a bad Muslim?"
+A: Never! The Prophet said, "The five prayers are an expiation for what occurs between them." Just make them up when you remember.
+
+Q: "My family doesn't support my decision. What should I do?"
+A: Be patient and kind. Show them Islam through your character. Make du'a for them. Many families come around with time.
+
+Q: "I feel overwhelmed by everything to learn."
+A: Take it step by step. Start with Shahada and one prayer. Add one practice at a time. Islam is a lifelong journey.
+
+Q: "I made mistakes before becoming Muslim. Are they forgiven?"
+A: Yes! Converting to Islam forgives all previous sins. It's like starting fresh with a clean slate.
+
+Q: "Do I have to change my name?"
+A: No, unless your name has a bad meaning. Many companions kept their names.
+
+Q: "Can I still see my non-Muslim friends and family?"
+A: Yes, Islam encourages maintaining family ties. Be a good example to them.
+
+Q: "What if I'm not perfect in my practice?"
+A: Perfection is for Allah alone. Striving is for humans. The Prophet said, "The best deeds are those done consistently, even if small."
+
+Q: "How do I handle doubts about my faith?"
+A: Doubts are normal and can strengthen faith when resolved. Seek knowledge, make du'a, and talk to knowledgeable Muslims.
+
+9. BUILDING YOUR ISLAMIC IDENTITY
+=================================
+
+DEVELOPING ISLAMIC CHARACTER:
+• Honesty in all dealings
+• Kindness to parents and family
+• Helping neighbors and community
+• Controlling anger and speech
+• Being grateful for blessings
+• Trusting in Allah's plan
+• Patience in difficulties
+
+LEARNING PATHWAY:
+Month 1: Shahada, basic prayer, wudu, core beliefs
+Month 2: Memorize Surah Al-Fatihah, learn short surahs
+Month 3: Learn about fasting, charity, Islamic manners
+Month 6: Understand Islamic finance, halal/haram
+Month 12: Basic Arabic, Quran recitation, Islamic history
+
+FINDING COMMUNITY:
+• Visit local mosque
+• Join Islamic classes
+• Find Muslim friends
+• Attend Islamic events
+• Use online Islamic communities
+• Seek a mentor if possible
+
+DEALING WITH CHALLENGES:
+• Family pressure: Be patient, show good character
+• Work/school issues: Know your rights, be professional
+• Social isolation: Seek Muslim community online/offline
+• Knowledge gaps: Ask questions, never stop learning
+• Spiritual doubts: Increase prayer and Quran reading
+
+10. NEXT STEPS AND RESOURCES
+=============================
+
+IMMEDIATE ACTIONS:
+✅ Complete this guide review
+✅ Practice wudu and prayer movements
+✅ Learn Surah Al-Fatihah
+✅ Set up prayer schedule
+✅ Find local mosque or Islamic center
+
+RECOMMENDED BOOKS:
+• "The Complete Idiot's Guide to Understanding Islam" - Yahiya Emerick
+• "The Qur'an in Plain English" - Talal Itani
+• "Muhammad: His Life Based on the Earliest Sources" - Martin Lings
+• "Purification of the Heart" - Hamza Yusuf
+
+ONLINE RESOURCES:
+• Quran.com - Quran with translations
+• SeekersGuidance.org - Islamic classes
+• IslamicOnlineUniversity.com - Free courses
+• MuslimMatters.org - Articles and guidance
+
+MOBILE APPS:
+• Muslim Pro - Prayer times, Quran
+• Quran.com - Quran reading
+• Athan - Prayer notifications
+• Islamic Calendar - Lunar dates
+
+WEBSITES FOR LEARNING:
+• BeginGently.com (where you are now!)
+• Quran.com
+• SeekersHub.org
+• IslamicRelief.com
+• ProductiveMuslim.com
+
+FINAL WORDS OF ENCOURAGEMENT:
+============================
+
+Dear Brother/Sister,
+
+Welcome to the beautiful religion of Islam! This journey will transform your life in ways you cannot yet imagine. Remember:
+
+• Allah chose you for this guidance
+• Your past is forgiven, your future is bright
+• Every struggle has a purpose and reward
+• You are part of a global family of 1.8 billion Muslims
+• The Prophet Muhammad (pbuh) is praying for your success
+
+The Prophet (pbuh) said: "If Allah loves a person, He tests him." Your challenges are signs of Allah's love and opportunities for growth.
+
+Take it one day at a time. Be kind to yourself. Ask questions. Make mistakes. Learn. Grow. And never forget that Allah is with you every step of the way.
+
+We at BeginGently are here for you. Reach out anytime. You are not alone in this journey.
+
+Welcome home.
+
+==================
+For questions, support, or guidance:
+Website: https://begingently.vercel.app
+Email: support@begingently.com
+
+May Allah make your journey easy and reward you abundantly.
+Ameen.
+
+==================
+© BeginGently - Muslim Revert Support
+This guide is free to share and distribute.
+Last updated: 2025`,
+
+        'prayer-guide': `COMPLETE STEP-BY-STEP PRAYER GUIDE
+=====================================
+
+TABLE OF CONTENTS
+==================
+1. Understanding Prayer (Salah)
+2. Prayer Times and Schedule
+3. Preparation for Prayer
+4. The Five Daily Prayers Detailed
+5. Prayer Positions and Movements
+6. What to Say in Prayer (Arabic + Translation)
+7. Common Mistakes to Avoid
+8. Making Up Missed Prayers (Qada)
+9. Special Prayers (Jumu'ah, Eid, Tarawih)
+10. Prayer Tips for Beginners
+
+1. UNDERSTANDING PRAYER (SALAH)
+===============================
+
+Salah is the second pillar of Islam and the most important act after the Shahada. It's direct communication with Allah five times daily.
+
+IMPORTANCE OF SALAH:
+• Direct connection with Allah
+• Cleanses sins and mistakes
+• Prevents evil deeds
+• Brings peace and tranquility
+• First thing to be judged on Day of Judgment
+• Comfort to the believer
+
+QURANIC VERSES ABOUT PRAYER:
+"Indeed, prayer has been decreed upon the believers at specified times." (Quran 4:103)
+
+"Establish prayer, give zakat, and bow with those who bow." (Quran 2:43)
+
+HADITH ABOUT PRAYER:
+"The first matter that the slave of Allah will be called to account for on the Day of Judgment is prayer." (Tirmidhi)
+
+2. PRAYER TIMES AND SCHEDULE
+===========================
+
+THE FIVE DAILY PRAYERS:
+
+1. FAJR (Dawn Prayer)
+   Time: From dawn until sunrise
+   Rakat: 2 Sunnah + 2 Fard
+   Best time: Last third of night
+   Significance: Starts the day with Allah
+
+2. DHUHR (Midday Prayer)
+   Time: After sun passes its zenith until Asr time
+   Rakat: 4 Sunnah + 4 Fard + 2 Sunnah
+   Significance: Break for midday remembrance
+
+3. ASR (Afternoon Prayer)
+   Time: From late afternoon until sunset
+   Rakat: 4 Fard
+   Significance: End of workday reflection
+
+4. MAGHRIB (Sunset Prayer)
+   Time: From sunset until night
+   Rakat: 3 Fard + 2 Sunnah
+   Significance: Gratitude for day's blessings
+
+5. ISHA (Night Prayer)
+   Time: From night until dawn
+   Rakat: 4 Sunnah + 4 Fard + 2 Sunnah + 3 Witr
+   Significance: End day with Allah
+
+PRAYER TIME METHODS:
+• Local mosque timetable
+• Muslim Pro app
+• Prayer times websites
+• Calculate based on your location
+
+3. PREPARATION FOR PRAYER
+==========================
+
+BEFORE PRAYER:
+✅ Make wudu (ablution)
+✅ Face Qibla (direction of Mecca)
+✅ Wear clean, modest clothes
+✅ Use clean prayer space (prayer mat)
+✅ Make intention (niyyah) in heart
+✅ Remove distractions
+
+WHAT BREAKS WUDU:
+• Using bathroom
+• Passing gas
+• Deep sleep
+• Bleeding
+• Touching private parts
+• Losing consciousness
+
+PRAYER CLOTHING GUIDELINES:
+For Men:
+• Cover from navel to knees
+• Preferably cover shoulders
+• Clean, not transparent
+• Avoid silk and gold
+
+For Women:
+• Cover entire body except face and hands
+• Clothes not tight or transparent
+• Cover hair during prayer
+• Clean and modest
+
+PRAYER SPACE:
+• Clean area
+• Prayer mat recommended
+• No pictures/statues in front
+• Quiet environment if possible
+
+4. THE FIVE DAILY PRAYERS DETAILED
+===================================
+
+FAJR PRAYER (2 Rakat Fard):
+1. Make intention: "I intend to pray 2 rakat Fajr prayer"
+2. Say "Allahu Akbar" (raise hands)
+3. Recite Surah Al-Fatihah
+4. Recite additional surah (recommended: Al-Ikhlas)
+5. Ruku (bowing) - "Subhana Rabbiyal Adhim" 3x
+6. Stand - "Sami Allahu liman hamidah, Rabbana lakal hamd"
+7. Sujud (prostration) - "Subhana Rabbiyal A'la" 3x
+8. Sit briefly - "Rabbighfirli"
+9. Second sujud - "Subhana Rabbiyal A'la" 3x
+10. Tashahhud (sitting) - full version
+11. Salam (turn head right, then left)
+
+DHUHR PRAYER (4 Rakat Fard):
+Same pattern, but:
+• 4 rakat instead of 2
+• After 2 rakat, stand for remaining 2
+• Recite Tashahhud after 2nd and 4th rakat
+• Full Tashahhud only after 4th rakat
+
+ASR PRAYER (4 Rakat Fard):
+Same as Dhuhr but no Sunnah before/after
+
+MAGHRIB PRAYER (3 Rakat Fard):
+• 3 rakat instead of 4
+• Stand after 2nd rakat for 3rd
+• Tashahhud after 2nd and 3rd rakat
+
+ISHA PRAYER (4 Rakat Fard + 3 Witr):
+• 4 rakat like Dhuhr
+• Then pray 3 rakat Witr separately
+
+5. PRAYER POSITIONS AND MOVEMENTS
+=================================
+
+1. STANDING (Qiyam):
+   • Feet shoulder-width apart
+   • Eyes looking at place of prostration
+   • Hands on chest (right over left)
+   • Back straight, relaxed shoulders
+
+2. BOWING (Ruku):
+   • Back straight, parallel to ground
+   • Head level with back, not looking down
+   • Hands on knees, fingers spread
+   • Knees straight, not bent
+
+3. STANDING FROM RUKU:
+   • Straighten back completely
+   • Hands at sides briefly
+   • Then return to chest position
+
+4. PROSTRATION (Sujud):
+   • Seven points touch ground:
+     - Forehead and nose
+     - Both hands
+     - Both knees
+     - Both feet (toes)
+   • Forehead on clean surface
+   • Arms not touching sides
+   • Feet perpendicular to ground
+
+5. SITTING BETWEEN SUJUD:
+   • Sit on left foot
+   • Right foot upright
+   • Hands on knees
+   • Brief pause
+
+6. FINAL SITTING (Tashahhud):
+   • Sit on left foot, right foot upright
+   • Hands on thighs, fingers spread
+   • Index finger raised during "La ilaha"
+
+7. SALAM (Tasleem):
+   • Turn head to right: "As-salamu alaykum wa rahmatullah"
+   • Turn head to left: "As-salamu alaykum wa rahmatullah"
+   • At least 2 people (angels) return the greeting
+
+6. WHAT TO SAY IN PRAYER
+========================
+
+SURAH AL-FATIHAH (The Opening):
+بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ
+الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ
+الرَّحْمَنِ الرَّحِيمِ
+مَالِكِ يَوْمِ الدِّينِ
+إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ
+اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ
+صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ
+غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ
+
+TRANSLITERATION:
+Bismillahir-Rahmanir-Raheem
+Alhamdulillahi Rabbil-'alameen
+Ar-Rahmanir-Raheem
+Maliki yawmid-deen
+Iyyaka na'budu wa iyyaka nasta'een
+Ihdinas-siratal-mustaqeem
+Siratal-ladhina an'amta 'alayhim
+Ghayril-maghdubi 'alayhim wa lad-dalleen
+
+TRANSLATION:
+In the name of Allah, the Most Gracious, the Most Merciful
+All praise is for Allah, Lord of the worlds
+The Most Gracious, the Most Merciful
+Master of the Day of Judgment
+You alone we worship, and You alone we ask for help
+Guide us to the straight path
+The path of those who have received Your grace
+Not the path of those who have earned Your anger, nor of those who have gone astray
+
+SHORT SURAHS FOR BEGINNERS:
+
+SURAH AL-IKHLAS (112):
+قُلْ هُوَ اللَّهُ أَحَدٌ
+اللَّهُ الصَّمَدُ
+لَمْ يَلِدْ وَلَمْ يُولَدْ
+وَلَمْ يَكُنْ لَّهُ كُفُوًا أَحَدٌ
+
+Translation: Say: He is Allah, One. Allah, the Eternal Refuge. He neither begets nor is born. Nor is there to Him any equivalent.
+
+SURAH AL-FALAQ (113):
+قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ
+مِنْ شَرِّ مَا خَلَقَ
+وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ
+وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ
+وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ
+
+Translation: Say: I seek refuge in the Lord of daybreak from the evil of that which He created, and from the evil of darkness when it settles, and from the evil of the blowers in knots, and from the evil of an envier when he envies.
+
+SURAH AN-NAS (114):
+قُلْ أَعُوذُ بِرَبِّ النَّاسِ
+مَلِكِ النَّاسِ
+إِلَهِ النَّاسِ
+مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ
+الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ
+مِنَ الْجِنَّةِ وَالنَّاسِ
+
+Translation: Say: I seek refuge in the Lord of mankind, the Sovereign of mankind, the God of mankind, from the evil of the retreating whisperer, who whispers in the breasts of mankind, among jinn and men.
+
+TASHAHHUD (SITTING POSITION):
+التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ
+السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ
+السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ
+أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ
+وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ
+
+Translation: All compliments, prayers and good words are for Allah. Peace be upon you, O Prophet, and Allah's mercy and blessings. Peace be upon us and upon the righteous slaves of Allah. I bear witness that none has the right to be worshipped except Allah, and I bear witness that Muhammad is His slave and messenger.
+
+BLESSINGS ON PROPHET:
+اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ
+كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ
+إِنَّكَ حَمِيدٌ مَجِيدٌ
+
+Translation: O Allah, send prayers upon Muhammad and the family of Muhammad, as You sent prayers upon Ibrahim and the family of Ibrahim. You are indeed Praiseworthy, Glorious.
+
+7. COMMON MISTAKES TO AVOID
+=============================
+
+MAJOR MISTAKES (invalidate prayer):
+• Skipping wudu or having broken wudu
+• Facing wrong direction (not Qibla)
+• Talking during prayer
+• Eating or drinking during prayer
+• Missing essential positions
+• Laughing during prayer
+
+MINOR MISTAKES (don't invalidate but should avoid):
+• Looking around during prayer
+• Fidgeting or playing with clothes
+• Rushing through positions
+• Not saying required phrases
+• Incorrect recitation (try your best)
+
+COMMON BEGINNER MISTAKES:
+✗ Forgetting to make intention
+✗ Not knowing when to say "Allahu Akbar"
+✗ Mixing up the order of positions
+✗ Reciting too quickly or too slowly
+✗ Not knowing what to say in Tashahhud
+✗ Forgetting how many rakat prayed
+
+HOW TO CORRECT MISTAKES:
+• If you make major mistake: restart prayer
+• If you forget position: do it when you remember
+• If you doubt rakat count: assume fewer and complete
+• If you recite wrong: continue, don't stop
+• Always ask Allah for forgiveness
+
+8. MAKING UP MISSED PRAYERS (QADA)
+==================================
+
+WHEN PRAYERS ARE MISSED:
+• Sleep through prayer time
+• Forget unintentionally
+• Too busy with work/study
+• Travel complications
+• Illness or emergency
+
+HOW TO MAKE UP:
+• Make up as soon as you remember
+• No specific order required (though recommended)
+• Pray during any available time except prohibited times
+• Can pray multiple prayers together if needed
+• Make intention for making up (Qada)
+
+PROHIBITED PRAYER TIMES:
+• From sunrise until 15-20 minutes after
+• When sun is at its zenith (exact noon)
+• From sunset until 15-20 minutes after
+• During Friday khutbah (sermon)
+
+EXPIRATION OF PRAYERS:
+• Fajr: Expires at sunrise
+• Dhuhr: Expires at Asr time
+• Asr: Expires at sunset
+• Maghrib: Expires at Isha time  
+• Isha: Expires at Fajr time
+
+9. SPECIAL PRAYERS
+==================
+
+JUMU'AH (FRIDAY PRAYER):
+• Replaces Dhuhr prayer on Friday
+• Required for adult men (women optional)
+• 2 rakat congregation instead of 4 rakat Dhuhr
+• Includes khutbah (sermon)
+• Best day of the week
+• Special blessings and rewards
+
+EID PRAYERS:
+• Eid al-Fitr (after Ramadan)
+• Eid al-Adha (during Hajj)
+• 2 rakat special prayer
+• Usually prayed in large congregation
+• Special takbirs (Allahu Akbar) in prayer
+• Celebratory occasion for Muslims
+
+TARAWIH PRAYER:
+• Special night prayers in Ramadan
+• After Isha prayer, before Witr
+• 8 or 20 rakat in sets of 2
+• Prayed in congregation
+• Not obligatory but highly rewarded
+• Beautiful Quran recitation
+
+TAHAJJUD (NIGHT PRAYER):
+• Voluntary night prayer
+• Best time: last third of night
+• 2 to 8 rakat (in sets of 2)
+• Very high reward
+• Time of acceptance of du'a
+• Prophet's regular practice
+
+WITR PRAYER:
+• 3 rakat odd-numbered prayer
+• After Isha, before Fajr
+• Considered obligatory by some scholars
+• Special du'a in final sitting
+• Completes daily prayers
+
+10. PRAYER TIPS FOR BEGINNERS
+=============================
+
+STARTING OUT:
+• Learn one prayer at a time (start with Fajr)
+• Master movements first, then Arabic
+• Use prayer book/app until memorized
+• Pray at home until comfortable
+• Don't worry about perfection initially
+
+BUILDING CONSISTENCY:
+• Set phone alarms for prayer times
+• Find prayer buddy for motivation
+• Start with just Fajr and Maghrib
+• Add one prayer per week
+• Track your progress
+
+LEARNING ARABIC:
+• Start with "Allahu Akbar" and "Alhamdulillah"
+• Learn Surah Al-Fatihah first
+• Use transliteration initially
+• Listen to recordings of correct recitation
+• Practice pronunciation regularly
+
+DEALING WITH CHALLENGES:
+• Work: Find quiet space, pray during breaks
+• School: Use prayer room or quiet corner
+• Family: Explain importance, set boundaries
+• Travel: Learn prayer while traveling rules
+• Forgetfulness: Set multiple reminders
+
+COMMON QUESTIONS:
+Q: "Can I pray in English?"
+A: For Fard prayers, Arabic is required. Du'a can be in any language.
+
+Q: "What if I don't know the movements?"
+A: Watch videos, practice without reciting first, then add words.
+
+Q: "Can I combine prayers when busy?"
+A: Yes, when traveling or in certain circumstances.
+
+Q: "What if I miss many prayers?"
+A: Make them up gradually, don't be overwhelmed.
+
+Q: "Do women pray differently?"
+A: Mostly same, but women keep body parts closer together.
+
+FINAL ENCOURAGEMENT:
+===================
+
+Remember that prayer is a conversation with Allah who loves you. The Prophet (pbuh) said: "When one of you prays, he speaks privately with his Lord."
+
+Don't wait until you're perfect to start praying. Start imperfectly, pray consistently, and Allah will perfect your prayers.
+
+The door of mercy is always open. Each prayer is an opportunity to connect with Allah, seek forgiveness, and find peace.
+
+May Allah make your prayers easy and accept them from you.
+Ameen.
+
+==================
+For more guidance visit: https://begingently.vercel.app
+© BeginGently - Muslim Revert Support
+Last updated: 2025`,
+
+        'wudu-guide': `COMPLETE WUDU GUIDE
+==================
+
+TABLE OF CONTENTS
+==================
+1. Understanding Wudu (Ablution)
+2. When Wudu is Required
+3. What Breaks Wudu
+4. Step-by-Step Wudu Instructions
+5. Common Mistakes in Wudu
+6. Dry Ablution (Tayammum)
+7. Wudu Tips and Best Practices
+8. Wudu Supplications and Du'a
+9. Wudu for Special Circumstances
+10. Frequently Asked Questions
+
+1. UNDERSTANDING WUDU (ABLUTION)
+================================
+
+Wudu is the ritual purification performed before prayer, Quran recitation, and other acts of worship. It cleanses both physically and spiritually.
+
+IMPORTANCE OF WUDU:
+• Required for valid prayer (Salah)
+• Removes minor impurities
+• Increases spiritual awareness
+• Preparation for standing before Allah
+• Sins are forgiven with each wudu
+• Angels praise those who maintain wudu
+
+QURANIC VERSES:
+"O you who have believed, when you rise to [perform] prayer, wash your faces and your forearms to the elbows and wipe over your heads and wash your feet to the ankles." (Quran 5:6)
+
+HADITH ABOUT WUDU:
+"When a Muslim servant performs wudu and washes his face, every sin he looked at with his eyes comes out with the water. When he washes his hands, every sin his hands committed comes out with the water. When he washes his feet, every sin towards which his feet walked comes out with the water." (Sahih Muslim)
+
+2. WHEN WUDU IS REQUIRED
+========================
+
+REQUIRED FOR:
+• All five daily prayers (Salah)
+• Funeral prayer (Janazah)
+• Touching Quran (for most scholars)
+• Tawaf (circumblation of Kaaba)
+• Prayer during Hajj/Umrah
+• Making du'a in certain situations
+
+RECOMMENDED FOR:
+• Before sleeping
+• Before eating (some scholars)
+• After waking up
+• When angry
+• Before entering mosque
+• After using bathroom
+• When renewing wudu
+
+NOT REQUIRED FOR:
+• Reading Quran without touching
+• Making general du'a
+• Remembering Allah
+• Teaching Islamic knowledge
+• Regular daily activities
+
+3. WHAT BREAKS WUDU
+===================
+
+MAJOR BREAKS (require new wudu):
+• Urination or defecation
+• Passing gas (flatulence)
+• Bleeding (significant amount)
+• Vomiting (mouthful)
+• Deep sleep (unconscious)
+• Losing consciousness
+• Sexual intercourse or discharge
+• Touching private parts with desire
+• Apostasy (leaving Islam)
+
+MINOR ISSUES (scholars differ):
+• Light bleeding (small cut)
+• Touching opposite gender with desire
+• Laughing loudly during prayer
+• Doubt about whether wudu broke
+
+DOES NOT BREAK WUDU:
+• Regular bleeding (small amount)
+• Touching non-mahram without desire
+• Sleeping lightly (sitting)
+• Doubt without certainty
+• Changing clothes
+• Regular daily activities
+
+4. STEP-BY-STEP WUDU INSTRUCTIONS
+==================================
+
+PREPARATION:
+• Find clean water source
+• Ensure privacy
+• Have clean towel
+• Make intention in heart
+• Face Qibla if possible
+
+STEP 1: INTENTION AND BISMILLAH
+• Make intention: "I am making wudu for Allah"
+• Say: "Bismillahir-Rahmanir-Raheem" (In the name of Allah, Most Gracious, Most Merciful)
+
+STEP 2: WASH HANDS (3 TIMES)
+• Take water in right hand
+• Wash right hand up to wrists
+• Rub between fingers and thumb
+• Repeat 3 times
+• Wash left hand same way
+• Ensure water reaches all parts
+
+STEP 3: RINSE MOUTH (3 TIMES)
+• Take water in right hand
+• Rinse mouth thoroughly
+• Gargle if possible
+• Use miswak (tooth stick) if available
+• Repeat 3 times
+
+STEP 4: CLEANSE NOSE (3 TIMES)
+• Take water in right hand
+• Sniff water into right nostril
+• Use left hand to expel water
+• Repeat with left nostril
+• Do 3 times total
+
+STEP 5: WASH FACE (3 TIMES)
+• Cup hands together
+• Splash water on face
+• Cover entire face:
+  - From hairline to chin
+  - From ear to ear
+  - Include beard area
+• Wash 3 times
+• Ensure no dry spots remain
+
+STEP 6: WASH ARMS (3 TIMES)
+• Wash right arm first:
+  - From fingertips to elbows
+  - Include entire arm
+  - Rub thoroughly
+  - Repeat 3 times
+• Wash left arm same way
+• Ensure water reaches all parts
+
+STEP 7: WIPE HEAD (ONCE)
+• Wet hands with remaining water
+• Shake off excess water
+• Wipe from forehead to back of head
+• Return to forehead
+• Use both hands
+• Wipe over hair (not scalp)
+
+STEP 8: WIPE EARS (ONCE)
+• Use fresh water or remaining
+• Wipe inside ears with index fingers
+• Wipe behind ears with thumbs
+• Clean thoroughly
+
+STEP 9: WASH FEET (3 TIMES)
+• Wash right foot first:
+  - From toes to ankle
+  - Include entire foot
+  - Rub between toes
+  - Repeat 3 times
+• Wash left foot same way
+• Ensure ankle is included
+
+STEP 10: FINAL SUPPLICATION
+• Recite: "Ashhadu an la ilaha illallah, wahdahu la sharika lah, wa ashhadu anna Muhammadan abduhu wa rasuluhu"
+• Translation: "I bear witness that none has the right to be worshipped except Allah alone, without partner, and I bear witness that Muhammad is His slave and messenger"
+
+COMPLETION:
+• You are now in state of wudu
+• Can proceed to prayer or other acts
+• Wudu remains until broken
+• Can renew wudu anytime for extra reward
+
+5. COMMON MISTAKES IN WUDU
+===========================
+
+MAJOR MISTAKES (invalidate wudu):
+• Skipping required steps
+• Not washing complete body parts
+• Using insufficient water
+• Wrong order of washing
+• Not making intention
+
+MINOR MISTAKES (try to avoid):
+• Using too much or too little water
+• Not rubbing body parts thoroughly
+• Missing spots (especially between toes)
+• Wiping instead of washing required parts
+• Talking unnecessarily during wudu
+
+COMMON BEGINNER MISTAKES:
+✗ Forgetting to make intention
+✗ Not knowing proper order
+✗ Missing between fingers/toes
+✗ Not washing up to elbows/ankles
+✗ Using soap instead of water
+✗ Rushing through steps
+
+HOW TO CORRECT:
+• If you forget a step: complete it when you remember
+• If you're unsure about completeness: redo wudu
+• If you use wrong order: some scholars say redo, others accept
+• Always ask Allah for forgiveness
+
+6. DRY ABLUTION (TAYAMMUM)
+=========================
+
+WHEN TO USE TAYAMMUM:
+• No water available
+• Water is harmful (illness, cold weather)
+• Cannot use water due to injury
+• Very limited water (need for drinking)
+• Fear of missing prayer time
+
+HOW TO PERFORM TAYAMMUM:
+1. Make intention in heart
+2. Say "Bismillah"
+3. Strike clean ground/soil with hands
+4. Shake off excess dust
+5. Wipe face with both hands
+6. Wipe right hand up to left elbow
+7. Wipe left hand up to right elbow
+8. Done - can pray now
+
+VALID SURFACES FOR TAYAMMUM:
+• Clean earth/soil
+• Sand
+• Stone
+• Dust
+• Any clean natural surface
+
+INVALID SURFACES:
+• Wood
+• Metal
+• Glass
+• Painted surfaces
+• Dirty/impure surfaces
+
+7. WUDU TIPS AND BEST PRACTICES
+================================
+
+EFFICIENCY TIPS:
+• Prepare everything before starting
+• Use moderate amount of water
+• Don't waste water (Prophet used 1 mudd)
+• Have towel ready
+• Practice makes perfect
+
+SPIRITUAL TIPS:
+• Remember Allah during wudu
+• Make intention for purification
+• Think about sins being washed away
+• Thank Allah for clean water
+• Feel spiritual preparation
+
+PRACTICAL TIPS:
+• Keep wudu area clean
+• Use miswak regularly
+• Cut nails regularly
+• Ensure water reaches all parts
+• Check for dry spots
+
+ENVIRONMENTAL TIPS:
+• Don't waste water
+• Use bucket instead of running water
+• Reuse water for plants if possible
+• Keep drainage area clean
+
+8. WUDU SUPPLICATIONS AND DU'A
+===============================
+
+BEFORE WUDU:
+"Bismillah" (In the name of Allah)
+
+DURING WUDU:
+At each step: Remember Allah's blessings
+
+AFTER WUDU:
+"Ashhadu an la ilaha illallah, wahdahu la sharika lah, wa ashhadu anna Muhammadan abduhu wa rasuluhu. Allahumma aj'alni minat-tawwabin, waj'alni minal-mutatahhirin."
+
+Translation: "I bear witness that none has the right to be worshipped except Allah alone, without partner, and I bear witness that Muhammad is His slave and messenger. O Allah, make me of those who repent and make me of those who purify themselves."
+
+BEFORE SLEEP:
+Make wudu before sleeping for extra reward and protection
+
+WHEN ANGRY:
+Perform wudu to calm down (Prophet's advice)
+
+9. WUDU FOR SPECIAL CIRCUMSTANCES
+=================================
+
+FOR WOMEN:
+• Same wudu requirements
+• Additional considerations during menstruation/postpartum
+• Can perform wudu during these periods but prayer not required
+• Use appropriate facilities for privacy
+
+FOR TRAVELERS:
+• Can use tayammum if water scarce
+• Can combine prayers if needed
+• Make wudu before travel if possible
+• Know local water availability
+
+FOR ILLNESS:
+• Can use tayammum if water harmful
+• Can sit for wudu if unable to stand
+• Can get assistance if needed
+• Health comes first
+
+FOR COLD WEATHER:
+• Use warm water if available
+• Can make tayammum if water harmful
+• Dry thoroughly after wudu
+• Be careful with hot water
+
+FOR BUSY PEOPLE:
+• Maintain wudu throughout day
+• Make wudu in morning for multiple prayers
+• Use facilities at work/school
+• Plan around prayer times
+
+10. FREQUENTLY ASKED QUESTIONS
+===============================
+
+Q: "Can I use soap instead of water?"
+A: No, wudu requires water. Soap can be used before wudu for cleanliness.
+
+Q: "Do I have to make wudu every time?"
+A: Only when your wudu is broken or when renewing for extra reward.
+
+Q: "Can I wipe over socks instead of washing feet?"
+A: Yes, under certain conditions (khuffain) - must have worn socks after making wudu.
+
+Q: "What if I'm not sure if my wudu broke?"
+A: Assume it didn't break unless certain. Doubt doesn't break wudu.
+
+Q: "Can I make wudu in the bathroom?"
+A: Yes, but avoid saying Allah's name inside bathroom.
+
+Q: "How long does wudu last?"
+A: Until broken by one of the specified actions.
+
+Q: "Can I use wet wipes instead of water?"
+A: No, wudu requires water. Wet wipes don't fulfill requirement.
+
+Q: "Do I need to make wudu for reading Quran translation?"
+A: Most scholars say no, unless touching Arabic Quran.
+
+Q: "Can someone help me make wudu?"
+A: Yes, if you're unable to perform it yourself.
+
+Q: "Is it okay to use very little water?"
+A: Use enough to wash thoroughly, but don't waste water.
+
+FINAL REMINDERS:
+================
+
+Remember that wudu is both physical and spiritual purification. The Prophet (pbuh) said: "When a Muslim servant performs wudu and washes his face, every sin that he committed with his eyes comes out with the water."
+
+Don't be overly concerned with perfection. Focus on:
+• Sincere intention
+• Following the steps correctly
+• Completing all required parts
+• Maintaining wudu when possible
+
+Allah is Merciful and accepts your efforts. The purpose of wudu is to prepare you to stand before Allah with cleanliness and humility.
+
+May Allah accept our wudu and prayers.
+Ameen.
+
+==================
+For more guidance visit: https://begingently.vercel.app
+© BeginGently - Muslim Revert Support
+Last updated: 2025`
+      };
+      
+      return guides[guideName] || 'Guide content not available yet.';
+    }
+    
+    // Notification Function
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--primary);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: var(--shadow-hover);
+        z-index: 1000;
+        max-width: 300px;
+        animation: slideIn 0.3s ease;
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+    
+    // Add animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+  
+  <script src="../js/main.js"></script>
+  <script src="../js/readmore.js"></script>
+</body>
+</html>
