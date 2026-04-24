@@ -9,8 +9,25 @@ export async function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'BeginGently',
+  title: {
+    default: 'BeginGently',
+    template: '%s | BeginGently',
+  },
   description: 'Localized Islamic guidance pages in English, Urdu, and Telugu.',
+  applicationName: 'BeginGently',
+  metadataBase: new URL('https://begingently.vercel.app'),
+  openGraph: {
+    type: 'website',
+    siteName: 'BeginGently',
+    title: 'BeginGently',
+    description: 'Localized Islamic guidance pages in English, Urdu, and Telugu.',
+    url: 'https://begingently.vercel.app',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BeginGently',
+    description: 'Localized Islamic guidance pages in English, Urdu, and Telugu.',
+  },
 };
 
 export default function LocaleLayout({
